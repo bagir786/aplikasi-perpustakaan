@@ -45,7 +45,7 @@ public class dashboard extends javax.swing.JFrame {
     private void logout() {
     int confirm = JOptionPane.showConfirmDialog(
         this,
-        "Anda yakin ingin keluar?",
+        "Yakin ingin keluar?",
         "Konfirmasi Logout",
         JOptionPane.YES_NO_OPTION
             
@@ -199,7 +199,7 @@ public class dashboard extends javax.swing.JFrame {
 
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
-        btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+        btnDashboard.setBorder(null);
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDashboardActionPerformed(evt);

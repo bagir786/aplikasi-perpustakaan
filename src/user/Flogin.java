@@ -71,7 +71,7 @@ public class Flogin extends javax.swing.JFrame {
     });
 
     // ===== BUTTON STYLE =====
-    btnlogin.setBackground(new Color(0, 102, 204));
+    btnlogin.setBackground(new Color(0, 105, 204));
     btnlogin.setForeground(Color.WHITE);
     btnlogin.setOpaque(true);
     btnlogin.setContentAreaFilled(true);

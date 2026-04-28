@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class PanelCard extends JPanel {
 
-    private int radius = 20;
+    private int radius = 19;
     private int yOffset = 0;
 
     public PanelCard() {

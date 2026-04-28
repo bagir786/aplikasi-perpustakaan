@@ -220,15 +220,16 @@ public class Fdenda extends javax.swing.JFrame {
                                                         .addComponent(jLabel11))
                                                 .addGap(34, 34, 34)
                                                 .addGroup(jPanel2Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                false)
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(txtIdDenda, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                200, Short.MAX_VALUE)
-                                                        .addComponent(cbIdPinjam, 0, 200, Short.MAX_VALUE)
-                                                        .addComponent(cbIdAnggota, 0, 200, Short.MAX_VALUE)
+                                                                250, Short.MAX_VALUE)
+                                                        .addComponent(cbIdPinjam, 0, 250, Short.MAX_VALUE)
+                                                        .addComponent(cbIdAnggota, 0, 250, Short.MAX_VALUE)
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                                 jPanel2Layout.createSequentialGroup()
-                                                                        .addComponent(txtTglKembali)
+                                                                        .addComponent(txtTglKembali,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                210, Short.MAX_VALUE)
                                                                         .addPreferredGap(
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                         .addComponent(btnCalendar,
@@ -245,13 +246,13 @@ public class Fdenda extends javax.swing.JFrame {
                                                 .addGroup(jPanel2Layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(txtTerlambat,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 293,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 250,
                                                                 Short.MAX_VALUE)
                                                         .addComponent(txtDendaHari,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 200,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 250,
                                                                 Short.MAX_VALUE)
                                                         .addComponent(txtTotalDenda,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 200,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 250,
                                                                 Short.MAX_VALUE))
                                                 .addGap(30, 30, 30)
                                                 .addGroup(jPanel2Layout

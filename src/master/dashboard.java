@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master;
+package master; 
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -100,7 +100,7 @@ public class dashboard extends javax.swing.JFrame {
 
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             btn.setOpaque(true);
-            btn.setBackground(new Color(153, 253, 255));
+            btn.setBackground(new Color(153, 255, 255));
             btn.setHorizontalAlignment(SwingConstants.RIGHT);
             btn.setHorizontalTextPosition(SwingConstants.LEFT);
           

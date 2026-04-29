@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master; 
+package master;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import transaksi.Fdenda;
-import master.FormPetugas;
 
 /**
  *
@@ -47,7 +46,7 @@ public class dashboard extends javax.swing.JFrame {
     private void logout() {
     int confirm = JOptionPane.showConfirmDialog(
         this,
-        "Yakin ingin keluar?",
+        "Anda yakin ingin keluar?",
         "Konfirmasi Logout",
         JOptionPane.YES_NO_OPTION
             
@@ -101,7 +100,7 @@ public class dashboard extends javax.swing.JFrame {
 
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             btn.setOpaque(true);
-            btn.setBackground(new Color(153, 255, 255));
+            btn.setBackground(new Color(153, 253, 255));
             btn.setHorizontalAlignment(SwingConstants.RIGHT);
             btn.setHorizontalTextPosition(SwingConstants.LEFT);
           
@@ -201,7 +200,7 @@ public class dashboard extends javax.swing.JFrame {
 
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
-        btnDashboard.setBorder(null);
+        btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDashboardActionPerformed(evt);
@@ -211,9 +210,11 @@ public class dashboard extends javax.swing.JFrame {
         btnBuku.setBackground(new java.awt.Color(200, 230, 255));
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
+        btnBuku.setActionCommand("Data Buku");
 
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
+        btnAnggota.setActionCommand("Data Anggota");
 
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
         btnPetugas.setText("Data Petugas");
@@ -224,13 +225,16 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
-        btnPeminjaman.setText(" Peminjaman");
+        btnPeminjaman.setText("Peminjaman");
+        btnPeminjaman.setActionCommand("Peminjaman");
 
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
+        btnPengembalian.setActionCommand("Pengembalian");
 
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
+        btnDenda.setActionCommand("Denda");
         btnDenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDendaActionPerformed(evt);
@@ -238,7 +242,7 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
-        btnLaporan.setText(" Laporan");
+        btnLaporan.setText("Laporan");
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
         btnLogout.setText("Logout");
@@ -282,7 +286,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPengembalian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnPengembalian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                     .addComponent(btnAnggota, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -315,7 +319,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -458,7 +462,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -547,9 +551,9 @@ public class dashboard extends javax.swing.JFrame {
                             .addComponent(ljdl))))
                 .addGap(18, 18, 18)
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(psterlambat, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(psterlambat, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                     .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -594,15 +598,15 @@ public class dashboard extends javax.swing.JFrame {
         logout();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPetugasActionPerformed
-        // TODO add your handling code here:
-        new FormPetugas().setVisible(true);
-    }//GEN-LAST:event_btnPetugasActionPerformed
-
     private void btnDendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDendaActionPerformed
         new Fdenda().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDendaActionPerformed
+
+    private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPetugasActionPerformed
+        // TODO add your handling code here:
+        new FormPetugas().setVisible(true);
+    }//GEN-LAST:event_btnPetugasActionPerformed
 
     /**
      * @param args the command line arguments

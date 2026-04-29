@@ -604,7 +604,6 @@ public class dashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnDendaActionPerformed
 
-
     /**
      * @param args the command line arguments
      */

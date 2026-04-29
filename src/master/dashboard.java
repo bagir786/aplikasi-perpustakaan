@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import transaksi.Fdenda;
+import master.FormPetugas;
 
 /**
  *
@@ -45,7 +47,7 @@ public class dashboard extends javax.swing.JFrame {
     private void logout() {
     int confirm = JOptionPane.showConfirmDialog(
         this,
-        "Anda yakin ingin keluar?",
+        "Yakin ingin keluar?",
         "Konfirmasi Logout",
         JOptionPane.YES_NO_OPTION
             
@@ -199,7 +201,7 @@ public class dashboard extends javax.swing.JFrame {
 
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
-        btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+        btnDashboard.setBorder(null);
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDashboardActionPerformed(evt);
@@ -229,6 +231,11 @@ public class dashboard extends javax.swing.JFrame {
 
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
+        btnDenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDendaActionPerformed(evt);
+            }
+        });
 
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
         btnLaporan.setText(" Laporan");
@@ -591,6 +598,12 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         new FormPetugas().setVisible(true);
     }//GEN-LAST:event_btnPetugasActionPerformed
+
+    private void btnDendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDendaActionPerformed
+        new Fdenda().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDendaActionPerformed
+
 
     /**
      * @param args the command line arguments

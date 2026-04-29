@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master;
+package master; 
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import transaksi.Fdenda;
 
 /**
  *
@@ -99,7 +100,7 @@ public class dashboard extends javax.swing.JFrame {
 
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             btn.setOpaque(true);
-            btn.setBackground(new Color(153, 253, 255));
+            btn.setBackground(new Color(153, 255, 255));
             btn.setHorizontalAlignment(SwingConstants.RIGHT);
             btn.setHorizontalTextPosition(SwingConstants.LEFT);
           
@@ -224,6 +225,11 @@ public class dashboard extends javax.swing.JFrame {
 
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
+        btnDenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDendaActionPerformed(evt);
+            }
+        });
 
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
         btnLaporan.setText(" Laporan");
@@ -581,6 +587,11 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         logout();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnDendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDendaActionPerformed
+        new Fdenda().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDendaActionPerformed
 
     /**
      * @param args the command line arguments

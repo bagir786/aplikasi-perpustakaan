@@ -133,9 +133,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="psterlambat" pref="147" max="32767" attributes="0"/>
-                          <Component id="pstotalbuku" pref="147" max="32767" attributes="0"/>
-                          <Component id="pstotalanggota" alignment="0" pref="147" max="32767" attributes="0"/>
+                          <Component id="psterlambat" pref="154" max="32767" attributes="0"/>
+                          <Component id="pstotalbuku" pref="154" max="32767" attributes="0"/>
+                          <Component id="pstotalanggota" alignment="0" pref="154" max="32767" attributes="0"/>
                           <Component id="psbukupinjam" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -167,7 +167,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnLogout" alignment="1" max="32767" attributes="0"/>
-                              <Component id="btnPengembalian" alignment="1" pref="157" max="32767" attributes="0"/>
+                              <Component id="btnPengembalian" alignment="1" pref="0" max="32767" attributes="0"/>
                               <Component id="btnAnggota" alignment="1" max="32767" attributes="0"/>
                               <Component id="btnLaporan" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnDenda" alignment="0" max="32767" attributes="0"/>
@@ -204,7 +204,7 @@
                           <Component id="btnLogout" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace pref="43" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jPanel3" alignment="1" pref="481" max="32767" attributes="0"/>
+                      <Component id="jPanel3" alignment="1" pref="495" max="32767" attributes="0"/>
                       <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
@@ -277,6 +277,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Peminjaman"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPeminjamanActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonCard()"/>
                   </AuxValues>
@@ -638,7 +641,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel13" pref="20" max="32767" attributes="0"/>
+                          <Component id="jLabel13" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

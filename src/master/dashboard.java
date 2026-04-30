@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master; 
+package master;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import transaksi.Fdenda;
 
 /**
  *
@@ -99,7 +100,7 @@ public class dashboard extends javax.swing.JFrame {
 
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             btn.setOpaque(true);
-            btn.setBackground(new Color(153, 255, 255));
+            btn.setBackground(new Color(153, 253, 255));
             btn.setHorizontalAlignment(SwingConstants.RIGHT);
             btn.setHorizontalTextPosition(SwingConstants.LEFT);
           
@@ -209,29 +210,48 @@ public class dashboard extends javax.swing.JFrame {
         btnBuku.setBackground(new java.awt.Color(200, 230, 255));
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
+        btnBuku.setActionCommand("Data Buku");
 
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
+        btnAnggota.setActionCommand("Data Anggota");
 
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
         btnPetugas.setText("Data Petugas");
+        btnPetugas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPetugasActionPerformed(evt);
+            }
+        });
 
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
+<<<<<<< HEAD
         btnPeminjaman.setText(" Peminjaman");
         btnPeminjaman.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeminjamanActionPerformed(evt);
             }
         });
+=======
+        btnPeminjaman.setText("Peminjaman");
+        btnPeminjaman.setActionCommand("Peminjaman");
+>>>>>>> 2bb5693537caf9051bbd04f743fdf9eeb6d873a8
 
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
+        btnPengembalian.setActionCommand("Pengembalian");
 
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
+        btnDenda.setActionCommand("Denda");
+        btnDenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDendaActionPerformed(evt);
+            }
+        });
 
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
-        btnLaporan.setText(" Laporan");
+        btnLaporan.setText("Laporan");
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
         btnLogout.setText("Logout");
@@ -587,9 +607,21 @@ public class dashboard extends javax.swing.JFrame {
         logout();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+<<<<<<< HEAD
     private void btnPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeminjamanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPeminjamanActionPerformed
+=======
+    private void btnDendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDendaActionPerformed
+        new Fdenda().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDendaActionPerformed
+
+    private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPetugasActionPerformed
+        // TODO add your handling code here:
+        new FormPetugas().setVisible(true);
+    }//GEN-LAST:event_btnPetugasActionPerformed
+>>>>>>> 2bb5693537caf9051bbd04f743fdf9eeb6d873a8
 
     /**
      * @param args the command line arguments

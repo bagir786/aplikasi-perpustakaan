@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import transaksi.Fdenda;
-import master.FormPetugas;
 
 /**
  *
@@ -47,10 +46,9 @@ public class dashboard extends javax.swing.JFrame {
     private void logout() {
         int confirm = JOptionPane.showConfirmDialog(
                 this,
-                "Yakin ingin keluar?",
+                "Anda yakin ingin keluar?",
                 "Konfirmasi Logout",
                 JOptionPane.YES_NO_OPTION
-
         );
 
         if (confirm == JOptionPane.YES_OPTION) {
@@ -206,7 +204,7 @@ public class dashboard extends javax.swing.JFrame {
 
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
-        btnDashboard.setBorder(null);
+        btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDashboardActionPerformed(evt);
@@ -224,6 +222,7 @@ public class dashboard extends javax.swing.JFrame {
 
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
+        btnAnggota.setActionCommand("Data Anggota");
 
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
         btnPetugas.setText("Data Petugas");
@@ -234,13 +233,16 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
-        btnPeminjaman.setText(" Peminjaman");
+        btnPeminjaman.setText("Peminjaman");
+        btnPeminjaman.setActionCommand("Peminjaman");
 
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
+        btnPengembalian.setActionCommand("Pengembalian");
 
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
+        btnDenda.setActionCommand("Denda");
         btnDenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDendaActionPerformed(evt);
@@ -248,7 +250,7 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
-        btnLaporan.setText(" Laporan");
+        btnLaporan.setText("Laporan");
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
         btnLogout.setText("Logout");
@@ -281,73 +283,49 @@ public class dashboard extends javax.swing.JFrame {
         javax.swing.GroupLayout panelsidebarLayout = new javax.swing.GroupLayout(panelsidebar);
         panelsidebar.setLayout(panelsidebarLayout);
         panelsidebarLayout.setHorizontalGroup(
-                panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelsidebarLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelsidebarLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnPengembalian, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addComponent(btnAnggota, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnLaporan, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnDenda, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnPeminjaman, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnPetugas, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnBuku, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
+            panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelsidebarLayout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPengembalian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(btnAnggota, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPeminjaman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPetugas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
         panelsidebarLayout.setVerticalGroup(
-                panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelsidebarLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(43, Short.MAX_VALUE))
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE));
+            panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelsidebarLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         ljdl.setFont(new java.awt.Font("Arial Narrow", 1, 28)); // NOI18N
         ljdl.setText("Dashboard");
@@ -622,7 +600,7 @@ public class dashboard extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(55, 55, 55)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -679,6 +657,8 @@ public class dashboard extends javax.swing.JFrame {
         new Fdenda().setVisible(true);
         this.dispose();
     }// GEN-LAST:event_btnDendaActionPerformed
+
+
 
     /**
      * @param args the command line arguments

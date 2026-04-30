@@ -281,8 +281,10 @@
                       <Image iconType="3" name="/assets/arrow-right-to-city.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Peminjaman"/>
-                    <Property name="actionCommand" type="java.lang.String" value="Peminjaman"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPeminjamanActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonCard()"/>
                   </AuxValues>

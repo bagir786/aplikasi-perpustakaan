@@ -5,6 +5,7 @@
  */
 package master;
 
+import transaksi.peminjaman;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -226,7 +227,11 @@ public class dashboard extends javax.swing.JFrame {
 
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
         btnPeminjaman.setText("Peminjaman");
-        btnPeminjaman.setActionCommand("Peminjaman");
+        btnPeminjaman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeminjamanActionPerformed(evt);
+            }
+        });
 
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
@@ -606,7 +611,14 @@ public class dashboard extends javax.swing.JFrame {
     private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPetugasActionPerformed
         // TODO add your handling code here:
         new FormPetugas().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnPetugasActionPerformed
+
+    private void btnPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeminjamanActionPerformed
+        // TODO add your handling code here:
+        new peminjaman().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPeminjamanActionPerformed
 
     /**
      * @param args the command line arguments

@@ -20,7 +20,7 @@ public class koneksi {
             if (conn == null) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/perpustakaan",
+                    "jdbc:mysql://localhost:3306/sistem_perpustakaan",
                     "root",
                     ""
                 );

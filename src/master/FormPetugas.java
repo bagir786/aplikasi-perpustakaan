@@ -5,6 +5,8 @@
  */
 package master;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
@@ -46,7 +48,7 @@ public class FormPetugas extends javax.swing.JFrame {
         btnSimpan = new javax.swing.JButton();
         btnCari = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
-        btnBatal = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -157,6 +159,11 @@ public class FormPetugas extends javax.swing.JFrame {
         btnEdit.setText("Edit");
         btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnEdit.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
+        });
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -174,6 +181,11 @@ public class FormPetugas extends javax.swing.JFrame {
         btnSimpan.setText("Simpan");
         btnSimpan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnSimpan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnCari.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnCari.setText("Cari");
@@ -194,14 +206,14 @@ public class FormPetugas extends javax.swing.JFrame {
             }
         });
 
-        btnBatal.setBackground(new java.awt.Color(0, 204, 204));
-        btnBatal.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnBatal.setText("Batal");
-        btnBatal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnBatal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setBackground(new java.awt.Color(0, 204, 204));
+        btnClear.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnClear.setText("Clear");
+        btnClear.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnClear.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBatalActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -211,7 +223,7 @@ public class FormPetugas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 859, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -220,7 +232,7 @@ public class FormPetugas extends javax.swing.JFrame {
                         .addComponent(btnHapus)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(24, 24, 24)
-                            .addComponent(btnBatal))
+                            .addComponent(btnClear))
                         .addComponent(btnEdit)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +270,7 @@ public class FormPetugas extends javax.swing.JFrame {
                 .addGap(110, 110, 110)
                 .addComponent(btnTambah)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBatal)
+                .addComponent(btnClear)
                 .addGap(11, 11, 11)
                 .addComponent(btnEdit)
                 .addGap(18, 18, 18)
@@ -337,6 +349,22 @@ public class FormPetugas extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+    int selectedRow = jTable1.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(null, "Pilih data yang ingin diedit!");
+        return;
+    }
+
+    javax.swing.table.DefaultTableModel model = 
+    (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+    model.setValueAt(tID.getText(), selectedRow, 0);
+    model.setValueAt(tnama.getText(), selectedRow, 1);
+    model.setValueAt(tuser.getText(), selectedRow, 2);
+    model.setValueAt(tnotelepon.getText(), selectedRow, 3);
+
+    JOptionPane.showMessageDialog(null, "Data berhasil diubah");
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
@@ -345,11 +373,51 @@ public class FormPetugas extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
+    String id = tID.getText();
+    String nama = tnama.getText();
+    String user = tuser.getText();
+    String pass = new String(tpass.getPassword());
+    String telp = tnotelepon.getText();
+
+    JOptionPane.showMessageDialog(null,
+                 "Tombol berhasil diklik\n" +
+                 "Data berhasil ditambahkan:\n");
     }//GEN-LAST:event_btnTambahActionPerformed
 
-    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBatalActionPerformed
+    int pilih = JOptionPane.showConfirmDialog(
+        null,
+        "Yakin ingin mengosongkan data?",
+        "Konfirmasi",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (pilih == JOptionPane.YES_OPTION) {
+        tID.setText("");
+        tnama.setText("");
+        tuser.setText("");
+        tpass.setText("");
+        tnotelepon.setText("");
+
+        tID.requestFocus();
+        }
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        // TODO add your handling code here:
+    int row = jTable1.getSelectedRow();
+
+    tID.setText(jTable1.getValueAt(row, 0).toString());
+    tnama.setText(jTable1.getValueAt(row, 1).toString());
+    tuser.setText(jTable1.getValueAt(row, 2).toString());
+    tnotelepon.setText(jTable1.getValueAt(row, 3).toString());
+    }//GEN-LAST:event_btnEditMouseClicked
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,8 +455,8 @@ public class FormPetugas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;

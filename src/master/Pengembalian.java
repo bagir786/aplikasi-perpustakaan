@@ -5,6 +5,8 @@
  */
 package master;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author USER
@@ -15,7 +17,14 @@ public class Pengembalian extends javax.swing.JFrame {
      * Creates new form Pengembalian
      */
     public Pengembalian() {
-        initComponents();
+    initComponents();
+    getContentPane().setBackground(java.awt.Color.WHITE);
+        
+    jCalender.setEnabled(true);
+
+    javax.swing.table.DefaultTableModel model =
+    (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
     }
 
     /**
@@ -37,15 +46,17 @@ public class Pengembalian extends javax.swing.JFrame {
         lbltglkembali = new javax.swing.JLabel();
         lblkdbuku = new javax.swing.JLabel();
         tnama = new javax.swing.JTextField();
-        ttglpengembalian = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         tdaftarbukudikembaliakan = new javax.swing.JLabel();
+        jCalender = new de.wannawork.jcalendar.JCalendarComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
+        btnsimpan.setBackground(new java.awt.Color(0, 153, 51));
         btnsimpan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnsimpan.setForeground(new java.awt.Color(0, 51, 51));
+        btnsimpan.setForeground(new java.awt.Color(255, 255, 255));
         btnsimpan.setText("Simpan");
         btnsimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,7 +64,9 @@ public class Pengembalian extends javax.swing.JFrame {
             }
         });
 
+        btnbatal.setBackground(new java.awt.Color(102, 102, 102));
         btnbatal.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnbatal.setForeground(new java.awt.Color(255, 255, 255));
         btnbatal.setText("Batal");
         btnbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,24 +80,18 @@ public class Pengembalian extends javax.swing.JFrame {
         tpengembalianbuku.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         tpengembalianbuku.setText("Pengembalian Buku");
 
-        lblnama.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lblnama.setText("Nama");
+        lblnama.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblnama.setText("Nama Lengkap");
 
-        lbltglkembali.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbltglkembali.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbltglkembali.setText("Tanggal Pengembalian");
 
-        lblkdbuku.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblkdbuku.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblkdbuku.setText("Kode Buku");
 
         tnama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tnamaActionPerformed(evt);
-            }
-        });
-
-        ttglpengembalian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ttglpengembalianActionPerformed(evt);
             }
         });
 
@@ -110,7 +117,7 @@ public class Pengembalian extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        tdaftarbukudikembaliakan.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        tdaftarbukudikembaliakan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         tdaftarbukudikembaliakan.setText("Daftar Buku Yang Dikembalikan");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,68 +125,66 @@ public class Pengembalian extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnbatal)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbltotalbuku)
-                        .addGap(54, 54, 54)
-                        .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(149, 149, 149)
-                        .addComponent(btnsimpan))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tdaftarbukudikembaliakan)))
-                .addGap(10, 22, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblnama, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbltglkembali)
-                            .addComponent(lblkdbuku))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tnama, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(ttglpengembalian)
-                            .addComponent(tkdbuku)))
-                    .addComponent(tpengembalianbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(tpengembalianbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblkdbuku)
+                                    .addComponent(lbltglkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblnama, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tnama)
+                                    .addComponent(tkdbuku)
+                                    .addComponent(jCalender, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lbltotalbuku)
+                                    .addGap(38, 38, 38)
+                                    .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(142, 142, 142)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnsimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tdaftarbukudikembaliakan))
+                        .addGap(0, 22, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(tpengembalianbuku)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblnama)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ttglpengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tkdbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbltglkembali)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblkdbuku)))
-                .addGap(68, 68, 68)
+                    .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCalender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbltglkembali))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblkdbuku)
+                    .addComponent(tkdbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(tdaftarbukudikembaliakan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsimpan)
                     .addComponent(lbltotalbuku)
                     .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnbatal)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,19 +192,53 @@ public class Pengembalian extends javax.swing.JFrame {
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
         // TODO add your handling code here:
+    String nama = tnama.getText();
+    String kdBuku = tkdbuku.getText();
+
+    Date tanggal = jCalender.getDate();
+
+    if (tanggal == null) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Tanggal belum dipilih!");
+    return;
+    }
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String tgl = sdf.format(tanggal);
+
+    javax.swing.table.DefaultTableModel model = 
+    (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+    int no = model.getRowCount() + 1;
+
+    model.addRow(new Object[]{
+        no,
+        kdBuku,
+        "Judul Buku", 
+        tgl
+    });
+
+    ttotalbuku.setText(String.valueOf(model.getRowCount()));
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
+    tnama.setText("");
+    jCalender.setDate(null);
+    tkdbuku.setText("");
+    ttotalbuku.setText("");
+
+    javax.swing.table.DefaultTableModel model = 
+    (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+
+    tnama.requestFocus();
+
+    javax.swing.JOptionPane.showMessageDialog(this, "Form berhasil direset!");
     }//GEN-LAST:event_btnbatalActionPerformed
 
     private void tnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tnamaActionPerformed
-
-    private void ttglpengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttglpengembalianActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ttglpengembalianActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,6 +278,7 @@ public class Pengembalian extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbatal;
     private javax.swing.JButton btnsimpan;
+    private de.wannawork.jcalendar.JCalendarComboBox jCalender;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblkdbuku;
@@ -249,7 +289,6 @@ public class Pengembalian extends javax.swing.JFrame {
     private javax.swing.JTextField tkdbuku;
     private javax.swing.JTextField tnama;
     private javax.swing.JLabel tpengembalianbuku;
-    private javax.swing.JTextField ttglpengembalian;
     private javax.swing.JTextField ttotalbuku;
     // End of variables declaration//GEN-END:variables
 }

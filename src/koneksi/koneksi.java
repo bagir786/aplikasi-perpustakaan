@@ -7,7 +7,9 @@ package koneksi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *
  * @author Asus
@@ -20,7 +22,7 @@ public class koneksi {
             if (conn == null) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/perpustakaan",
+                    "jdbc:mysql://localhost:3306/sistem_perpustakaan",
                     "root",
                     ""
                 );

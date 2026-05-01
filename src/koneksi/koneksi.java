@@ -15,18 +15,18 @@ import java.sql.SQLException;
 public class koneksi {
     private static Connection conn;
 
-    public static Connection getConnection() {
-        try {
-            if (conn == null) {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/perpustakaan",
-                    "root",
-                    ""
-                );
+ public static Connection getConnection() {
+        if (conn == null) {
+            try {
+                String url = "jdbc:mysql://localhost:3306/perpustakaan";
+                String user = "root";
+                String password = "";
+
+                conn = DriverManager.getConnection(url, user, password);
+                System.out.println("Koneksi berhasil");
+            } catch (SQLException e) {
+                System.out.println("Koneksi gagal: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("Error koneksi: " + e.getMessage());
         }
         return conn;
     }

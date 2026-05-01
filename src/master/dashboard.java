@@ -5,6 +5,7 @@
  */
 package master;
 
+import transaksi.peminjaman;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -23,722 +24,886 @@ import transaksi.Fdenda;
  */
 public class dashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form dashboard
-     */
-
-    public dashboard() {
-        initComponents();
-        getContentPane().setBackground(new Color(245, 247, 250));
-
-        styleButton();
-        setIcons();
-        styleCards();
-
-        /*
-         * paneldb.setBackground(new Color(41, 128, 185));
+        /**
+         * Creates new form dashboard
          */
-        panelinfo.setBorder(
-                BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0, 120, 255)));
 
-    }
+        public dashboard() {
+                initComponents();
+                getContentPane().setBackground(new Color(245, 247, 250));
 
-    private void logout() {
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Anda yakin ingin keluar?",
-                "Konfirmasi Logout",
-                JOptionPane.YES_NO_OPTION
-        );
+                styleButton();
+                setIcons();
+                styleCards();
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            // 🔥 buka form login
-            new user.Flogin().setVisible(true);
-
-            // 🔥 tutup dashboard
-            this.dispose();
+                /*
+                 * paneldb.setBackground(new Color(41, 128, 185));
+                 */
+                panelinfo.setBorder(
+                                BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0, 120, 255)));
 
         }
-    }
 
-    private void styleCards() {
-        JPanel[] cards = {
-                pstotalbuku, pstotalanggota, psbukupinjam, psterlambat
-        };
+        private void logout() {
+                int confirm = JOptionPane.showConfirmDialog(
+                                this,
+                                "Anda yakin ingin keluar?",
+                                "Konfirmasi Logout",
+                                JOptionPane.YES_NO_OPTION);
 
-        for (JPanel card : cards) {
-            card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        }
-    }
+                if (confirm == JOptionPane.YES_OPTION) {
+                        // 🔥 buka form login
+                        new user.Flogin().setVisible(true);
 
-    private void styleButton() {
-        JButton[] buttons = {
-                btnDashboard, btnBuku, btnAnggota, btnPetugas,
-                btnPeminjaman, btnPengembalian, btnDenda,
-                btnLaporan, btnLogout
-        };
+                        // 🔥 tutup dashboard
+                        this.dispose();
 
-        for (JButton btn : buttons) {
-            styleButton(btn);
-            btn.setHorizontalAlignment(SwingConstants.LEFT);
-            btn.setHorizontalTextPosition(SwingConstants.RIGHT);
-            btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-            btn.setOpaque(false);
-            btn.setContentAreaFilled(false);
-            btn.setBorderPainted(false);
-            btn.setFocusPainted(true);
-            btn.setForeground(Color.BLACK);
-            btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-            btn.setIconTextGap(10);
-        }
-    }
-
-    private void styleButton(JButton btn) {
-
-        // 🔥 HOVER EFFECT (TIMBUL + WARNA)
-
-        btn.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn.setOpaque(true);
-                btn.setBackground(new Color(153, 255, 255));
-                btn.setHorizontalAlignment(SwingConstants.RIGHT);
-                btn.setHorizontalTextPosition(SwingConstants.LEFT);
-
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn.setOpaque(false);
-                btn.setHorizontalAlignment(SwingConstants.LEFT);
-                btn.setHorizontalTextPosition(SwingConstants.RIGHT);
-            }
-        });
-    }
-
-    private void setIcons() {
-        btnDashboard.setIcon(resizeIcon("/assets/home.png"));
-        btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
-        btnAnggota.setIcon(resizeIcon("/assets/people.png"));
-        btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
-        btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
-        btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
-        btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
-        btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
-        btnLogout.setIcon(resizeIcon("/assets/logout.png"));
-    }
-
-    private ImageIcon resizeIcon(String path) {
-        ImageIcon icon = new ImageIcon(getClass().getResource(path));
-        Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        return new ImageIcon(img);
-
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPanel1 = new javax.swing.JPanel();
-        Ltopmenu = new javax.swing.JLabel();
-        paneldb = new javax.swing.JPanel();
-        panelsidebar = new javax.swing.JPanel();
-        btnDashboard = new ButtonCard();
-        btnBuku = new ButtonCard();
-        btnAnggota = new ButtonCard();
-        btnPetugas = new ButtonCard();
-        btnPeminjaman = new ButtonCard();
-        btnPengembalian = new ButtonCard();
-        btnDenda = new ButtonCard();
-        btnLaporan = new ButtonCard();
-        btnLogout = new ButtonCard();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        ljdl = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        pstotalbuku = new PanelCard();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        pstotalanggota = new PanelCard();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        psbukupinjam = new PanelCard();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        psterlambat = new PanelCard();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        panelinfo = new PanelCard();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
-
-        Ltopmenu.setBackground(new java.awt.Color(204, 255, 255));
-        Ltopmenu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        Ltopmenu.setForeground(new java.awt.Color(255, 255, 255));
-        Ltopmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Ltopmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/table-list.png"))); // NOI18N
-        Ltopmenu.setText("Sistem Informasi Managemen Perpustakaan");
-
-        paneldb.setBackground(new java.awt.Color(255, 255, 255));
-
-        panelsidebar.setBackground(new java.awt.Color(255, 255, 255));
-        panelsidebar.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
-
-        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
-        btnDashboard.setText("Dashboard");
-        btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        btnDashboard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDashboardActionPerformed(evt);
-            }
-        });
-
-        btnBuku.setBackground(new java.awt.Color(200, 230, 255));
-        btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
-        btnBuku.setText(" Data Buku");
-        btnBuku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBukuActionPerformed(evt);
-            }
-        });
-
-        btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
-        btnAnggota.setText(" Data Anggota");
-        btnAnggota.setActionCommand("Data Anggota");
-
-        btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
-        btnPetugas.setText("Data Petugas");
-        btnPetugas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPetugasActionPerformed(evt);
-            }
-        });
-
-        btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
-        btnPeminjaman.setText("Peminjaman");
-        btnPeminjaman.setActionCommand("Peminjaman");
-
-        btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
-        btnPengembalian.setText(" Pengembalian");
-        btnPengembalian.setActionCommand("Pengembalian");
-
-        btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
-        btnDenda.setText(" Denda");
-        btnDenda.setActionCommand("Denda");
-        btnDenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDendaActionPerformed(evt);
-            }
-        });
-
-        btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
-        btnLaporan.setText("Laporan");
-
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
-        btnLogout.setText("Logout");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
-
-        jPanel3.setPreferredSize(new java.awt.Dimension(4, 0));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 4, Short.MAX_VALUE));
-        jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 4, Short.MAX_VALUE));
-        jPanel4Layout.setVerticalGroup(
-                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE));
-
-        javax.swing.GroupLayout panelsidebarLayout = new javax.swing.GroupLayout(panelsidebar);
-        panelsidebar.setLayout(panelsidebarLayout);
-        panelsidebarLayout.setHorizontalGroup(
-            panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelsidebarLayout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPengembalian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                    .addComponent(btnAnggota, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPeminjaman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPetugas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        panelsidebarLayout.setVerticalGroup(
-            panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelsidebarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        ljdl.setFont(new java.awt.Font("Arial Narrow", 1, 28)); // NOI18N
-        ljdl.setText("Dashboard");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
-
-        pstotalbuku.setBackground(new java.awt.Color(255, 255, 255));
-        pstotalbuku.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
-                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        pstotalbuku.setPreferredSize(new java.awt.Dimension(120, 137));
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book-open-text.png"))); // NOI18N
-        jLabel2.setMaximumSize(new java.awt.Dimension(24, 24));
-        jLabel2.setPreferredSize(new java.awt.Dimension(24, 24));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("100");
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Total Buku");
-
-        javax.swing.GroupLayout pstotalbukuLayout = new javax.swing.GroupLayout(pstotalbuku);
-        pstotalbuku.setLayout(pstotalbukuLayout);
-        pstotalbukuLayout.setHorizontalGroup(
-                pstotalbukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pstotalbukuLayout.setVerticalGroup(
-                pstotalbukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pstotalbukuLayout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap()));
-
-        pstotalanggota.setBackground(new java.awt.Color(255, 255, 255));
-        pstotalanggota.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
-                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        pstotalanggota.setPreferredSize(new java.awt.Dimension(120, 137));
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/anggota.png"))); // NOI18N
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("50");
-
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Total Anggota");
-
-        javax.swing.GroupLayout pstotalanggotaLayout = new javax.swing.GroupLayout(pstotalanggota);
-        pstotalanggota.setLayout(pstotalanggotaLayout);
-        pstotalanggotaLayout.setHorizontalGroup(
-                pstotalanggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE));
-        pstotalanggotaLayout.setVerticalGroup(
-                pstotalanggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pstotalanggotaLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap()));
-
-        psbukupinjam.setBackground(new java.awt.Color(255, 255, 255));
-        psbukupinjam.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
-                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-books.png"))); // NOI18N
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("10");
-
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Buku Dipinjam");
-
-        javax.swing.GroupLayout psbukupinjamLayout = new javax.swing.GroupLayout(psbukupinjam);
-        psbukupinjam.setLayout(psbukupinjamLayout);
-        psbukupinjamLayout.setHorizontalGroup(
-                psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        psbukupinjamLayout.setVerticalGroup(
-                psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(psbukupinjamLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap()));
-
-        psterlambat.setBackground(new java.awt.Color(255, 255, 255));
-        psterlambat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
-                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        psterlambat.setPreferredSize(new java.awt.Dimension(120, 137));
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/danger.png"))); // NOI18N
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("3");
-
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Terlambat");
-
-        javax.swing.GroupLayout psterlambatLayout = new javax.swing.GroupLayout(psterlambat);
-        psterlambat.setLayout(psterlambatLayout);
-        psterlambatLayout.setHorizontalGroup(
-                psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        psterlambatLayout.setVerticalGroup(
-                psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(psterlambatLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap()));
-
-        panelinfo.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setText("Informasi Sistem");
-
-        jLabel15.setText("Selamat datang di Sistem Informasi Managemen Perpustakaan.");
-
-        jLabel16.setText("Gunakan menu di samping untuk mengelola data dan transaksi.");
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-sharp.png"))); // NOI18N
-
-        javax.swing.GroupLayout panelinfoLayout = new javax.swing.GroupLayout(panelinfo);
-        panelinfo.setLayout(panelinfoLayout);
-        panelinfoLayout.setHorizontalGroup(
-                panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelinfoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel14)
-                                        .addComponent(jLabel15)
-                                        .addComponent(jLabel16))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 80,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)));
-        panelinfoLayout.setVerticalGroup(
-                panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelinfoLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16)
-                                .addGap(61, 61, 61))
-                        .addGroup(panelinfoLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 77,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-
-        jLabel18.setText("Selamat datang, Admin 👋");
-
-        javax.swing.GroupLayout paneldbLayout = new javax.swing.GroupLayout(paneldb);
-        paneldb.setLayout(paneldbLayout);
-        paneldbLayout.setHorizontalGroup(
-                paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(paneldbLayout.createSequentialGroup()
-                                .addComponent(panelsidebar, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)
-                                .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(paneldbLayout.createSequentialGroup()
-                                                .addComponent(ljdl, javax.swing.GroupLayout.PREFERRED_SIZE, 132,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        258, Short.MAX_VALUE)
-                                                .addComponent(jLabel18)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(paneldbLayout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(panelinfo, javax.swing.GroupLayout.Alignment.LEADING,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(paneldbLayout.createSequentialGroup()
-                                                        .addComponent(pstotalbuku,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(pstotalanggota,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(psbukupinjam,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(psterlambat,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap()));
-        paneldbLayout.setVerticalGroup(
-                paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panelsidebar, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(paneldbLayout.createSequentialGroup()
-                                .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(paneldbLayout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(paneldbLayout.createSequentialGroup()
-                                                .addGap(22, 22, 22)
-                                                .addGroup(paneldbLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel18)
-                                                        .addComponent(ljdl))))
-                                .addGap(18, 18, 18)
-                                .addGroup(paneldbLayout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(psterlambat, javax.swing.GroupLayout.DEFAULT_SIZE, 154,
-                                                Short.MAX_VALUE)
-                                        .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 154,
-                                                Short.MAX_VALUE)
-                                        .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 154,
-                                                Short.MAX_VALUE)
-                                        .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(55, 55, 55)));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Ltopmenu, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(paneldb, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Ltopmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 37,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paneldb, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDashboardActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_btnDashboardActionPerformed
-
-    private void btnBukuActionPerformed(java.awt.event.ActionEvent evt) {
-        new Fbuku().setVisible(true);
-        this.dispose();
-    }
-
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
-        logout();
-    }// GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPetugasActionPerformed
-        // TODO add your handling code here:
-        new FormPetugas().setVisible(true);
-    }// GEN-LAST:event_btnPetugasActionPerformed
-
-    private void btnDendaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDendaActionPerformed
-        new Fdenda().setVisible(true);
-        this.dispose();
-    }// GEN-LAST:event_btnDendaActionPerformed
-
-
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        // </editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new dashboard().setVisible(true);
-            }
-        });
-    }
+        private void styleCards() {
+                JPanel[] cards = {
+                                pstotalbuku, pstotalanggota, psbukupinjam, psterlambat
+                };
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Ltopmenu;
-    private javax.swing.JButton btnAnggota;
-    private javax.swing.JButton btnBuku;
-    private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnDenda;
-    private javax.swing.JButton btnLaporan;
-    private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnPeminjaman;
-    private javax.swing.JButton btnPengembalian;
-    private javax.swing.JButton btnPetugas;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel ljdl;
-    private javax.swing.JPanel paneldb;
-    private javax.swing.JPanel panelinfo;
-    private javax.swing.JPanel panelsidebar;
-    private javax.swing.JPanel psbukupinjam;
-    private javax.swing.JPanel psterlambat;
-    private javax.swing.JPanel pstotalanggota;
-    private javax.swing.JPanel pstotalbuku;
-    // End of variables declaration//GEN-END:variables
+                for (JPanel card : cards) {
+                        card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+                }
+        }
+
+        private void styleButton() {
+                JButton[] buttons = {
+                                btnDashboard, btnBuku, btnAnggota, btnPetugas,
+                                btnPeminjaman, btnPengembalian, btnDenda,
+                                btnLaporan, btnLogout
+                };
+
+                for (JButton btn : buttons) {
+                        styleButton(btn);
+                        btn.setHorizontalAlignment(SwingConstants.LEFT);
+                        btn.setHorizontalTextPosition(SwingConstants.RIGHT);
+                        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+                        btn.setOpaque(false);
+                        btn.setContentAreaFilled(false);
+                        btn.setBorderPainted(false);
+                        btn.setFocusPainted(true);
+                        btn.setForeground(Color.BLACK);
+                        btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+                        btn.setIconTextGap(10);
+                }
+        }
+
+        private void styleButton(JButton btn) {
+
+                // 🔥 HOVER EFFECT (TIMBUL + WARNA)
+
+                btn.addMouseListener(new java.awt.event.MouseAdapter() {
+
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                btn.setOpaque(true);
+                                btn.setBackground(new Color(153, 255, 255));
+                                btn.setHorizontalAlignment(SwingConstants.RIGHT);
+                                btn.setHorizontalTextPosition(SwingConstants.LEFT);
+
+                        }
+
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                                btn.setOpaque(false);
+                                btn.setHorizontalAlignment(SwingConstants.LEFT);
+                                btn.setHorizontalTextPosition(SwingConstants.RIGHT);
+                        }
+                });
+        }
+
+        private void setIcons() {
+                btnDashboard.setIcon(resizeIcon("/assets/home.png"));
+                btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
+                btnAnggota.setIcon(resizeIcon("/assets/people.png"));
+                btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
+                btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
+                btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
+                btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
+                btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
+                btnLogout.setIcon(resizeIcon("/assets/logout.png"));
+        }
+
+        private ImageIcon resizeIcon(String path) {
+                ImageIcon icon = new ImageIcon(getClass().getResource(path));
+                Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+                return new ImageIcon(img);
+
+        }
+
+        /**
+         * This method is called from within the constructor to initialize the form.
+         * WARNING: Do NOT modify this code. The content of this method is always
+         * regenerated by the Form Editor.
+         */
+        @SuppressWarnings("unchecked")
+        // <editor-fold defaultstate="collapsed" desc="Generated
+        // Code">//GEN-BEGIN:initComponents
+        private void initComponents() {
+
+                jPanel1 = new javax.swing.JPanel();
+                Ltopmenu = new javax.swing.JLabel();
+                paneldb = new javax.swing.JPanel();
+                panelsidebar = new javax.swing.JPanel();
+                btnDashboard = new ButtonCard();
+                btnBuku = new ButtonCard();
+                btnAnggota = new ButtonCard();
+                btnPetugas = new ButtonCard();
+                btnPeminjaman = new ButtonCard();
+                btnPengembalian = new ButtonCard();
+                btnDenda = new ButtonCard();
+                btnLaporan = new ButtonCard();
+                btnLogout = new ButtonCard();
+                jPanel3 = new javax.swing.JPanel();
+                jPanel4 = new javax.swing.JPanel();
+                ljdl = new javax.swing.JLabel();
+                jLabel1 = new javax.swing.JLabel();
+                pstotalbuku = new PanelCard();
+                jLabel2 = new javax.swing.JLabel();
+                jLabel6 = new javax.swing.JLabel();
+                jLabel7 = new javax.swing.JLabel();
+                pstotalanggota = new PanelCard();
+                jLabel3 = new javax.swing.JLabel();
+                jLabel8 = new javax.swing.JLabel();
+                jLabel9 = new javax.swing.JLabel();
+                psbukupinjam = new PanelCard();
+                jLabel4 = new javax.swing.JLabel();
+                jLabel10 = new javax.swing.JLabel();
+                jLabel11 = new javax.swing.JLabel();
+                psterlambat = new PanelCard();
+                jLabel5 = new javax.swing.JLabel();
+                jLabel12 = new javax.swing.JLabel();
+                jLabel13 = new javax.swing.JLabel();
+                panelinfo = new PanelCard();
+                jLabel14 = new javax.swing.JLabel();
+                jLabel15 = new javax.swing.JLabel();
+                jLabel16 = new javax.swing.JLabel();
+                jLabel17 = new javax.swing.JLabel();
+                jLabel18 = new javax.swing.JLabel();
+
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+                jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+
+                Ltopmenu.setBackground(new java.awt.Color(204, 255, 255));
+                Ltopmenu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+                Ltopmenu.setForeground(new java.awt.Color(255, 255, 255));
+                Ltopmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                Ltopmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/table-list.png"))); // NOI18N
+                Ltopmenu.setText("Sistem Informasi Managemen Perpustakaan");
+
+                paneldb.setBackground(new java.awt.Color(255, 255, 255));
+
+                panelsidebar.setBackground(new java.awt.Color(255, 255, 255));
+                panelsidebar.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+
+                btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
+                btnDashboard.setText("Dashboard");
+                btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
+                                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+                btnDashboard.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnDashboardActionPerformed(evt);
+                        }
+                });
+
+                btnBuku.setBackground(new java.awt.Color(200, 230, 255));
+                btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
+                btnBuku.setText(" Data Buku");
+                btnBuku.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnBukuActionPerformed(evt);
+                        }
+                });
+
+                btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
+                btnAnggota.setText(" Data Anggota");
+                btnAnggota.setActionCommand("Data Anggota");
+
+                btnPetugas.setIcon(new javax.swing.ImageIcon(
+                                getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
+                btnPetugas.setText("Data Petugas");
+                btnPetugas.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnPetugasActionPerformed(evt);
+                        }
+                });
+
+                btnPeminjaman.setIcon(
+                                new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
+                btnPeminjaman.setText("Peminjaman");
+                btnPeminjaman.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnPeminjamanActionPerformed(evt);
+                        }
+                });
+
+                btnPengembalian.setIcon(
+                                new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
+                btnPengembalian.setText(" Pengembalian");
+                btnPengembalian.setActionCommand("Pengembalian");
+
+                btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
+                btnDenda.setText(" Denda");
+                btnDenda.setActionCommand("Denda");
+                btnDenda.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnDendaActionPerformed(evt);
+                        }
+                });
+
+                btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
+                btnLaporan.setText("Laporan");
+
+                btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
+                btnLogout.setText("Logout");
+                btnLogout.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                btnLogoutActionPerformed(evt);
+                        }
+                });
+
+                jPanel3.setPreferredSize(new java.awt.Dimension(4, 0));
+
+                javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+                jPanel3.setLayout(jPanel3Layout);
+                jPanel3Layout.setHorizontalGroup(
+                                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGap(0, 4, Short.MAX_VALUE));
+                jPanel3Layout.setVerticalGroup(
+                                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGap(0, 0, Short.MAX_VALUE));
+
+                javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+                jPanel4.setLayout(jPanel4Layout);
+                jPanel4Layout.setHorizontalGroup(
+                                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGap(0, 4, Short.MAX_VALUE));
+                jPanel4Layout.setVerticalGroup(
+                                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGap(0, 0, Short.MAX_VALUE));
+
+                javax.swing.GroupLayout panelsidebarLayout = new javax.swing.GroupLayout(panelsidebar);
+                panelsidebar.setLayout(panelsidebarLayout);
+                panelsidebarLayout.setHorizontalGroup(
+                                panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelsidebarLayout
+                                                                .createSequentialGroup()
+                                                                .addGap(1, 1, 1)
+                                                                .addComponent(jPanel4,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(panelsidebarLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(btnLogout,
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnPengembalian,
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                157, Short.MAX_VALUE)
+                                                                                .addComponent(btnAnggota,
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnLaporan,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnDenda,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnPeminjaman,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnPetugas,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnBuku,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(btnDashboard,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE))
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jPanel3,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)));
+                panelsidebarLayout.setVerticalGroup(
+                                panelsidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(panelsidebarLayout.createSequentialGroup()
+                                                                .addGap(11, 11, 11)
+                                                                .addComponent(btnDashboard,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnBuku,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnAnggota,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnPetugas,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnPeminjaman,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnPengembalian,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnDenda,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnLaporan,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(btnLogout,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                40,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(43, Short.MAX_VALUE))
+                                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 481,
+                                                                Short.MAX_VALUE)
+                                                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+
+                ljdl.setFont(new java.awt.Font("Arial Narrow", 1, 28)); // NOI18N
+                ljdl.setText("Dashboard");
+
+                jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
+
+                pstotalbuku.setBackground(new java.awt.Color(255, 255, 255));
+                pstotalbuku.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
+                                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+                pstotalbuku.setPreferredSize(new java.awt.Dimension(120, 137));
+
+                jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book-open-text.png"))); // NOI18N
+                jLabel2.setMaximumSize(new java.awt.Dimension(24, 24));
+                jLabel2.setPreferredSize(new java.awt.Dimension(24, 24));
+
+                jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+                jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel6.setText("100");
+
+                jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+                jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel7.setText("Total Buku");
+
+                javax.swing.GroupLayout pstotalbukuLayout = new javax.swing.GroupLayout(pstotalbuku);
+                pstotalbuku.setLayout(pstotalbukuLayout);
+                pstotalbukuLayout.setHorizontalGroup(
+                                pstotalbukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 114,
+                                                                Short.MAX_VALUE)
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                pstotalbukuLayout.setVerticalGroup(
+                                pstotalbukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(pstotalbukuLayout.createSequentialGroup()
+                                                                .addGap(25, 25, 25)
+                                                                .addComponent(jLabel2,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                44,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel6)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel7,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addContainerGap()));
+
+                pstotalanggota.setBackground(new java.awt.Color(255, 255, 255));
+                pstotalanggota.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
+                                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+                pstotalanggota.setPreferredSize(new java.awt.Dimension(120, 137));
+
+                jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/anggota.png"))); // NOI18N
+
+                jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+                jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel8.setText("50");
+
+                jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel9.setText("Total Anggota");
+
+                javax.swing.GroupLayout pstotalanggotaLayout = new javax.swing.GroupLayout(pstotalanggota);
+                pstotalanggota.setLayout(pstotalanggotaLayout);
+                pstotalanggotaLayout.setHorizontalGroup(
+                                pstotalanggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 114,
+                                                                Short.MAX_VALUE)
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                Short.MAX_VALUE));
+                pstotalanggotaLayout.setVerticalGroup(
+                                pstotalanggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(pstotalanggotaLayout.createSequentialGroup()
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(jLabel3)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel8)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel9,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addContainerGap()));
+
+                psbukupinjam.setBackground(new java.awt.Color(255, 255, 255));
+                psbukupinjam.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
+                                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+
+                jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-books.png"))); // NOI18N
+
+                jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+                jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel10.setText("10");
+
+                jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel11.setText("Buku Dipinjam");
+
+                javax.swing.GroupLayout psbukupinjamLayout = new javax.swing.GroupLayout(psbukupinjam);
+                psbukupinjam.setLayout(psbukupinjamLayout);
+                psbukupinjamLayout.setHorizontalGroup(
+                                psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 120,
+                                                                Short.MAX_VALUE)
+                                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                psbukupinjamLayout.setVerticalGroup(
+                                psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(psbukupinjamLayout.createSequentialGroup()
+                                                                .addGap(24, 24, 24)
+                                                                .addComponent(jLabel4)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel10)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel11,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addContainerGap()));
+
+                psterlambat.setBackground(new java.awt.Color(255, 255, 255));
+                psterlambat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED,
+                                java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+                psterlambat.setPreferredSize(new java.awt.Dimension(120, 137));
+
+                jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/danger.png"))); // NOI18N
+
+                jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+                jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel12.setText("3");
+
+                jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel13.setText("Terlambat");
+
+                javax.swing.GroupLayout psterlambatLayout = new javax.swing.GroupLayout(psterlambat);
+                psterlambat.setLayout(psterlambatLayout);
+                psterlambatLayout.setHorizontalGroup(
+                                psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 114,
+                                                                Short.MAX_VALUE)
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                psterlambatLayout.setVerticalGroup(
+                                psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(psterlambatLayout.createSequentialGroup()
+                                                                .addGap(24, 24, 24)
+                                                                .addComponent(jLabel5)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel12)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel13,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addContainerGap()));
+
+                panelinfo.setBackground(new java.awt.Color(255, 255, 255));
+
+                jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+                jLabel14.setText("Informasi Sistem");
+
+                jLabel15.setText("Selamat datang di Sistem Informasi Managemen Perpustakaan.");
+
+                jLabel16.setText("Gunakan menu di samping untuk mengelola data dan transaksi.");
+
+                jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-sharp.png"))); // NOI18N
+
+                javax.swing.GroupLayout panelinfoLayout = new javax.swing.GroupLayout(panelinfo);
+                panelinfo.setLayout(panelinfoLayout);
+                panelinfoLayout.setHorizontalGroup(
+                                panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(panelinfoLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addGroup(panelinfoLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jLabel14)
+                                                                                .addComponent(jLabel15)
+                                                                                .addComponent(jLabel16))
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(jLabel17,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                80,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(41, 41, 41)));
+                panelinfoLayout.setVerticalGroup(
+                                panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(panelinfoLayout.createSequentialGroup()
+                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(jLabel14)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(jLabel15)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jLabel16)
+                                                                .addGap(61, 61, 61))
+                                                .addGroup(panelinfoLayout.createSequentialGroup()
+                                                                .addGap(24, 24, 24)
+                                                                .addComponent(jLabel17,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                77,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)));
+
+                jLabel18.setText("Selamat datang, Admin 👋");
+
+                javax.swing.GroupLayout paneldbLayout = new javax.swing.GroupLayout(paneldb);
+                paneldb.setLayout(paneldbLayout);
+                paneldbLayout.setHorizontalGroup(
+                                paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(paneldbLayout.createSequentialGroup()
+                                                                .addComponent(panelsidebar,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(21, 21, 21)
+                                                                .addGroup(paneldbLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(paneldbLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addComponent(ljdl,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                132,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                                                258,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addComponent(jLabel18)
+                                                                                                .addGap(18, 18, 18)
+                                                                                                .addComponent(jLabel1,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                24,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(paneldbLayout
+                                                                                                .createParallelGroup(
+                                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                                false)
+                                                                                                .addComponent(panelinfo,
+                                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                Short.MAX_VALUE)
+                                                                                                .addGroup(paneldbLayout
+                                                                                                                .createSequentialGroup()
+                                                                                                                .addComponent(pstotalbuku,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(18, 18, 18)
+                                                                                                                .addComponent(pstotalanggota,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(18, 18, 18)
+                                                                                                                .addComponent(psbukupinjam,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addGap(18, 18, 18)
+                                                                                                                .addComponent(psterlambat,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                .addContainerGap()));
+                paneldbLayout.setVerticalGroup(
+                                paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(panelsidebar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(paneldbLayout.createSequentialGroup()
+                                                                .addGroup(paneldbLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(paneldbLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addContainerGap()
+                                                                                                .addComponent(jLabel1,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                33,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(paneldbLayout
+                                                                                                .createSequentialGroup()
+                                                                                                .addGap(22, 22, 22)
+                                                                                                .addGroup(paneldbLayout
+                                                                                                                .createParallelGroup(
+                                                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                .addComponent(jLabel18)
+                                                                                                                .addComponent(ljdl))))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(paneldbLayout
+                                                                                .createParallelGroup(
+                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                                                false)
+                                                                                .addComponent(psterlambat,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                154,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(pstotalbuku,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                154,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(pstotalanggota,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                154,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(psbukupinjam,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE))
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(panelinfo,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addGap(55, 55, 55)));
+
+                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+                jPanel1.setLayout(jPanel1Layout);
+                jPanel1Layout.setHorizontalGroup(
+                                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(Ltopmenu, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(paneldb, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                jPanel1Layout.setVerticalGroup(
+                                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(Ltopmenu,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                37,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(paneldb,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)));
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                layout.setVerticalGroup(
+                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+
+                pack();
+        }// </editor-fold>//GEN-END:initComponents
+
+        private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDashboardActionPerformed
+                // TODO add your handling code here:
+        }// GEN-LAST:event_btnDashboardActionPerformed
+
+        private void btnBukuActionPerformed(java.awt.event.ActionEvent evt) {
+                new Fbuku().setVisible(true);
+                this.dispose();
+        }
+
+        private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogoutActionPerformed
+                // TODO add your handling code here:
+                logout();
+        }// GEN-LAST:event_btnLogoutActionPerformed
+
+        private void btnPetugasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPetugasActionPerformed
+                // TODO add your handling code here:
+                new FormPetugas().setVisible(true);
+        }// GEN-LAST:event_btnPetugasActionPerformed
+
+        private void btnDendaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDendaActionPerformed
+                new Fdenda().setVisible(true);
+                this.dispose();
+        }// GEN-LAST:event_btnDendaActionPerformed
+
+        private void btnPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnPeminjamanActionPerformed
+                // TODO add your handling code here:
+                new peminjaman().setVisible(true);
+                this.dispose();
+        }// GEN-LAST:event_btnPeminjamanActionPerformed
+
+        /**
+         * @param args the command line arguments
+         */
+        public static void main(String args[]) {
+                /* Set the Nimbus look and feel */
+                // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+                // (optional) ">
+                /*
+                 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+                 * look and feel.
+                 * For details see
+                 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+                 */
+                try {
+                        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
+                                        .getInstalledLookAndFeels()) {
+                                if ("Nimbus".equals(info.getName())) {
+                                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                                        break;
+                                }
+                        }
+                } catch (ClassNotFoundException ex) {
+                        java.util.logging.Logger.getLogger(dashboard.class.getName())
+                                        .log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                        java.util.logging.Logger.getLogger(dashboard.class.getName())
+                                        .log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                        java.util.logging.Logger.getLogger(dashboard.class.getName())
+                                        .log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                        java.util.logging.Logger.getLogger(dashboard.class.getName())
+                                        .log(java.util.logging.Level.SEVERE, null, ex);
+                }
+                // </editor-fold>
+
+                /* Create and display the form */
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                                new dashboard().setVisible(true);
+                        }
+                });
+        }
+
+        // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JLabel Ltopmenu;
+        private javax.swing.JButton btnAnggota;
+        private javax.swing.JButton btnBuku;
+        private javax.swing.JButton btnDashboard;
+        private javax.swing.JButton btnDenda;
+        private javax.swing.JButton btnLaporan;
+        private javax.swing.JButton btnLogout;
+        private javax.swing.JButton btnPeminjaman;
+        private javax.swing.JButton btnPengembalian;
+        private javax.swing.JButton btnPetugas;
+        private javax.swing.JLabel jLabel1;
+        private javax.swing.JLabel jLabel10;
+        private javax.swing.JLabel jLabel11;
+        private javax.swing.JLabel jLabel12;
+        private javax.swing.JLabel jLabel13;
+        private javax.swing.JLabel jLabel14;
+        private javax.swing.JLabel jLabel15;
+        private javax.swing.JLabel jLabel16;
+        private javax.swing.JLabel jLabel17;
+        private javax.swing.JLabel jLabel18;
+        private javax.swing.JLabel jLabel2;
+        private javax.swing.JLabel jLabel3;
+        private javax.swing.JLabel jLabel4;
+        private javax.swing.JLabel jLabel5;
+        private javax.swing.JLabel jLabel6;
+        private javax.swing.JLabel jLabel7;
+        private javax.swing.JLabel jLabel8;
+        private javax.swing.JLabel jLabel9;
+        private javax.swing.JPanel jPanel1;
+        private javax.swing.JPanel jPanel3;
+        private javax.swing.JPanel jPanel4;
+        private javax.swing.JLabel ljdl;
+        private javax.swing.JPanel paneldb;
+        private javax.swing.JPanel panelinfo;
+        private javax.swing.JPanel panelsidebar;
+        private javax.swing.JPanel psbukupinjam;
+        private javax.swing.JPanel psterlambat;
+        private javax.swing.JPanel pstotalanggota;
+        private javax.swing.JPanel pstotalbuku;
+        // End of variables declaration//GEN-END:variables
 
 }

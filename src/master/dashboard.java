@@ -5,6 +5,7 @@
  */
 package master;
 
+import transaksi.Pengembalian;
 import transaksi.peminjaman;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -234,11 +235,6 @@ public class dashboard extends javax.swing.JFrame {
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
         btnBuku.setActionCommand("Data Buku");
-        btnBuku.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBukuActionPerformed(evt);
-            }
-        });
 
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
@@ -263,6 +259,11 @@ public class dashboard extends javax.swing.JFrame {
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
         btnPengembalian.setActionCommand("Pengembalian");
+        btnPengembalian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPengembalianActionPerformed(evt);
+            }
+        });
 
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
@@ -667,6 +668,12 @@ public class dashboard extends javax.swing.JFrame {
         new peminjaman().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPeminjamanActionPerformed
+
+    private void btnPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPengembalianActionPerformed
+        // TODO add your handling code here:
+        new Pengembalian().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPengembalianActionPerformed
 
     private void btnBukuActionPerformed(java.awt.event.ActionEvent evt) {
         new Fbuku().setVisible(true);

@@ -311,6 +311,9 @@
                     <Property name="text" type="java.lang.String" value=" Pengembalian"/>
                     <Property name="actionCommand" type="java.lang.String" value="Pengembalian"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPengembalianActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonCard()"/>
                   </AuxValues>

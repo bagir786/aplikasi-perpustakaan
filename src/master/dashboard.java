@@ -33,153 +33,127 @@ public class dashboard extends javax.swing.JFrame {
     /**
      * Creates new form dashboard
      */
-
     public dashboard() {
-        initComponents();  
-         getContentPane().setBackground(new Color(245, 247, 250));
-            
-         styleButton();
-         setIcons();
-         styleCards();
-         loadDashboard();
-         tampilWaktu();
-         
-         /*
-         paneldb.setBackground(new Color(41, 128, 185));
-         */
-         panelinfo.setBorder(
-         BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0,120,255))
-);
-         
-    }
-    private void logout() {
-    int confirm = JOptionPane.showConfirmDialog(
-        this,
-        "Anda yakin ingin keluar?",
-        "Konfirmasi Logout",
-        JOptionPane.YES_NO_OPTION
-            
-    );
+        initComponents();
+        getContentPane().setBackground(new Color(245, 247, 250));
 
-    if (confirm == JOptionPane.YES_OPTION) {
-        // 🔥 buka form login
-        new user.Flogin().setVisible(true);
+        styleButton();
+        setIcons();
+        styleCards();
+        loadDashboard();
+        tampilWaktu();
 
-        // 🔥 tutup dashboard
-        this.dispose();
-        
+        panelinfo.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0, 120, 255)));
     }
-}
+
     private void styleCards() {
-    JPanel[] cards = {
-        pstotalbuku, pstotalanggota, pspetugas, psbukupinjam
-    };
-
-    for (JPanel card : cards) {
-        card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    }
-}    private void styleButton() {
-    JButton[] buttons = {
-        btnDashboard, btnBuku, btnAnggota, btnPetugas,
-        btnPeminjaman, btnPengembalian, btnDenda,
-        btnLaporan, btnLogout
-    };
-
-    for (JButton btn : buttons) {
-        styleButton(btn);
-        btn.setHorizontalAlignment(SwingConstants.LEFT);
-        btn.setHorizontalTextPosition(SwingConstants.RIGHT);
-        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        btn.setOpaque(false);
-        btn.setContentAreaFilled(false);
-        btn.setBorderPainted(false);
-        btn.setFocusPainted(true);
-        btn.setForeground(Color.BLACK);
-        btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        btn.setIconTextGap(10);
-    }
-}
-    private void styleButton(JButton btn) {
-            
-    // 🔥 HOVER EFFECT (TIMBUL + WARNA)
-    
-    btn.addMouseListener(new java.awt.event.MouseAdapter() {
-
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            btn.setOpaque(true);
-            btn.setBackground(new Color(153, 253, 255));
-            btn.setHorizontalAlignment(SwingConstants.RIGHT);
-            btn.setHorizontalTextPosition(SwingConstants.LEFT);
-          
-           
+        JPanel[] cards = {
+            pstotalbuku, pstotalanggota, pspetugas, psbukupinjam
+        };
+        for (JPanel card : cards) {
+            card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         }
+    }
 
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            btn.setOpaque(false);
+    private void styleButton() {
+        JButton[] buttons = {
+            btnDashboard, btnBuku, btnAnggota, btnPetugas,
+            btnPeminjaman, btnPengembalian, btnDenda,
+            btnLaporan, btnLogout
+        };
+
+        for (JButton btn : buttons) {
+            styleButton(btn);
             btn.setHorizontalAlignment(SwingConstants.LEFT);
             btn.setHorizontalTextPosition(SwingConstants.RIGHT);
+            btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+            btn.setOpaque(false);
+            btn.setContentAreaFilled(false);
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(true);
+            btn.setForeground(Color.BLACK);
+            btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btn.setIconTextGap(10);
         }
-    });
     }
-    
+
+    private void styleButton(JButton btn) {
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn.setOpaque(true);
+                btn.setBackground(new Color(153, 255, 255));
+                btn.setHorizontalAlignment(SwingConstants.RIGHT);
+                btn.setHorizontalTextPosition(SwingConstants.LEFT);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn.setOpaque(false);
+                btn.setHorizontalAlignment(SwingConstants.LEFT);
+                btn.setHorizontalTextPosition(SwingConstants.RIGHT);
+            }
+        });
+    }
+
     private void setIcons() {
-    btnDashboard.setIcon(resizeIcon("/assets/home.png"));
-    btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
-    btnAnggota.setIcon(resizeIcon("/assets/people.png"));
-    btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
-    btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
-    btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
-    btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
-    btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
-    btnLogout.setIcon(resizeIcon("/assets/logout.png"));
-}
+        btnDashboard.setIcon(resizeIcon("/assets/home.png"));
+        btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
+        btnAnggota.setIcon(resizeIcon("/assets/people.png"));
+        btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
+        btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
+        btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
+        btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
+        btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
+        btnLogout.setIcon(resizeIcon("/assets/logout.png"));
+    }
+
     private ImageIcon resizeIcon(String path) {
-    ImageIcon icon = new ImageIcon(getClass().getResource(path));
-    Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-    return new ImageIcon(img);
-    
-}
-       public int getCount(String query) {
-    int total = 0;
-    try {
-        Connection conn = koneksi.getConnection();
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
+        ImageIcon icon = new ImageIcon(getClass().getResource(path));
+        Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+    }
 
-        if (rs.next()) {
-            total = rs.getInt(1);
+    public int getCount(String query) {
+        int total = 0;
+        try {
+            Connection conn = koneksi.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
+        return total;
     }
-    return total;
-}
+
     public void loadDashboard() {
-        lAngkabuku.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM buku")
-        ));
-
-        lAnkaanggota.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM anggota")
-        ));
-
-        lAngkapetugas.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM petugas")
-        ));
-
-        lBukupinjam.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM detail_peminjaman WHERE status='dipinjam'")
-        ));
+        lAngkabuku.setText(String.valueOf(getCount("SELECT COUNT(*) FROM buku")));
+        lAnkaanggota.setText(String.valueOf(getCount("SELECT COUNT(*) FROM anggota")));
+        lAngkapetugas.setText(String.valueOf(getCount("SELECT COUNT(*) FROM petugas")));
+        lBukupinjam.setText(String.valueOf(getCount("SELECT COUNT(*) FROM detail_peminjaman WHERE status='dipinjam'")));
     }
+
     public void tampilWaktu() {
-    new javax.swing.Timer(1000, e -> {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss");
-        lblWaktu.setText(sdf.format(new Date()));
-    }).start();
-}
+        new javax.swing.Timer(1000, e -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss");
+            lblWaktu.setText(sdf.format(new Date()));
+        }).start();
+    }
+
+    private void logout() {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            new user.Flogin().setVisible(true);
+            this.dispose();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -260,6 +234,11 @@ public class dashboard extends javax.swing.JFrame {
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
         btnBuku.setActionCommand("Data Buku");
+        btnBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBukuActionPerformed(evt);
+            }
+        });
 
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
@@ -689,6 +668,11 @@ public class dashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnPeminjamanActionPerformed
 
+    private void btnBukuActionPerformed(java.awt.event.ActionEvent evt) {
+        new Fbuku().setVisible(true);
+        this.dispose();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -766,5 +750,4 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel pstotalanggota;
     private javax.swing.JPanel pstotalbuku;
     // End of variables declaration//GEN-END:variables
-
 }

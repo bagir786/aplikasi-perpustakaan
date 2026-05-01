@@ -526,19 +526,8 @@ public class FormPetugas extends javax.swing.JFrame {
 
     private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
-    tid.setText("");
-    tnama.setText("");
-    tuser.setText("");
-    tpass.setText("");
-    tnotelepon.setText("");
-
-    // hapus selection di tabel
-    tblpetugas.clearSelection();
-
-    // fokus ke ID lagi
-    tid.requestFocus();
-
-    JOptionPane.showMessageDialog(null, "Input Dibatalkan");
+        new dashboard().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnbatalActionPerformed
 
     private void btncariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncariActionPerformed

@@ -222,7 +222,7 @@ public class Flogin extends javax.swing.JFrame {
     try {
         Connection conn = koneksi.koneksi.getConnection();
 
-        String sql = "SELECT * FROM user WHERE username=? AND password=?";
+        String sql = "SELECT * FROM petugas WHERE username=? AND password=?";
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, username);

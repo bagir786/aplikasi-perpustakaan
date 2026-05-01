@@ -10,12 +10,18 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import koneksi.koneksi;
 import transaksi.Fdenda;
 
 /**
@@ -31,10 +37,12 @@ public class dashboard extends javax.swing.JFrame {
     public dashboard() {
         initComponents();  
          getContentPane().setBackground(new Color(245, 247, 250));
-         
+            
          styleButton();
          setIcons();
          styleCards();
+         loadDashboard();
+         tampilWaktu();
          
          /*
          paneldb.setBackground(new Color(41, 128, 185));
@@ -64,7 +72,7 @@ public class dashboard extends javax.swing.JFrame {
 }
     private void styleCards() {
     JPanel[] cards = {
-        pstotalbuku, pstotalanggota, psbukupinjam, psterlambat
+        pstotalbuku, pstotalanggota, pspetugas, psbukupinjam
     };
 
     for (JPanel card : cards) {
@@ -133,6 +141,45 @@ public class dashboard extends javax.swing.JFrame {
     return new ImageIcon(img);
     
 }
+       public int getCount(String query) {
+    int total = 0;
+    try {
+        Connection conn = koneksi.getConnection();
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        if (rs.next()) {
+            total = rs.getInt(1);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return total;
+}
+    public void loadDashboard() {
+        lAngkabuku.setText(String.valueOf(
+            getCount("SELECT COUNT(*) FROM buku")
+        ));
+
+        lAnkaanggota.setText(String.valueOf(
+            getCount("SELECT COUNT(*) FROM anggota")
+        ));
+
+        lAngkapetugas.setText(String.valueOf(
+            getCount("SELECT COUNT(*) FROM petugas")
+        ));
+
+        lBukupinjam.setText(String.valueOf(
+            getCount("SELECT COUNT(*) FROM detail_peminjaman WHERE status='dipinjam'")
+        ));
+    }
+    public void tampilWaktu() {
+    new javax.swing.Timer(1000, e -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss");
+        lblWaktu.setText(sdf.format(new Date()));
+    }).start();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -162,26 +209,27 @@ public class dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         pstotalbuku = new PanelCard();
         jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lAngkabuku = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pstotalanggota = new PanelCard();
         jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lAnkaanggota = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        psbukupinjam = new PanelCard();
+        pspetugas = new PanelCard();
         jLabel4 = new javax.swing.JLabel();
+        lAngkapetugas = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        psbukupinjam = new PanelCard();
+        jLabel6 = new javax.swing.JLabel();
+        lBukupinjam = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        psterlambat = new PanelCard();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         panelinfo = new PanelCard();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        lblWaktu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -328,23 +376,23 @@ public class dashboard extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        ljdl.setFont(new java.awt.Font("Arial Narrow", 1, 28)); // NOI18N
+        ljdl.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         ljdl.setText("Dashboard");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
 
         pstotalbuku.setBackground(new java.awt.Color(255, 255, 255));
         pstotalbuku.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        pstotalbuku.setPreferredSize(new java.awt.Dimension(120, 137));
+        pstotalbuku.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book-open-text.png"))); // NOI18N
         jLabel2.setMaximumSize(new java.awt.Dimension(24, 24));
         jLabel2.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("100");
+        lAngkabuku.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAngkabuku.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lAngkabuku.setText("0");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -355,7 +403,7 @@ public class dashboard extends javax.swing.JFrame {
         pstotalbukuLayout.setHorizontalGroup(
             pstotalbukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lAngkabuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pstotalbukuLayout.setVerticalGroup(
@@ -364,23 +412,24 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(lAngkabuku)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pstotalanggota.setBackground(new java.awt.Color(255, 255, 255));
         pstotalanggota.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        pstotalanggota.setPreferredSize(new java.awt.Dimension(120, 137));
+        pstotalanggota.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/anggota.png"))); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("50");
+        lAnkaanggota.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAnkaanggota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lAnkaanggota.setText("0");
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Total Anggota");
 
@@ -389,7 +438,7 @@ public class dashboard extends javax.swing.JFrame {
         pstotalanggotaLayout.setHorizontalGroup(
             pstotalanggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lAnkaanggota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pstotalanggotaLayout.setVerticalGroup(
@@ -398,22 +447,59 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(lAnkaanggota)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        psbukupinjam.setBackground(new java.awt.Color(255, 255, 255));
-        psbukupinjam.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+        pspetugas.setBackground(new java.awt.Color(255, 255, 255));
+        pspetugas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+        pspetugas.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-books.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant_11zon.png"))); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAngkapetugas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAngkapetugas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lAngkapetugas.setText("0");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("10");
+        jLabel10.setText("Total Petugas");
 
+        javax.swing.GroupLayout pspetugasLayout = new javax.swing.GroupLayout(pspetugas);
+        pspetugas.setLayout(pspetugasLayout);
+        pspetugasLayout.setHorizontalGroup(
+            pspetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lAngkapetugas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        pspetugasLayout.setVerticalGroup(
+            pspetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pspetugasLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lAngkapetugas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        psbukupinjam.setBackground(new java.awt.Color(255, 255, 255));
+        psbukupinjam.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+        psbukupinjam.setPreferredSize(new java.awt.Dimension(120, 120));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-books.png"))); // NOI18N
+
+        lBukupinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lBukupinjam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lBukupinjam.setText("0");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Buku Dipinjam");
 
@@ -421,63 +507,31 @@ public class dashboard extends javax.swing.JFrame {
         psbukupinjam.setLayout(psbukupinjamLayout);
         psbukupinjamLayout.setHorizontalGroup(
             psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lBukupinjam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         psbukupinjamLayout.setVerticalGroup(
             psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(psbukupinjamLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel4)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(lBukupinjam)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        psterlambat.setBackground(new java.awt.Color(255, 255, 255));
-        psterlambat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
-        psterlambat.setPreferredSize(new java.awt.Dimension(120, 137));
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/danger.png"))); // NOI18N
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("3");
-
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Terlambat");
-
-        javax.swing.GroupLayout psterlambatLayout = new javax.swing.GroupLayout(psterlambat);
-        psterlambat.setLayout(psterlambatLayout);
-        psterlambatLayout.setHorizontalGroup(
-            psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        psterlambatLayout.setVerticalGroup(
-            psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(psterlambatLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelinfo.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("Informasi Sistem");
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel15.setText("Selamat datang di Sistem Informasi Managemen Perpustakaan.");
 
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel16.setText("Gunakan menu di samping untuk mengelola data dan transaksi.");
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -487,7 +541,7 @@ public class dashboard extends javax.swing.JFrame {
         panelinfo.setLayout(panelinfoLayout);
         panelinfoLayout.setHorizontalGroup(
             panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelinfoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelinfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelinfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
@@ -510,10 +564,13 @@ public class dashboard extends javax.swing.JFrame {
             .addGroup(panelinfoLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel18.setText("Selamat datang, Admin 👋");
+
+        lblWaktu.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
+        lblWaktu.setText("Time");
 
         javax.swing.GroupLayout paneldbLayout = new javax.swing.GroupLayout(paneldb);
         paneldb.setLayout(paneldbLayout);
@@ -521,25 +578,33 @@ public class dashboard extends javax.swing.JFrame {
             paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneldbLayout.createSequentialGroup()
                 .addComponent(panelsidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneldbLayout.createSequentialGroup()
-                        .addComponent(ljdl, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 258, Short.MAX_VALUE)
-                        .addComponent(jLabel18)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(panelinfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(paneldbLayout.createSequentialGroup()
-                            .addComponent(pstotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(pstotalanggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(psbukupinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(psterlambat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                        .addGap(21, 21, 21)
+                        .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldbLayout.createSequentialGroup()
+                                .addComponent(ljdl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel18)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35))
+                            .addGroup(paneldbLayout.createSequentialGroup()
+                                .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(panelinfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneldbLayout.createSequentialGroup()
+                                        .addComponent(pstotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(pstotalanggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(pspetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(psbukupinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(39, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldbLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblWaktu)
+                        .addGap(69, 69, 69))))
         );
         paneldbLayout.setVerticalGroup(
             paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,13 +621,15 @@ public class dashboard extends javax.swing.JFrame {
                             .addComponent(ljdl))))
                 .addGap(18, 18, 18)
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(psterlambat, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                     .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                     .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pspetugas, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblWaktu)
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -570,7 +637,7 @@ public class dashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Ltopmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(paneldb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(paneldb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,7 +651,7 @@ public class dashboard extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,6 +663,8 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
         // TODO add your handling code here:
+        new dashboard().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnDashboardActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -669,8 +738,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -679,20 +746,23 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lAngkabuku;
+    private javax.swing.JLabel lAngkapetugas;
+    private javax.swing.JLabel lAnkaanggota;
+    private javax.swing.JLabel lBukupinjam;
+    private javax.swing.JLabel lblWaktu;
     private javax.swing.JLabel ljdl;
     private javax.swing.JPanel paneldb;
     private javax.swing.JPanel panelinfo;
     private javax.swing.JPanel panelsidebar;
     private javax.swing.JPanel psbukupinjam;
-    private javax.swing.JPanel psterlambat;
+    private javax.swing.JPanel pspetugas;
     private javax.swing.JPanel pstotalanggota;
     private javax.swing.JPanel pstotalbuku;
     // End of variables declaration//GEN-END:variables

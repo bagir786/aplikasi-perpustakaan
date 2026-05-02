@@ -49,7 +49,7 @@ public class dashboard extends javax.swing.JFrame {
 
         panelinfo.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0, 120, 255)));
     }
-
+    
     private void styleCards() {
         JPanel[] cards = {
             pstotalbuku, pstotalanggota, pspetugas, psbukupinjam

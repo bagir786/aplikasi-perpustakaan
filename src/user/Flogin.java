@@ -20,7 +20,7 @@ public class Flogin extends javax.swing.JFrame {
      */
    public Flogin() {
     initComponents();
-
+        setLocationRelativeTo(null);
     // ===== USERNAME =====
     tuser.setText("Masukkan username...");
     tuser.setForeground(Color.GRAY);

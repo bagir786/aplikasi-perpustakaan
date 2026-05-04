@@ -36,6 +36,7 @@ public class dashboard extends javax.swing.JFrame {
      */
     public dashboard() {
         initComponents();
+        setLocationRelativeTo(null);
         getContentPane().setBackground(new Color(245, 247, 250));
 
         styleButton();
@@ -128,7 +129,7 @@ public class dashboard extends javax.swing.JFrame {
         }
         return total;
     }
-
+    
     public void loadDashboard() {
         lAngkabuku.setText(String.valueOf(getCount("SELECT COUNT(*) FROM buku")));
         lAnkaanggota.setText(String.valueOf(getCount("SELECT COUNT(*) FROM anggota")));

@@ -5,6 +5,7 @@
  */
 package master;
 
+import transaksi.Pengembalian;
 import transaksi.peminjaman;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -33,153 +34,128 @@ public class dashboard extends javax.swing.JFrame {
     /**
      * Creates new form dashboard
      */
-
     public dashboard() {
-        initComponents();  
-         getContentPane().setBackground(new Color(245, 247, 250));
-            
-         styleButton();
-         setIcons();
-         styleCards();
-         loadDashboard();
-         tampilWaktu();
-         
-         /*
-         paneldb.setBackground(new Color(41, 128, 185));
-         */
-         panelinfo.setBorder(
-         BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0,120,255))
-);
-         
-    }
-    private void logout() {
-    int confirm = JOptionPane.showConfirmDialog(
-        this,
-        "Anda yakin ingin keluar?",
-        "Konfirmasi Logout",
-        JOptionPane.YES_NO_OPTION
-            
-    );
+        initComponents();
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(new Color(245, 247, 250));
 
-    if (confirm == JOptionPane.YES_OPTION) {
-        // 🔥 buka form login
-        new user.Flogin().setVisible(true);
+        styleButton();
+        setIcons();
+        styleCards();
+        loadDashboard();
+        tampilWaktu();
 
-        // 🔥 tutup dashboard
-        this.dispose();
-        
+        panelinfo.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0, 120, 255)));
     }
-}
-    private void styleCards() {
-    JPanel[] cards = {
-        pstotalbuku, pstotalanggota, pspetugas, psbukupinjam
-    };
-
-    for (JPanel card : cards) {
-        card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    }
-}    private void styleButton() {
-    JButton[] buttons = {
-        btnDashboard, btnBuku, btnAnggota, btnPetugas,
-        btnPeminjaman, btnPengembalian, btnDenda,
-        btnLaporan, btnLogout
-    };
-
-    for (JButton btn : buttons) {
-        styleButton(btn);
-        btn.setHorizontalAlignment(SwingConstants.LEFT);
-        btn.setHorizontalTextPosition(SwingConstants.RIGHT);
-        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        btn.setOpaque(false);
-        btn.setContentAreaFilled(false);
-        btn.setBorderPainted(false);
-        btn.setFocusPainted(true);
-        btn.setForeground(Color.BLACK);
-        btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        btn.setIconTextGap(10);
-    }
-}
-    private void styleButton(JButton btn) {
-            
-    // 🔥 HOVER EFFECT (TIMBUL + WARNA)
     
-    btn.addMouseListener(new java.awt.event.MouseAdapter() {
-
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            btn.setOpaque(true);
-            btn.setBackground(new Color(153, 253, 255));
-            btn.setHorizontalAlignment(SwingConstants.RIGHT);
-            btn.setHorizontalTextPosition(SwingConstants.LEFT);
-          
-           
+    private void styleCards() {
+        JPanel[] cards = {
+            pstotalbuku, pstotalanggota, pspetugas, psbukupinjam
+        };
+        for (JPanel card : cards) {
+            card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         }
+    }
 
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            btn.setOpaque(false);
+    private void styleButton() {
+        JButton[] buttons = {
+            btnDashboard, btnBuku, btnAnggota, btnPetugas,
+            btnPeminjaman, btnPengembalian, btnDenda,
+            btnLaporan, btnLogout
+        };
+
+        for (JButton btn : buttons) {
+            styleButton(btn);
             btn.setHorizontalAlignment(SwingConstants.LEFT);
             btn.setHorizontalTextPosition(SwingConstants.RIGHT);
+            btn.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+            btn.setOpaque(false);
+            btn.setContentAreaFilled(false);
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(true);
+            btn.setForeground(Color.BLACK);
+            btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btn.setIconTextGap(10);
         }
-    });
     }
-    
+
+    private void styleButton(JButton btn) {
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn.setOpaque(true);
+                btn.setBackground(new Color(153, 255, 255));
+                btn.setHorizontalAlignment(SwingConstants.RIGHT);
+                btn.setHorizontalTextPosition(SwingConstants.LEFT);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn.setOpaque(false);
+                btn.setHorizontalAlignment(SwingConstants.LEFT);
+                btn.setHorizontalTextPosition(SwingConstants.RIGHT);
+            }
+        });
+    }
+
     private void setIcons() {
-    btnDashboard.setIcon(resizeIcon("/assets/home.png"));
-    btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
-    btnAnggota.setIcon(resizeIcon("/assets/people.png"));
-    btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
-    btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
-    btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
-    btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
-    btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
-    btnLogout.setIcon(resizeIcon("/assets/logout.png"));
-}
+        btnDashboard.setIcon(resizeIcon("/assets/home.png"));
+        btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
+        btnAnggota.setIcon(resizeIcon("/assets/people.png"));
+        btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
+        btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
+        btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
+        btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
+        btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
+        btnLogout.setIcon(resizeIcon("/assets/logout.png"));
+    }
+
     private ImageIcon resizeIcon(String path) {
-    ImageIcon icon = new ImageIcon(getClass().getResource(path));
-    Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-    return new ImageIcon(img);
-    
-}
-       public int getCount(String query) {
-    int total = 0;
-    try {
-        Connection conn = koneksi.getConnection();
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
+        ImageIcon icon = new ImageIcon(getClass().getResource(path));
+        Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+    }
 
-        if (rs.next()) {
-            total = rs.getInt(1);
+    public int getCount(String query) {
+        int total = 0;
+        try {
+            Connection conn = koneksi.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
+        return total;
     }
-    return total;
-}
+    
     public void loadDashboard() {
-        lAngkabuku.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM buku")
-        ));
-
-        lAnkaanggota.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM anggota")
-        ));
-
-        lAngkapetugas.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM petugas")
-        ));
-
-        lBukupinjam.setText(String.valueOf(
-            getCount("SELECT COUNT(*) FROM detail_peminjaman WHERE status='dipinjam'")
-        ));
+        lAngkabuku.setText(String.valueOf(getCount("SELECT COUNT(*) FROM buku")));
+        lAnkaanggota.setText(String.valueOf(getCount("SELECT COUNT(*) FROM anggota")));
+        lAngkapetugas.setText(String.valueOf(getCount("SELECT COUNT(*) FROM petugas")));
+        lBukupinjam.setText(String.valueOf(getCount("SELECT COUNT(*) FROM detail_peminjaman WHERE status='dipinjam'")));
     }
+
     public void tampilWaktu() {
-    new javax.swing.Timer(1000, e -> {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss");
-        lblWaktu.setText(sdf.format(new Date()));
-    }).start();
-}
+        new javax.swing.Timer(1000, e -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss");
+            lblWaktu.setText(sdf.format(new Date()));
+        }).start();
+    }
+
+    private void logout() {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Anda yakin ingin keluar?",
+                "Konfirmasi Logout",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            new user.Flogin().setVisible(true);
+            this.dispose();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -235,7 +211,7 @@ public class dashboard extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
-        Ltopmenu.setBackground(new java.awt.Color(204, 255, 255));
+        Ltopmenu.setBackground(new java.awt.Color(0, 51, 102));
         Ltopmenu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         Ltopmenu.setForeground(new java.awt.Color(255, 255, 255));
         Ltopmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -247,6 +223,7 @@ public class dashboard extends javax.swing.JFrame {
         panelsidebar.setBackground(new java.awt.Color(255, 255, 255));
         panelsidebar.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
 
+        btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
         btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
@@ -257,14 +234,22 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnBuku.setBackground(new java.awt.Color(200, 230, 255));
+        btnBuku.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
         btnBuku.setActionCommand("Data Buku");
+        btnBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBukuActionPerformed(evt);
+            }
+        });
 
+        btnAnggota.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
         btnAnggota.setActionCommand("Data Anggota");
 
+        btnPetugas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
         btnPetugas.setText("Data Petugas");
         btnPetugas.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +258,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        btnPeminjaman.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
         btnPeminjaman.setText("Peminjaman");
         btnPeminjaman.addActionListener(new java.awt.event.ActionListener() {
@@ -281,10 +267,17 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        btnPengembalian.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
         btnPengembalian.setActionCommand("Pengembalian");
+        btnPengembalian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPengembalianActionPerformed(evt);
+            }
+        });
 
+        btnDenda.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
         btnDenda.setActionCommand("Denda");
@@ -294,9 +287,11 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
+        btnLaporan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
         btnLaporan.setText("Laporan");
 
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -390,7 +385,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel2.setMaximumSize(new java.awt.Dimension(24, 24));
         jLabel2.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        lAngkabuku.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAngkabuku.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lAngkabuku.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAngkabuku.setText("0");
 
@@ -414,7 +409,7 @@ public class dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lAngkabuku)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -425,7 +420,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/anggota.png"))); // NOI18N
 
-        lAnkaanggota.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAnkaanggota.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lAnkaanggota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAnkaanggota.setText("0");
 
@@ -460,7 +455,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant_11zon.png"))); // NOI18N
 
-        lAngkapetugas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lAngkapetugas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lAngkapetugas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAngkapetugas.setText("0");
 
@@ -495,7 +490,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-books.png"))); // NOI18N
 
-        lBukupinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lBukupinjam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lBukupinjam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lBukupinjam.setText("0");
 
@@ -636,8 +631,8 @@ public class dashboard extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Ltopmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(paneldb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Ltopmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -688,6 +683,19 @@ public class dashboard extends javax.swing.JFrame {
         new peminjaman().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPeminjamanActionPerformed
+
+    private void btnPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPengembalianActionPerformed
+        // TODO add your handling code here:
+        new Pengembalian().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPengembalianActionPerformed
+
+    private void btnBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBukuActionPerformed
+        // TODO add your handling code here:
+        new Fbuku().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBukuActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -766,5 +774,4 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel pstotalanggota;
     private javax.swing.JPanel pstotalbuku;
     // End of variables declaration//GEN-END:variables
-
 }

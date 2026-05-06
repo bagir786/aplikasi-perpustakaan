@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master;
+package tampilanawal;
 
+import stylecard.PanelCard;
+import stylecard.ButtonCard;
 import transaksi.Pengembalian;
 import transaksi.peminjaman;
 import java.awt.Color;
@@ -23,6 +25,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import koneksi.koneksi;
+import master.DataAnggota;
+import master.Fbuku;
+import master.FormPetugas;
 import transaksi.Fdenda;
 
 /**

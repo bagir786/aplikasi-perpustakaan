@@ -231,7 +231,7 @@ public class Flogin extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Login Berhasil!");
 
             // pindah ke form berikutnya (misal menu utama)
-            new master.dashboard().setVisible(true);
+            new tampilanawal.dashboard().setVisible(true);
             this.dispose();
 
         } else {

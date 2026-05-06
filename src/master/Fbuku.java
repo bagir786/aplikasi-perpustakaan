@@ -659,7 +659,7 @@ public class Fbuku extends javax.swing.JFrame {
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnBatalActionPerformed
         // Kembali ke Dashboard
-        new master.dashboard().setVisible(true);
+        new tampilanawal.dashboard().setVisible(true);
         this.dispose();
     }// GEN-LAST:event_btnBatalActionPerformed
 
@@ -932,4 +932,3 @@ public class Fbuku extends javax.swing.JFrame {
         
     
 
-    

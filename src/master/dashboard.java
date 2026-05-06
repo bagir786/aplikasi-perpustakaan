@@ -5,7 +5,10 @@
  */
 package master;
 
+<<<<<<< HEAD
+=======
 import transaksi.Pengembalian;
+>>>>>>> main
 import transaksi.peminjaman;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -514,8 +517,47 @@ public class dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lBukupinjam)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+<<<<<<< HEAD
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        psterlambat.setBackground(new java.awt.Color(255, 255, 255));
+        psterlambat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
+        psterlambat.setPreferredSize(new java.awt.Dimension(120, 137));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/danger.png"))); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("3");
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Terlambat");
+
+        javax.swing.GroupLayout psterlambatLayout = new javax.swing.GroupLayout(psterlambat);
+        psterlambat.setLayout(psterlambatLayout);
+        psterlambatLayout.setHorizontalGroup(
+            psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        psterlambatLayout.setVerticalGroup(
+            psterlambatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(psterlambatLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addContainerGap())
+=======
                 .addComponent(jLabel11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> main
         );
 
         panelinfo.setBackground(new java.awt.Color(255, 255, 255));
@@ -616,10 +658,17 @@ public class dashboard extends javax.swing.JFrame {
                             .addComponent(ljdl))))
                 .addGap(18, 18, 18)
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+<<<<<<< HEAD
+                    .addComponent(psterlambat, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
                     .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                     .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                     .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                     .addComponent(pspetugas, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+>>>>>>> main
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -683,6 +732,8 @@ public class dashboard extends javax.swing.JFrame {
         new peminjaman().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPeminjamanActionPerformed
+<<<<<<< HEAD
+=======
 
     private void btnPengembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPengembalianActionPerformed
         // TODO add your handling code here:
@@ -694,8 +745,13 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Fbuku().setVisible(true);
         this.dispose();
+<<<<<<< HEAD
     }//GEN-LAST:event_btnBukuActionPerformed
 
+=======
+    }
+>>>>>>> main
+>>>>>>> 69ddd53dae1f1a8929ecba25ac734edd05107d62
 
     /**
      * @param args the command line arguments

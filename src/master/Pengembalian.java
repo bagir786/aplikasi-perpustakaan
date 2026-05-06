@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package master;
-
+import javax.swing.ImageIcon;
+import java.awt.Image;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -18,16 +19,71 @@ public class Pengembalian extends javax.swing.JFrame {
     
     public Pengembalian() {
     initComponents();
+    
+    cbtanggal.setDate(null);
+    cbtanggal.setDateFormat(new java.text.SimpleDateFormat(" "));
+
+    tidkembali.setText(generateIdKembali());
+    loadIdPinjam();
+    
     getContentPane().setBackground(java.awt.Color.WHITE);
     
-      cbcalender.setDateFormat(new SimpleDateFormat(""));
-        clearTable();
-    }
+    ImageIcon iconProses = new ImageIcon(getClass().getResource("/assets/iconcheck.png"));
+    Image imgProses = iconProses.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    btnproses.setIcon(new ImageIcon(imgProses));
 
-    private void clearTable() {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
+    ImageIcon iconDenda = new ImageIcon(getClass().getResource("/assets/iconcalculator.png"));
+    Image imgDenda = iconDenda.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    btnhitungdenda.setIcon(new ImageIcon(imgDenda));
+
+    ImageIcon iconBatal = new ImageIcon(getClass().getResource("/assets/iconcancel.png"));
+    Image imgBatal = iconBatal.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    btnbatal.setIcon(new ImageIcon(imgBatal));
+    
+    btnproses.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    btnproses.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+    btnproses.setIconTextGap(10);
+
+    btnhitungdenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    btnhitungdenda.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+    btnhitungdenda.setIconTextGap(10);
+
+    btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    btnbatal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+    btnbatal.setIconTextGap(10);
+    
+    cbidpinjam.setEditable(true); 
+    
+    btnproses.setBackground(new java.awt.Color(0,153,51));
+    btnhitungdenda.setBackground(new java.awt.Color(255,204,51));
+    btnbatal.setBackground(new java.awt.Color(158,158,158));
+    
+    btnproses.setForeground(java.awt.Color.WHITE);
+    btnhitungdenda.setForeground(java.awt.Color.BLACK);
+    btnbatal.setForeground(java.awt.Color.WHITE);
+
+    btnproses.setFocusPainted(false);
+    btnhitungdenda.setFocusPainted(false);
+    btnbatal.setFocusPainted(false);
+
+    btnproses.setBorderPainted(false);
+    btnhitungdenda.setBorderPainted(false);
+    btnbatal.setBorderPainted(false);
+
+    btnproses.setOpaque(true);
+    btnhitungdenda.setOpaque(true);
+    btnbatal.setOpaque(true);
     }
+    
+    private void loadIdPinjam() {
+            cbidpinjam.removeAllItems();
+            cbidpinjam.addItem("-- Pilih ID Pinjam --");
+    String[] dataPinjam = {"PM0001", "PM0002", "PM0003"};
+
+    for (String id : dataPinjam) {
+        cbidpinjam.addItem(id);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,81 +93,129 @@ public class Pengembalian extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnproseskembali = new javax.swing.JButton();
-        btnbatal = new javax.swing.JButton();
-        lbltotalbuku = new javax.swing.JLabel();
-        ttotalbuku = new javax.swing.JTextField();
-        tpengembalianbuku = new javax.swing.JLabel();
-        lblnama = new javax.swing.JLabel();
-        lbltglkembali = new javax.swing.JLabel();
-        lblkdbuku = new javax.swing.JLabel();
-        tnama = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        tdaftarbukudikembaliakan = new javax.swing.JLabel();
-        btnhitungdenda = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        panelUtama = new javax.swing.JPanel();
+        panelHeader = new javax.swing.JPanel();
+        lblHeader = new javax.swing.JLabel();
+        panelJudul = new javax.swing.JPanel();
+        lblJudul = new javax.swing.JLabel();
+        panelForm = new javax.swing.JPanel();
+        lblidkembali = new javax.swing.JLabel();
+        lbltanggalkembali = new javax.swing.JLabel();
+        lblidpinjam = new javax.swing.JLabel();
+        tidkembali = new javax.swing.JTextField();
+        cbtanggal = new de.wannawork.jcalendar.JCalendarComboBox();
         cbidpinjam = new javax.swing.JComboBox<>();
-        cbcalender = new de.wannawork.jcalendar.JCalendarComboBox();
+        panelTabel = new javax.swing.JPanel();
+        scrolltabel = new javax.swing.JScrollPane();
+        tblpengembalian = new javax.swing.JTable();
+        panelAksi = new javax.swing.JPanel();
+        lblstatus = new javax.swing.JLabel();
+        lbltotaldenda = new javax.swing.JLabel();
+        ttotaldenda = new javax.swing.JTextField();
+        btnproses = new javax.swing.JButton();
+        btnhitungdenda = new javax.swing.JButton();
+        btnbatal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1049, 785));
 
-        btnproseskembali.setBackground(new java.awt.Color(0, 153, 51));
-        btnproseskembali.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnproseskembali.setForeground(new java.awt.Color(255, 255, 255));
-        btnproseskembali.setText("Proses Kembali");
-        btnproseskembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnproseskembaliActionPerformed(evt);
-            }
-        });
+        panelHeader.setBackground(new java.awt.Color(0, 51, 102));
 
-        btnbatal.setBackground(new java.awt.Color(102, 102, 102));
-        btnbatal.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnbatal.setForeground(new java.awt.Color(255, 255, 255));
-        btnbatal.setText("Batal");
-        btnbatal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbatalActionPerformed(evt);
-            }
-        });
+        lblHeader.setBackground(new java.awt.Color(255, 255, 255));
+        lblHeader.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblHeader.setForeground(new java.awt.Color(255, 255, 255));
+        lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHeader.setText("Sistem Informasi Manajemen Perpustakaan");
 
-        lbltotalbuku.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbltotalbuku.setText("Total Denda");
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblHeader)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        tpengembalianbuku.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        tpengembalianbuku.setText("Pengembalian Buku");
+        lblJudul.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblJudul.setText("Pengembalian Buku");
 
-        lblnama.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lblnama.setText("ID Kembali");
+        javax.swing.GroupLayout panelJudulLayout = new javax.swing.GroupLayout(panelJudul);
+        panelJudul.setLayout(panelJudulLayout);
+        panelJudulLayout.setHorizontalGroup(
+            panelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelJudulLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblJudul)
+                .addContainerGap(435, Short.MAX_VALUE))
+        );
+        panelJudulLayout.setVerticalGroup(
+            panelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelJudulLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblJudul)
+                .addContainerGap())
+        );
 
-        lbltglkembali.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbltglkembali.setText("Tanggal Kembali");
+        lblidkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblidkembali.setText("ID Kembali");
 
-        lblkdbuku.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lblkdbuku.setText("ID Pinjam");
+        lbltanggalkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbltanggalkembali.setText("Tanggal Kembali");
 
-        tnama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tnamaActionPerformed(evt);
-            }
-        });
+        lblidpinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblidpinjam.setText("ID Pinjam");
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tidkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        cbidpinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cbidpinjam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
+        panelForm.setLayout(panelFormLayout);
+        panelFormLayout.setHorizontalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblidkembali)
+                    .addComponent(lbltanggalkembali)
+                    .addComponent(lblidpinjam))
+                .addGap(81, 81, 81)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tidkembali)
+                        .addComponent(cbidpinjam, 0, 250, Short.MAX_VALUE))
+                    .addComponent(cbtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelFormLayout.setVerticalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tidkembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblidkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbltanggalkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        panelTabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Daftar Buku yang Dikembalikan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+
+        tblpengembalian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -120,246 +224,241 @@ public class Pengembalian extends javax.swing.JFrame {
             new String [] {
                 "No", "ID Buku", "Judul Buku", "Tgl Pinjam", "Tgl Kembali", "Terlambat (Hari)"
             }
-        ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        scrolltabel.setViewportView(tblpengembalian);
 
-        tdaftarbukudikembaliakan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tdaftarbukudikembaliakan.setText("Daftar Buku Yang Dikembalikan");
+        lblstatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblstatus.setText("Status: -");
 
-        btnhitungdenda.setBackground(new java.awt.Color(255, 204, 51));
-        btnhitungdenda.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnhitungdenda.setForeground(new java.awt.Color(255, 255, 255));
+        lbltotaldenda.setText("Total Denda");
+
+        ttotaldenda.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        ttotaldenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ttotaldenda.setText("Rp 0");
+        ttotaldenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttotaldendaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAksiLayout = new javax.swing.GroupLayout(panelAksi);
+        panelAksi.setLayout(panelAksiLayout);
+        panelAksiLayout.setHorizontalGroup(
+            panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAksiLayout.createSequentialGroup()
+                .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panelAksiLayout.createSequentialGroup()
+                .addGap(297, 297, 297)
+                .addComponent(lbltotaldenda)
+                .addGap(18, 18, 18)
+                .addComponent(ttotaldenda, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
+        );
+        panelAksiLayout.setVerticalGroup(
+            panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAksiLayout.createSequentialGroup()
+                .addGroup(panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelAksiLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ttotaldenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbltotaldenda)))
+                    .addGroup(panelAksiLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(22, 22, 22))
+        );
+
+        btnproses.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnproses.setText("Proses Kembali");
+        btnproses.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnproses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprosesActionPerformed(evt);
+            }
+        });
+
+        btnhitungdenda.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btnhitungdenda.setText("Hitung Denda");
+        btnhitungdenda.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnhitungdenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhitungdendaActionPerformed(evt);
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        btnbatal.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnbatal.setText("Batal");
+        btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Sistem Informasi Manajemen Perpustakaan");
+        javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
+        panelTabel.setLayout(panelTabelLayout);
+        panelTabelLayout.setHorizontalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrolltabel)
+            .addGroup(panelTabelLayout.createSequentialGroup()
+                .addComponent(panelAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnproses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(btnhitungdenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        panelTabelLayout.setVerticalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTabelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrolltabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelTabelLayout.createSequentialGroup()
+                        .addComponent(btnproses)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnhitungdenda)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbatal)
+                        .addGap(0, 46, Short.MAX_VALUE))))
+        );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel2)
+        javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
+        panelUtama.setLayout(panelUtamaLayout);
+        panelUtamaLayout.setHorizontalGroup(
+            panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addComponent(panelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 151, Short.MAX_VALUE))
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel2)
-                .addContainerGap(18, Short.MAX_VALUE))
+        panelUtamaLayout.setVerticalGroup(
+            panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
-
-        cbidpinjam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih ID Pinjam --" }));
-
-        cbcalender.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbcalenderAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(468, 468, 468)
-                                .addComponent(lbltotalbuku)
-                                .addGap(18, 18, 18)
-                                .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(155, 155, 155)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnproseskembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnhitungdenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(tpengembalianbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tdaftarbukudikembaliakan)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblkdbuku)
-                                    .addComponent(lbltglkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblnama, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbcalender, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(panelUtama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tpengembalianbuku)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblnama)
-                    .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbltglkembali)
-                    .addComponent(cbcalender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblkdbuku)
-                    .addComponent(cbidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(tdaftarbukudikembaliakan)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnproseskembali)
-                    .addComponent(lbltotalbuku)
-                    .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnhitungdenda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnbatal)
-                .addGap(96, 96, 96))
+            .addComponent(panelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnproseskembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproseskembaliActionPerformed
-    try {
-            String nama = tnama.getText();
-            String idPinjam = cbidpinjam.getSelectedItem().toString();
-           
-            Date tglKembali = (Date) cbcalender.getDate();
-            
-            if (tglKembali == null) {
-            JOptionPane.showMessageDialog(this, "Tanggal kembali belum dipilih!");
-            return;
-            }
-            
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String tglKembaliStr = sdf.format(tglKembali);
-            
-        
-            if (nama.isEmpty() || idPinjam.equals("-- Pilih ID Pinjam --")) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Data belum lengkap!");
-                return;
-            }
-
-            long waktu = tglKembali.getTime() - (7L * 24 * 60 * 60 * 1000);
-            Date tglPinjamDate = new Date(waktu);
-            String tglPinjam = sdf.format(tglPinjamDate);
-
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            int no = model.getRowCount() + 1;
-
-            model.addRow(new Object[]{
-                no,
-                idPinjam,
-                "Judul Buku",
-                tglPinjam,
-                tglKembaliStr,
-                0,
-                0
-            });
-
-            ttotalbuku.setText("0");
-
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnproseskembaliActionPerformed
-
-    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
-    tnama.setText("");
-    cbcalender.setDate(null);
-    ttotalbuku.setText("");
-
-    cbidpinjam.setSelectedIndex(0); 
-
-    javax.swing.table.DefaultTableModel model = 
-    (javax.swing.table.DefaultTableModel) jTable1.getModel();
-    model.setRowCount(0);
-
-    tnama.requestFocus();
-
-    javax.swing.JOptionPane.showMessageDialog(this, "Form berhasil direset!");
-    }//GEN-LAST:event_btnbatalActionPerformed
-
-    private void tnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tnamaActionPerformed
-
     private void btnhitungdendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhitungdendaActionPerformed
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblpengembalian.getModel();
 
-        int totalDenda = 0;
-        int dendaPerHari = 1000;
+int totalDenda = 0;
+int dendaPerHari = 1000;
 
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+try {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-            for (int i = 0; i < model.getRowCount(); i++) {
+    for (int i = 0; i < model.getRowCount(); i++) {
 
-                String tglPinjamStr = model.getValueAt(i, 3).toString();
-                String tglKembaliStr = model.getValueAt(i, 4).toString();
+        if (model.getValueAt(i, 3) == null || model.getValueAt(i, 4) == null) {
+            continue;
+        }
 
-                Date tglPinjam = sdf.parse(tglPinjamStr);
-                Date tglKembali = sdf.parse(tglKembaliStr);
+        String tglPinjamStr = model.getValueAt(i, 3).toString();
+        String tglKembaliStr = model.getValueAt(i, 4).toString();
 
-                long selisih = tglKembali.getTime() - tglPinjam.getTime();
-                long hari = selisih / (1000 * 60 * 60 * 24);
+        Date tglPinjam = sdf.parse(tglPinjamStr);
+        Date tglKembali = sdf.parse(tglKembaliStr);
 
-                int terlambat = (int) (hari - 7);
-                if (terlambat < 0) terlambat = 0;
+        long selisih = tglKembali.getTime() - tglPinjam.getTime();
+        long hari = selisih / (1000 * 60 * 60 * 24);
 
-                int denda = terlambat * dendaPerHari;
+        int terlambat = (int) (hari - 7);
+        if (terlambat < 0) terlambat = 0;
 
-                model.setValueAt(terlambat, i, 5);
-                model.setValueAt(denda, i, 6);
+        int denda = terlambat * dendaPerHari;
+        totalDenda += denda;
 
-                totalDenda += denda;
-            }
+        model.setValueAt(terlambat, i, 5);
+    }
 
-            ttotalbuku.setText(String.valueOf(totalDenda));
+    // ⬇️ ini disesuaikan dengan nama kamu
+    ttotaldenda.setText("Rp " + totalDenda);
 
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error hitung denda!");
-        }    
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "Error hitung denda: " + e.getMessage());
+}
     }//GEN-LAST:event_btnhitungdendaActionPerformed
 
-    private void cbcalenderAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbcalenderAncestorAdded
+    private void btnprosesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprosesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbcalenderAncestorAdded
+        String idKembali = tidkembali.getText();
+    String idPinjam = cbidpinjam.getSelectedItem().toString();
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    if (idKembali.isEmpty() || idPinjam.equals("-- Pilih ID Pinjam --")) {
+    JOptionPane.showMessageDialog(this, "Data belum lengkap!");
+        return;
+}
+    JOptionPane.showMessageDialog(this, "Pengembalian berhasil diproses!");
+
+    tidkembali.setText(generateIdKembali());
+    cbtanggal.setDate(null);
+    cbidpinjam.setSelectedIndex(0);
+    ttotaldenda.setText("Rp 0");
+    lblstatus.setText("Status: -");
+
+((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
+
+    Date tglKembali = cbtanggal.getDate();
+
+        if (idKembali.isEmpty() || 
+    idPinjam.equals("-- Pilih ID Pinjam --") || 
+    tglKembali == null) {
+
+    JOptionPane.showMessageDialog(this, "Data belum lengkap!");
+    return;
+    }//GEN-LAST:event_btnprosesActionPerformed
+}
+    private void ttotaldendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttotaldendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_ttotaldendaActionPerformed
 
+    private int counter = 1;
+    private String generateIdKembali() {
+    return String.format("KM%04d", counter++);
+}
     /**
      * @param args the command line arguments
      */
@@ -395,23 +494,29 @@ public class Pengembalian extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbatal;
     private javax.swing.JButton btnhitungdenda;
-    private javax.swing.JButton btnproseskembali;
-    private de.wannawork.jcalendar.JCalendarComboBox cbcalender;
+    private javax.swing.JButton btnproses;
     private javax.swing.JComboBox<String> cbidpinjam;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblkdbuku;
-    private javax.swing.JLabel lblnama;
-    private javax.swing.JLabel lbltglkembali;
-    private javax.swing.JLabel lbltotalbuku;
-    private javax.swing.JLabel tdaftarbukudikembaliakan;
-    private javax.swing.JTextField tnama;
-    private javax.swing.JLabel tpengembalianbuku;
-    private javax.swing.JTextField ttotalbuku;
+    private de.wannawork.jcalendar.JCalendarComboBox cbtanggal;
+    private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblidkembali;
+    private javax.swing.JLabel lblidpinjam;
+    private javax.swing.JLabel lblstatus;
+    private javax.swing.JLabel lbltanggalkembali;
+    private javax.swing.JLabel lbltotaldenda;
+    private javax.swing.JPanel panelAksi;
+    private javax.swing.JPanel panelForm;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelJudul;
+    private javax.swing.JPanel panelTabel;
+    private javax.swing.JPanel panelUtama;
+    private javax.swing.JScrollPane scrolltabel;
+    private javax.swing.JTable tblpengembalian;
+    private javax.swing.JTextField tidkembali;
+    private javax.swing.JTextField ttotaldenda;
     // End of variables declaration//GEN-END:variables
 }

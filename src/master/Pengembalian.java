@@ -20,21 +20,22 @@ public class Pengembalian extends javax.swing.JFrame {
     public Pengembalian() {
     initComponents();
     
-    cbtanggal.setDate(null);
-    cbtanggal.setDateFormat(new java.text.SimpleDateFormat(" "));
-
+    jDateChooser1.setDate(null);
+    
     tidkembali.setText(generateIdKembali());
     loadIdPinjam();
+    
+    btnbatal.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnbatalActionPerformed(evt);
+    }
+});
     
     getContentPane().setBackground(java.awt.Color.WHITE);
     
     ImageIcon iconProses = new ImageIcon(getClass().getResource("/assets/iconcheck.png"));
     Image imgProses = iconProses.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
     btnproses.setIcon(new ImageIcon(imgProses));
-
-    ImageIcon iconDenda = new ImageIcon(getClass().getResource("/assets/iconcalculator.png"));
-    Image imgDenda = iconDenda.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    btnhitungdenda.setIcon(new ImageIcon(imgDenda));
 
     ImageIcon iconBatal = new ImageIcon(getClass().getResource("/assets/iconcancel.png"));
     Image imgBatal = iconBatal.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -44,10 +45,6 @@ public class Pengembalian extends javax.swing.JFrame {
     btnproses.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
     btnproses.setIconTextGap(10);
 
-    btnhitungdenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    btnhitungdenda.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-    btnhitungdenda.setIconTextGap(10);
-
     btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     btnbatal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
     btnbatal.setIconTextGap(10);
@@ -55,23 +52,18 @@ public class Pengembalian extends javax.swing.JFrame {
     cbidpinjam.setEditable(true); 
     
     btnproses.setBackground(new java.awt.Color(0,153,51));
-    btnhitungdenda.setBackground(new java.awt.Color(255,204,51));
     btnbatal.setBackground(new java.awt.Color(158,158,158));
     
     btnproses.setForeground(java.awt.Color.WHITE);
-    btnhitungdenda.setForeground(java.awt.Color.BLACK);
     btnbatal.setForeground(java.awt.Color.WHITE);
 
     btnproses.setFocusPainted(false);
-    btnhitungdenda.setFocusPainted(false);
     btnbatal.setFocusPainted(false);
 
     btnproses.setBorderPainted(false);
-    btnhitungdenda.setBorderPainted(false);
     btnbatal.setBorderPainted(false);
 
     btnproses.setOpaque(true);
-    btnhitungdenda.setOpaque(true);
     btnbatal.setOpaque(true);
     }
     
@@ -103,17 +95,14 @@ public class Pengembalian extends javax.swing.JFrame {
         lbltanggalkembali = new javax.swing.JLabel();
         lblidpinjam = new javax.swing.JLabel();
         tidkembali = new javax.swing.JTextField();
-        cbtanggal = new de.wannawork.jcalendar.JCalendarComboBox();
         cbidpinjam = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         panelTabel = new javax.swing.JPanel();
         scrolltabel = new javax.swing.JScrollPane();
         tblpengembalian = new javax.swing.JTable();
         panelAksi = new javax.swing.JPanel();
         lblstatus = new javax.swing.JLabel();
-        lbltotaldenda = new javax.swing.JLabel();
-        ttotaldenda = new javax.swing.JTextField();
         btnproses = new javax.swing.JButton();
-        btnhitungdenda = new javax.swing.JButton();
         btnbatal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,11 +178,10 @@ public class Pengembalian extends javax.swing.JFrame {
                     .addComponent(lbltanggalkembali)
                     .addComponent(lblidpinjam))
                 .addGap(81, 81, 81)
-                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tidkembali)
-                        .addComponent(cbidpinjam, 0, 250, Short.MAX_VALUE))
-                    .addComponent(cbtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tidkembali)
+                    .addComponent(cbidpinjam, 0, 250, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelFormLayout.setVerticalGroup(
@@ -203,9 +191,9 @@ public class Pengembalian extends javax.swing.JFrame {
                     .addComponent(tidkembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblidkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
-                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbltanggalkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,45 +233,20 @@ public class Pengembalian extends javax.swing.JFrame {
         lblstatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblstatus.setText("Status: -");
 
-        lbltotaldenda.setText("Total Denda");
-
-        ttotaldenda.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        ttotaldenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ttotaldenda.setText("Rp 0");
-        ttotaldenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ttotaldendaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelAksiLayout = new javax.swing.GroupLayout(panelAksi);
         panelAksi.setLayout(panelAksiLayout);
         panelAksiLayout.setHorizontalGroup(
             panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAksiLayout.createSequentialGroup()
                 .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panelAksiLayout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(lbltotaldenda)
-                .addGap(18, 18, 18)
-                .addComponent(ttotaldenda, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(0, 362, Short.MAX_VALUE))
         );
         panelAksiLayout.setVerticalGroup(
             panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAksiLayout.createSequentialGroup()
-                .addGroup(panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelAksiLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ttotaldenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbltotaldenda)))
-                    .addGroup(panelAksiLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(22, 22, 22))
+                .addGap(8, 8, 8)
+                .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnproses.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -295,18 +258,14 @@ public class Pengembalian extends javax.swing.JFrame {
             }
         });
 
-        btnhitungdenda.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        btnhitungdenda.setText("Hitung Denda");
-        btnhitungdenda.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnhitungdenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnhitungdendaActionPerformed(evt);
-            }
-        });
-
         btnbatal.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btnbatal.setText("Batal");
         btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
         panelTabel.setLayout(panelTabelLayout);
@@ -318,24 +277,20 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnproses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(btnhitungdenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelTabelLayout.setVerticalGroup(
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(scrolltabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelTabelLayout.createSequentialGroup()
                         .addComponent(btnproses)
                         .addGap(18, 18, 18)
-                        .addComponent(btnhitungdenda)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnbatal)
-                        .addGap(0, 46, Short.MAX_VALUE))))
+                        .addComponent(btnbatal))
+                    .addComponent(panelAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
@@ -362,8 +317,7 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -380,48 +334,6 @@ public class Pengembalian extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnhitungdendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhitungdendaActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tblpengembalian.getModel();
-
-int totalDenda = 0;
-int dendaPerHari = 1000;
-
-try {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-    for (int i = 0; i < model.getRowCount(); i++) {
-
-        if (model.getValueAt(i, 3) == null || model.getValueAt(i, 4) == null) {
-            continue;
-        }
-
-        String tglPinjamStr = model.getValueAt(i, 3).toString();
-        String tglKembaliStr = model.getValueAt(i, 4).toString();
-
-        Date tglPinjam = sdf.parse(tglPinjamStr);
-        Date tglKembali = sdf.parse(tglKembaliStr);
-
-        long selisih = tglKembali.getTime() - tglPinjam.getTime();
-        long hari = selisih / (1000 * 60 * 60 * 24);
-
-        int terlambat = (int) (hari - 7);
-        if (terlambat < 0) terlambat = 0;
-
-        int denda = terlambat * dendaPerHari;
-        totalDenda += denda;
-
-        model.setValueAt(terlambat, i, 5);
-    }
-
-    // ⬇️ ini disesuaikan dengan nama kamu
-    ttotaldenda.setText("Rp " + totalDenda);
-
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, "Error hitung denda: " + e.getMessage());
-}
-    }//GEN-LAST:event_btnhitungdendaActionPerformed
-
     private void btnprosesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprosesActionPerformed
         // TODO add your handling code here:
         String idKembali = tidkembali.getText();
@@ -433,15 +345,12 @@ try {
 }
     JOptionPane.showMessageDialog(this, "Pengembalian berhasil diproses!");
 
-    tidkembali.setText(generateIdKembali());
-    cbtanggal.setDate(null);
     cbidpinjam.setSelectedIndex(0);
-    ttotaldenda.setText("Rp 0");
     lblstatus.setText("Status: -");
 
 ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
 
-    Date tglKembali = cbtanggal.getDate();
+    Date tglKembali = jDateChooser1.getDate();
 
         if (idKembali.isEmpty() || 
     idPinjam.equals("-- Pilih ID Pinjam --") || 
@@ -450,10 +359,18 @@ try {
     JOptionPane.showMessageDialog(this, "Data belum lengkap!");
     return;
     }//GEN-LAST:event_btnprosesActionPerformed
-}
-    private void ttotaldendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttotaldendaActionPerformed
+    tidkembali.setText(generateIdKembali());
+    jDateChooser1.setDate(null);
+    }
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ttotaldendaActionPerformed
+    tidkembali.setText(generateIdKembali());
+    jDateChooser1.setDate(null);
+    cbidpinjam.setSelectedIndex(0);
+    lblstatus.setText("Status: -");
+
+    ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
+    }//GEN-LAST:event_btnbatalActionPerformed
 
     private int counter = 1;
     private String generateIdKembali() {
@@ -497,17 +414,15 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbatal;
-    private javax.swing.JButton btnhitungdenda;
     private javax.swing.JButton btnproses;
     private javax.swing.JComboBox<String> cbidpinjam;
-    private de.wannawork.jcalendar.JCalendarComboBox cbtanggal;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblJudul;
     private javax.swing.JLabel lblidkembali;
     private javax.swing.JLabel lblidpinjam;
     private javax.swing.JLabel lblstatus;
     private javax.swing.JLabel lbltanggalkembali;
-    private javax.swing.JLabel lbltotaldenda;
     private javax.swing.JPanel panelAksi;
     private javax.swing.JPanel panelForm;
     private javax.swing.JPanel panelHeader;
@@ -517,6 +432,5 @@ try {
     private javax.swing.JScrollPane scrolltabel;
     private javax.swing.JTable tblpengembalian;
     private javax.swing.JTextField tidkembali;
-    private javax.swing.JTextField ttotaldenda;
     // End of variables declaration//GEN-END:variables
 }

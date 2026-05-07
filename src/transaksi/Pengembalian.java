@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master;
+package transaksi;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.util.Date;

@@ -19,8 +19,8 @@ public class koneksi {
     private static Connection conn;
 
     public static Connection getConnection() {
-        if (conn == null) {
-            try {
+        try {
+            if (conn == null || conn.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/sistem_perpustakaan";
                 String user = "root";
@@ -28,9 +28,9 @@ public class koneksi {
 
                 conn = DriverManager.getConnection(url, user, password);
                 System.out.println("Koneksi berhasil ke sistem_perpustakaan");
-            } catch (ClassNotFoundException | SQLException e) {
-                System.out.println("Koneksi gagal: " + e.getMessage());
             }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Koneksi gagal: " + e.getMessage());
         }
         return conn;
     }

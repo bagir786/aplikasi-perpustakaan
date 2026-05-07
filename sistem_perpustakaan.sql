@@ -43,13 +43,14 @@ CREATE TABLE `anggota` (
 --
 
 CREATE TABLE `buku` (
-  `id_buku` int(11) NOT NULL,
+  `id_buku` varchar(10) NOT NULL,
   `judul_buku` varchar(100) NOT NULL,
   `pengarang` varchar(100) NOT NULL,
   `penerbit` varchar(100) NOT NULL,
-  `tahun_terbit` year(4) NOT NULL,
+  `tahun_terbit` varchar(4) NOT NULL,
   `kategori` varchar(50) NOT NULL,
-  `stok` int(11) NOT NULL
+  `stok` int(11) NOT NULL,
+  `cover` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -73,7 +74,7 @@ CREATE TABLE `denda` (
 CREATE TABLE `detail_peminjaman` (
   `id_detail` int(11) NOT NULL,
   `id_pinjam` int(11) DEFAULT NULL,
-  `id_buku` int(11) DEFAULT NULL,
+  `id_buku` varchar(10) DEFAULT NULL,
   `tanggal_kembali` date DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -188,11 +189,6 @@ ALTER TABLE `petugas`
 ALTER TABLE `anggota`
   MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `buku`
---
-ALTER TABLE `buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `denda`

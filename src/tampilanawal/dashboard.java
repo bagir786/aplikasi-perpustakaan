@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package master;
+package tampilanawal;
 
+import stylecard.PanelCard;
+import stylecard.ButtonCard;
 import transaksi.Pengembalian;
 import transaksi.peminjaman;
 import java.awt.Color;
@@ -23,6 +25,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import koneksi.koneksi;
+import master.DataAnggota;
+import master.Fbuku;
+import master.FormPetugas;
 import transaksi.Fdenda;
 
 /**
@@ -248,6 +253,11 @@ public class dashboard extends javax.swing.JFrame {
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
         btnAnggota.setActionCommand("Data Anggota");
+        btnAnggota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnggotaActionPerformed(evt);
+            }
+        });
 
         btnPetugas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
@@ -695,6 +705,12 @@ public class dashboard extends javax.swing.JFrame {
         new Fbuku().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBukuActionPerformed
+
+    private void btnAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnggotaActionPerformed
+        // TODO add your handling code here:
+        new DataAnggota().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAnggotaActionPerformed
 
 
     /**

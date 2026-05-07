@@ -1,6 +1,6 @@
 package transaksi;
 
-import master.dashboard;
+import tampilanawal.dashboard;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;

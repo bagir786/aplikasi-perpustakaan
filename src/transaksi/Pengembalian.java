@@ -4,29 +4,78 @@
  * and open the template in the editor.
  */
 package transaksi;
-
+import javax.swing.ImageIcon;
+import java.awt.Image;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class Pengembalian extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Pengembalian
-     */
+    
     public Pengembalian() {
     initComponents();
-    getContentPane().setBackground(java.awt.Color.WHITE);
-        
-    jCalender.setEnabled(true);
-
-    javax.swing.table.DefaultTableModel model =
-    (javax.swing.table.DefaultTableModel) jTable1.getModel();
-    model.setRowCount(0);
+    
+    jDateChooser1.setDate(null);
+    
+    tidkembali.setText(generateIdKembali());
+    loadIdPinjam();
+    
+    btnbatal.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnbatalActionPerformed(evt);
     }
+});
+    
+    getContentPane().setBackground(java.awt.Color.WHITE);
+    
+    ImageIcon iconProses = new ImageIcon(getClass().getResource("/assets/iconcheck.png"));
+    Image imgProses = iconProses.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    btnproses.setIcon(new ImageIcon(imgProses));
 
+    ImageIcon iconBatal = new ImageIcon(getClass().getResource("/assets/iconcancel.png"));
+    Image imgBatal = iconBatal.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    btnbatal.setIcon(new ImageIcon(imgBatal));
+    
+    btnproses.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    btnproses.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+    btnproses.setIconTextGap(10);
+
+    btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    btnbatal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+    btnbatal.setIconTextGap(10);
+    
+    cbidpinjam.setEditable(true); 
+    
+    btnproses.setBackground(new java.awt.Color(0,153,51));
+    btnbatal.setBackground(new java.awt.Color(158,158,158));
+    
+    btnproses.setForeground(java.awt.Color.WHITE);
+    btnbatal.setForeground(java.awt.Color.WHITE);
+
+    btnproses.setFocusPainted(false);
+    btnbatal.setFocusPainted(false);
+
+    btnproses.setBorderPainted(false);
+    btnbatal.setBorderPainted(false);
+
+    btnproses.setOpaque(true);
+    btnbatal.setOpaque(true);
+    }
+    
+    private void loadIdPinjam() {
+            cbidpinjam.removeAllItems();
+            cbidpinjam.addItem("-- Pilih ID Pinjam --");
+    String[] dataPinjam = {"PM0001", "PM0002", "PM0003"};
+
+    for (String id : dataPinjam) {
+        cbidpinjam.addItem(id);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,210 +85,297 @@ public class Pengembalian extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnsimpan = new javax.swing.JButton();
+        panelUtama = new javax.swing.JPanel();
+        panelHeader = new javax.swing.JPanel();
+        lblHeader = new javax.swing.JLabel();
+        panelJudul = new javax.swing.JPanel();
+        lblJudul = new javax.swing.JLabel();
+        panelForm = new javax.swing.JPanel();
+        lblidkembali = new javax.swing.JLabel();
+        lbltanggalkembali = new javax.swing.JLabel();
+        lblidpinjam = new javax.swing.JLabel();
+        tidkembali = new javax.swing.JTextField();
+        cbidpinjam = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        panelTabel = new javax.swing.JPanel();
+        scrolltabel = new javax.swing.JScrollPane();
+        tblpengembalian = new javax.swing.JTable();
+        panelAksi = new javax.swing.JPanel();
+        lblstatus = new javax.swing.JLabel();
+        btnproses = new javax.swing.JButton();
         btnbatal = new javax.swing.JButton();
-        tkdbuku = new javax.swing.JTextField();
-        lbltotalbuku = new javax.swing.JLabel();
-        ttotalbuku = new javax.swing.JTextField();
-        tpengembalianbuku = new javax.swing.JLabel();
-        lblnama = new javax.swing.JLabel();
-        lbltglkembali = new javax.swing.JLabel();
-        lblkdbuku = new javax.swing.JLabel();
-        tnama = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        tdaftarbukudikembaliakan = new javax.swing.JLabel();
-        jCalender = new de.wannawork.jcalendar.JCalendarComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        btnsimpan.setBackground(new java.awt.Color(0, 153, 51));
-        btnsimpan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnsimpan.setForeground(new java.awt.Color(255, 255, 255));
-        btnsimpan.setText("Simpan");
-        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+        panelHeader.setBackground(new java.awt.Color(0, 51, 102));
+
+        lblHeader.setBackground(new java.awt.Color(255, 255, 255));
+        lblHeader.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblHeader.setForeground(new java.awt.Color(255, 255, 255));
+        lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHeader.setText("Sistem Informasi Manajemen Perpustakaan");
+
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblHeader)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblJudul.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblJudul.setText("Pengembalian Buku");
+
+        javax.swing.GroupLayout panelJudulLayout = new javax.swing.GroupLayout(panelJudul);
+        panelJudul.setLayout(panelJudulLayout);
+        panelJudulLayout.setHorizontalGroup(
+            panelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelJudulLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblJudul)
+                .addContainerGap(435, Short.MAX_VALUE))
+        );
+        panelJudulLayout.setVerticalGroup(
+            panelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelJudulLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblJudul)
+                .addContainerGap())
+        );
+
+        lblidkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblidkembali.setText("ID Kembali");
+
+        lbltanggalkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbltanggalkembali.setText("Tanggal Kembali");
+
+        lblidpinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblidpinjam.setText("ID Pinjam");
+
+        tidkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        cbidpinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cbidpinjam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
+        panelForm.setLayout(panelFormLayout);
+        panelFormLayout.setHorizontalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblidkembali)
+                    .addComponent(lbltanggalkembali)
+                    .addComponent(lblidpinjam))
+                .addGap(81, 81, 81)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tidkembali)
+                    .addComponent(cbidpinjam, 0, 250, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelFormLayout.setVerticalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tidkembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblidkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbltanggalkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        panelTabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Daftar Buku yang Dikembalikan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+
+        tblpengembalian.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "No", "ID Buku", "Judul Buku", "Tgl Pinjam", "Tgl Kembali", "Terlambat (Hari)"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrolltabel.setViewportView(tblpengembalian);
+
+        lblstatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblstatus.setText("Status: -");
+
+        javax.swing.GroupLayout panelAksiLayout = new javax.swing.GroupLayout(panelAksi);
+        panelAksi.setLayout(panelAksiLayout);
+        panelAksiLayout.setHorizontalGroup(
+            panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAksiLayout.createSequentialGroup()
+                .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 362, Short.MAX_VALUE))
+        );
+        panelAksiLayout.setVerticalGroup(
+            panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAksiLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnproses.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnproses.setText("Proses Kembali");
+        btnproses.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnproses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsimpanActionPerformed(evt);
+                btnprosesActionPerformed(evt);
             }
         });
 
-        btnbatal.setBackground(new java.awt.Color(102, 102, 102));
-        btnbatal.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnbatal.setForeground(new java.awt.Color(255, 255, 255));
+        btnbatal.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btnbatal.setText("Batal");
+        btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbatalActionPerformed(evt);
             }
         });
 
-        lbltotalbuku.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbltotalbuku.setText("Total Buku Dikembalikan");
+        javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
+        panelTabel.setLayout(panelTabelLayout);
+        panelTabelLayout.setHorizontalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrolltabel)
+            .addGroup(panelTabelLayout.createSequentialGroup()
+                .addComponent(panelAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnproses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        panelTabelLayout.setVerticalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTabelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrolltabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTabelLayout.createSequentialGroup()
+                        .addComponent(btnproses)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbatal))
+                    .addComponent(panelAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
-        tpengembalianbuku.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        tpengembalianbuku.setText("Pengembalian Buku");
-
-        lblnama.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lblnama.setText("Nama Lengkap");
-
-        lbltglkembali.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbltglkembali.setText("Tanggal Pengembalian");
-
-        lblkdbuku.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lblkdbuku.setText("Kode Buku");
-
-        tnama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tnamaActionPerformed(evt);
-            }
-        });
-
-        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "No", "Kode Buku", "Judul Buku", "Tgl Pengembalian"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        tdaftarbukudikembaliakan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tdaftarbukudikembaliakan.setText("Daftar Buku Yang Dikembalikan");
+        javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
+        panelUtama.setLayout(panelUtamaLayout);
+        panelUtamaLayout.setHorizontalGroup(
+            panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addComponent(panelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 151, Short.MAX_VALUE))
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelUtamaLayout.setVerticalGroup(
+            panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tpengembalianbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblkdbuku)
-                                    .addComponent(lbltglkembali, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblnama, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tnama)
-                                    .addComponent(tkdbuku)
-                                    .addComponent(jCalender, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lbltotalbuku)
-                                    .addGap(38, 38, 38)
-                                    .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(142, 142, 142)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnsimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(tdaftarbukudikembaliakan))
-                        .addGap(0, 22, Short.MAX_VALUE))))
+            .addComponent(panelUtama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tpengembalianbuku)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblnama)
-                    .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCalender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbltglkembali))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblkdbuku)
-                    .addComponent(tkdbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(tdaftarbukudikembaliakan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnsimpan)
-                    .addComponent(lbltotalbuku)
-                    .addComponent(ttotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnbatal)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addComponent(panelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+    private void btnprosesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprosesActionPerformed
         // TODO add your handling code here:
-    String nama = tnama.getText();
-    String kdBuku = tkdbuku.getText();
+        String idKembali = tidkembali.getText();
+    String idPinjam = cbidpinjam.getSelectedItem().toString();
 
-    Date tanggal = jCalender.getDate();
+    if (idKembali.isEmpty() || idPinjam.equals("-- Pilih ID Pinjam --")) {
+    JOptionPane.showMessageDialog(this, "Data belum lengkap!");
+        return;
+}
+    JOptionPane.showMessageDialog(this, "Pengembalian berhasil diproses!");
 
-    if (tanggal == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Tanggal belum dipilih!");
+    cbidpinjam.setSelectedIndex(0);
+    lblstatus.setText("Status: -");
+
+((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
+
+    Date tglKembali = jDateChooser1.getDate();
+
+        if (idKembali.isEmpty() || 
+    idPinjam.equals("-- Pilih ID Pinjam --") || 
+    tglKembali == null) {
+
+    JOptionPane.showMessageDialog(this, "Data belum lengkap!");
     return;
+    }//GEN-LAST:event_btnprosesActionPerformed
+    tidkembali.setText(generateIdKembali());
+    jDateChooser1.setDate(null);
     }
-    
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    String tgl = sdf.format(tanggal);
-
-    javax.swing.table.DefaultTableModel model = 
-    (javax.swing.table.DefaultTableModel) jTable1.getModel();
-
-    int no = model.getRowCount() + 1;
-
-    model.addRow(new Object[]{
-        no,
-        kdBuku,
-        "Judul Buku", 
-        tgl
-    });
-
-    ttotalbuku.setText(String.valueOf(model.getRowCount()));
-    }//GEN-LAST:event_btnsimpanActionPerformed
-
     private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
-    tnama.setText("");
-    jCalender.setDate(null);
-    tkdbuku.setText("");
-    ttotalbuku.setText("");
+    tidkembali.setText(generateIdKembali());
+    jDateChooser1.setDate(null);
+    cbidpinjam.setSelectedIndex(0);
+    lblstatus.setText("Status: -");
 
-    javax.swing.table.DefaultTableModel model = 
-    (javax.swing.table.DefaultTableModel) jTable1.getModel();
-    model.setRowCount(0);
-
-    tnama.requestFocus();
-
-    javax.swing.JOptionPane.showMessageDialog(this, "Form berhasil direset!");
+    ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
     }//GEN-LAST:event_btnbatalActionPerformed
 
-    private void tnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tnamaActionPerformed
-
+    private int counter = 1;
+    private String generateIdKembali() {
+    return String.format("KM%04d", counter++);
+}
     /**
      * @param args the command line arguments
      */
@@ -275,20 +411,26 @@ public class Pengembalian extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbatal;
-    private javax.swing.JButton btnsimpan;
-    private de.wannawork.jcalendar.JCalendarComboBox jCalender;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblkdbuku;
-    private javax.swing.JLabel lblnama;
-    private javax.swing.JLabel lbltglkembali;
-    private javax.swing.JLabel lbltotalbuku;
-    private javax.swing.JLabel tdaftarbukudikembaliakan;
-    private javax.swing.JTextField tkdbuku;
-    private javax.swing.JTextField tnama;
-    private javax.swing.JLabel tpengembalianbuku;
-    private javax.swing.JTextField ttotalbuku;
+    private javax.swing.JButton btnproses;
+    private javax.swing.JComboBox<String> cbidpinjam;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblidkembali;
+    private javax.swing.JLabel lblidpinjam;
+    private javax.swing.JLabel lblstatus;
+    private javax.swing.JLabel lbltanggalkembali;
+    private javax.swing.JPanel panelAksi;
+    private javax.swing.JPanel panelForm;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelJudul;
+    private javax.swing.JPanel panelTabel;
+    private javax.swing.JPanel panelUtama;
+    private javax.swing.JScrollPane scrolltabel;
+    private javax.swing.JTable tblpengembalian;
+    private javax.swing.JTextField tidkembali;
     // End of variables declaration//GEN-END:variables
 }

@@ -71,7 +71,7 @@ public class Flogin extends javax.swing.JFrame {
     });
 
     // ===== BUTTON STYLE =====
-    btnlogin.setBackground(new Color(0, 105, 204));
+    btnlogin.setBackground(new Color(51, 51, 255));
     btnlogin.setForeground(Color.WHITE);
     btnlogin.setOpaque(true);
     btnlogin.setContentAreaFilled(true);
@@ -105,10 +105,10 @@ public class Flogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(99, 102, 241));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pngwing.com.png"))); // NOI18N
@@ -123,15 +123,15 @@ public class Flogin extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("<html><center>SISTEM INFORMASI<br>MANAGEMENT PERPUSTAKAAN</center></html>");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Silahkan Login untuk masuk ke sistem");
 
         tuser.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tuser.setText("Username");
 
-        btnlogin.setBackground(new java.awt.Color(0, 0, 102));
-        btnlogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlogin.setBackground(new java.awt.Color(51, 51, 255));
+        btnlogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/password.png"))); // NOI18N
         btnlogin.setText("LOGIN");
         btnlogin.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +140,7 @@ public class Flogin extends javax.swing.JFrame {
             }
         });
 
+        tpassword.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tpassword.setText("Password");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -150,7 +151,7 @@ public class Flogin extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(129, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(tuser, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tpassword, javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,9 +181,7 @@ public class Flogin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

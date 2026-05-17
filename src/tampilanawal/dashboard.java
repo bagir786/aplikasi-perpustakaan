@@ -50,7 +50,7 @@ public class dashboard extends javax.swing.JFrame {
         loadDashboard();
         tampilWaktu();
 
-        panelinfo.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(0, 120, 255)));
+        panelinfo.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(99, 102, 241)));
     }
     
     private void styleCards() {
@@ -89,7 +89,7 @@ public class dashboard extends javax.swing.JFrame {
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn.setOpaque(true);
-                btn.setBackground(new Color(153, 255, 255));
+                btn.setBackground(new Color(203, 255, 255));
                 btn.setHorizontalAlignment(SwingConstants.RIGHT);
                 btn.setHorizontalTextPosition(SwingConstants.LEFT);
             }
@@ -105,13 +105,13 @@ public class dashboard extends javax.swing.JFrame {
     private void setIcons() {
         btnDashboard.setIcon(resizeIcon("/assets/home.png"));
         btnBuku.setIcon(resizeIcon("/assets/menu-book.png"));
-        btnAnggota.setIcon(resizeIcon("/assets/people.png"));
-        btnPetugas.setIcon(resizeIcon("/assets/human-greeting-variant.png"));
+        btnAnggota.setIcon(resizeIcon("/assets/user-group.png"));
+        btnPetugas.setIcon(resizeIcon("/assets/user-check.png"));
         btnPeminjaman.setIcon(resizeIcon("/assets/arrow-right-to-city.png"));
         btnPengembalian.setIcon(resizeIcon("/assets/loop-left-ai-fill.png"));
         btnDenda.setIcon(resizeIcon("/assets/file-invoice-dollar.png"));
         btnLaporan.setIcon(resizeIcon("/assets/report-search.png"));
-        btnLogout.setIcon(resizeIcon("/assets/logout.png"));
+        btnLogout.setIcon(resizeIcon("/assets/logout-circle-r-line.png"));
     }
 
     private ImageIcon resizeIcon(String path) {
@@ -214,10 +214,10 @@ public class dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(99, 102, 241));
 
-        Ltopmenu.setBackground(new java.awt.Color(0, 51, 102));
-        Ltopmenu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        Ltopmenu.setBackground(new java.awt.Color(255, 255, 255));
+        Ltopmenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Ltopmenu.setForeground(new java.awt.Color(255, 255, 255));
         Ltopmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Ltopmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/table-list.png"))); // NOI18N
@@ -228,10 +228,9 @@ public class dashboard extends javax.swing.JFrame {
         panelsidebar.setBackground(new java.awt.Color(255, 255, 255));
         panelsidebar.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
 
-        btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnDashboard.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
-        btnDashboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDashboardActionPerformed(evt);
@@ -239,7 +238,7 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnBuku.setBackground(new java.awt.Color(200, 230, 255));
-        btnBuku.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnBuku.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
         btnBuku.setActionCommand("Data Buku");
@@ -249,8 +248,8 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnAnggota.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/people.png"))); // NOI18N
+        btnAnggota.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-group.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
         btnAnggota.setActionCommand("Data Anggota");
         btnAnggota.addActionListener(new java.awt.event.ActionListener() {
@@ -259,8 +258,8 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPetugas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant.png"))); // NOI18N
+        btnPetugas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-check.png"))); // NOI18N
         btnPetugas.setText("Data Petugas");
         btnPetugas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +267,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPeminjaman.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnPeminjaman.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
         btnPeminjaman.setText("Peminjaman");
         btnPeminjaman.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +276,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPengembalian.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnPengembalian.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
         btnPengembalian.setActionCommand("Pengembalian");
@@ -287,7 +286,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnDenda.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnDenda.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
         btnDenda.setActionCommand("Denda");
@@ -297,12 +296,12 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnLaporan.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnLaporan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
         btnLaporan.setText("Laporan");
 
-        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
+        btnLogout.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout-circle-r-line.png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,15 +390,15 @@ public class dashboard extends javax.swing.JFrame {
         pstotalbuku.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book-open-text.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book.png"))); // NOI18N
         jLabel2.setMaximumSize(new java.awt.Dimension(24, 24));
         jLabel2.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        lAngkabuku.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lAngkabuku.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lAngkabuku.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAngkabuku.setText("0");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Total Buku");
 
@@ -414,12 +413,12 @@ public class dashboard extends javax.swing.JFrame {
         pstotalbukuLayout.setVerticalGroup(
             pstotalbukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pstotalbukuLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lAngkabuku)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -428,13 +427,13 @@ public class dashboard extends javax.swing.JFrame {
         pstotalanggota.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/anggota.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-group2.png"))); // NOI18N
 
-        lAnkaanggota.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lAnkaanggota.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lAnkaanggota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAnkaanggota.setText("0");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Total Anggota");
 
@@ -449,12 +448,12 @@ public class dashboard extends javax.swing.JFrame {
         pstotalanggotaLayout.setVerticalGroup(
             pstotalanggotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pstotalanggotaLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lAnkaanggota)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -463,13 +462,13 @@ public class dashboard extends javax.swing.JFrame {
         pspetugas.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/human-greeting-variant_11zon.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-check2.png"))); // NOI18N
 
-        lAngkapetugas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lAngkapetugas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lAngkapetugas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAngkapetugas.setText("0");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Total Petugas");
 
@@ -484,13 +483,13 @@ public class dashboard extends javax.swing.JFrame {
         pspetugasLayout.setVerticalGroup(
             pspetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pspetugasLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lAngkapetugas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         psbukupinjam.setBackground(new java.awt.Color(255, 255, 255));
@@ -498,13 +497,13 @@ public class dashboard extends javax.swing.JFrame {
         psbukupinjam.setPreferredSize(new java.awt.Dimension(120, 120));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-books.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book-plus.png"))); // NOI18N
 
-        lBukupinjam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lBukupinjam.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lBukupinjam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lBukupinjam.setText("0");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Buku Dipinjam");
 
@@ -519,18 +518,18 @@ public class dashboard extends javax.swing.JFrame {
         psbukupinjamLayout.setVerticalGroup(
             psbukupinjamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(psbukupinjamLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lBukupinjam)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelinfo.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel14.setText("Informasi Sistem");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -540,7 +539,7 @@ public class dashboard extends javax.swing.JFrame {
         jLabel16.setText("Gunakan menu di samping untuk mengelola data dan transaksi.");
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library-sharp.png"))); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/swatchbook (1).png"))); // NOI18N
 
         javax.swing.GroupLayout panelinfoLayout = new javax.swing.GroupLayout(panelinfo);
         panelinfo.setLayout(panelinfoLayout);
@@ -552,7 +551,7 @@ public class dashboard extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -574,7 +573,8 @@ public class dashboard extends javax.swing.JFrame {
 
         jLabel18.setText("Selamat datang, Admin 👋");
 
-        lblWaktu.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
+        lblWaktu.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblWaktu.setForeground(new java.awt.Color(51, 51, 51));
         lblWaktu.setText("Time");
 
         javax.swing.GroupLayout paneldbLayout = new javax.swing.GroupLayout(paneldb);
@@ -584,32 +584,29 @@ public class dashboard extends javax.swing.JFrame {
             .addGroup(paneldbLayout.createSequentialGroup()
                 .addComponent(panelsidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldbLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(ljdl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
                     .addGroup(paneldbLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldbLayout.createSequentialGroup()
-                                .addComponent(ljdl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel18)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
-                            .addGroup(paneldbLayout.createSequentialGroup()
-                                .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(panelinfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneldbLayout.createSequentialGroup()
-                                        .addComponent(pstotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(pstotalanggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(pspetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(psbukupinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(39, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneldbLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblWaktu)
-                        .addGap(69, 69, 69))))
+                        .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblWaktu)
+                            .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(paneldbLayout.createSequentialGroup()
+                                    .addComponent(pstotalbuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(pstotalanggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(pspetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(psbukupinjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(39, Short.MAX_VALUE))))
         );
         paneldbLayout.setVerticalGroup(
             paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,32 +614,34 @@ public class dashboard extends javax.swing.JFrame {
             .addGroup(paneldbLayout.createSequentialGroup()
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneldbLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(paneldbLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
+                        .addComponent(jLabel18))
+                    .addGroup(paneldbLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ljdl))))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(paneldbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(pspetugas, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(psbukupinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(pstotalbuku, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(pstotalanggota, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(pspetugas, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(panelinfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblWaktu)
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneldb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(Ltopmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(paneldb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Ltopmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

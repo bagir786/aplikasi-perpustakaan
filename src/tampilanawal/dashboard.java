@@ -79,7 +79,7 @@ public class dashboard extends javax.swing.JFrame {
             btn.setBorderPainted(false);
             btn.setFocusPainted(true);
             btn.setForeground(Color.BLACK);
-            btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+            btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
             btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btn.setIconTextGap(10);
         }
@@ -228,7 +228,7 @@ public class dashboard extends javax.swing.JFrame {
         panelsidebar.setBackground(new java.awt.Color(255, 255, 255));
         panelsidebar.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
 
-        btnDashboard.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
         btnDashboard.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +238,7 @@ public class dashboard extends javax.swing.JFrame {
         });
 
         btnBuku.setBackground(new java.awt.Color(200, 230, 255));
-        btnBuku.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnBuku.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBuku.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/menu-book.png"))); // NOI18N
         btnBuku.setText(" Data Buku");
         btnBuku.setActionCommand("Data Buku");
@@ -248,7 +248,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnAnggota.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnAnggota.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAnggota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-group.png"))); // NOI18N
         btnAnggota.setText(" Data Anggota");
         btnAnggota.setActionCommand("Data Anggota");
@@ -258,7 +258,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPetugas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnPetugas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-check.png"))); // NOI18N
         btnPetugas.setText("Data Petugas");
         btnPetugas.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +267,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPeminjaman.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnPeminjaman.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPeminjaman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right-to-city.png"))); // NOI18N
         btnPeminjaman.setText("Peminjaman");
         btnPeminjaman.addActionListener(new java.awt.event.ActionListener() {
@@ -276,7 +276,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPengembalian.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnPengembalian.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loop-left-ai-fill.png"))); // NOI18N
         btnPengembalian.setText(" Pengembalian");
         btnPengembalian.setActionCommand("Pengembalian");
@@ -286,7 +286,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnDenda.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnDenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-invoice-dollar.png"))); // NOI18N
         btnDenda.setText(" Denda");
         btnDenda.setActionCommand("Denda");
@@ -296,11 +296,11 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
 
-        btnLaporan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnLaporan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
         btnLaporan.setText("Laporan");
 
-        btnLogout.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout-circle-r-line.png"))); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +398,7 @@ public class dashboard extends javax.swing.JFrame {
         lAngkabuku.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAngkabuku.setText("0");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Total Buku");
 
@@ -433,7 +433,7 @@ public class dashboard extends javax.swing.JFrame {
         lAnkaanggota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAnkaanggota.setText("0");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Total Anggota");
 
@@ -468,7 +468,7 @@ public class dashboard extends javax.swing.JFrame {
         lAngkapetugas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAngkapetugas.setText("0");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Total Petugas");
 
@@ -503,7 +503,7 @@ public class dashboard extends javax.swing.JFrame {
         lBukupinjam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lBukupinjam.setText("0");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Buku Dipinjam");
 
@@ -639,9 +639,10 @@ public class dashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(paneldb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Ltopmenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paneldb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(Ltopmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

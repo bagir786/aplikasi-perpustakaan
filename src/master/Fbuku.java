@@ -5,7 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.io.File;
+import java.sql.*;
+import koneksi.koneksi;
 
 /**
  *
@@ -25,59 +29,6 @@ public class Fbuku extends javax.swing.JFrame {
     private int totalPages = 1;
     private java.util.List<Object[]> filteredData = new java.util.ArrayList<>();
 
-    private Object[][] dataDummy = {
-            { "B001", "Pemrograman Java", "Budi Raharjo", "Informatika", "2021", "Teknik", "10" },
-            { "B002", "Dasar Design Grafis", "Adi Kusuma", "Andi Offset", "2020", "Seni", "5" },
-            { "B003", "Sistem Basis Data", "Fathansyah", "Informatika", "2019", "Teknik", "8" },
-            { "B004", "Belajar Python", "Eko Kurniawan", "Elex Media", "2022", "Teknik", "15" },
-            { "B005", "Filosofi Teras", "Henry Manampiring", "Kompas", "2018", "Filsafat", "12" },
-            { "B006", "Laskar Pelangi", "Andrea Hirata", "Bentang Pustaka", "2005", "Sastra", "20" },
-            { "B007", "Bumi Manusia", "Pramoedya Ananta Toer", "Hasta Mitra", "1980", "Sastra", "7" },
-            { "B008", "Negeri 5 Menara", "Ahmad Fuadi", "Gramedia", "2009", "Sastra", "10" },
-            { "B009", "Pulang", "Tere Liye", "Republika", "2015", "Sastra", "25" },
-            { "B010", "Hujan", "Tere Liye", "Gramedia", "2016", "Sastra", "30" },
-            { "B011", "Dunia Sophie", "Jostein Gaarder", "Mizan", "1991", "Filsafat", "10" },
-            { "B012", "Madre", "Dee Lestari", "Bentang", "2011", "Sastra", "15" },
-            { "B013", "Perahu Kertas", "Dee Lestari", "Bentang", "2009", "Sastra", "12" },
-            { "B014", "Supernova", "Dee Lestari", "Truedee", "2001", "Sastra", "8" },
-            { "B015", "Rectoverso", "Dee Lestari", "Goodfaith", "2008", "Sastra", "14" },
-            { "B016", "Harry Potter 1", "JK Rowling", "Gramedia", "1997", "Fantasi", "25" },
-            { "B017", "Harry Potter 2", "JK Rowling", "Gramedia", "1998", "Fantasi", "20" },
-            { "B018", "Harry Potter 3", "JK Rowling", "Gramedia", "1999", "Fantasi", "15" },
-            { "B019", "Harry Potter 4", "JK Rowling", "Gramedia", "2000", "Fantasi", "18" },
-            { "B020", "Harry Potter 5", "JK Rowling", "Gramedia", "2003", "Fantasi", "22" },
-            { "B021", "The Hobbit", "J.R.R. Tolkien", "George Allen", "1937", "Fantasi", "10" },
-            { "B022", "1984", "George Orwell", "Secker & Warburg", "1949", "Sastra", "12" },
-            { "B023", "Animal Farm", "George Orwell", "Secker & Warburg", "1945", "Sastra", "15" },
-            { "B024", "Brave New World", "Aldous Huxley", "Chatto & Windus", "1932", "Sastra", "8" },
-            { "B025", "Fahrenheit 451", "Ray Bradbury", "Ballantine", "1953", "Sastra", "20" },
-            { "B026", "The Great Gatsby", "F. Scott Fitzgerald", "Scribner", "1925", "Sastra", "14" },
-            { "B027", "The Catcher in the Rye", "J.D. Salinger", "Little, Brown", "1951", "Sastra", "11" },
-            { "B028", "To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott", "1960", "Sastra", "18" },
-            { "B029", "The Alchemist", "Paulo Coelho", "HarperCollins", "1988", "Filsafat", "30" },
-            { "B030", "Sapiens", "Yuval Noah Harari", "Harper", "2011", "Sejarah", "25" },
-            { "B031", "Homo Deus", "Yuval Noah Harari", "Harper", "2015", "Sejarah", "22" },
-            { "B032", "21 Lessons", "Yuval Noah Harari", "Spiegel & Grau", "2018", "Sejarah", "20" },
-            { "B033", "Thinking, Fast and Slow", "Daniel Kahneman", "Farrar, Straus", "2011", "Psikologi", "15" },
-            { "B034", "The Power of Habit", "Charles Duhigg", "Random House", "2012", "Psikologi", "18" },
-            { "B035", "Atomic Habits", "James Clear", "Avery", "2018", "Psikologi", "40" },
-            { "B036", "Start with Why", "Simon Sinek", "Portfolio", "2009", "Bisnis", "25" },
-            { "B037", "The Lean Startup", "Eric Ries", "Crown Business", "2011", "Bisnis", "15" },
-            { "B038", "Zero to One", "Peter Thiel", "Crown Business", "2014", "Bisnis", "20" },
-            { "B039", "Rich Dad Poor Dad", "Robert Kiyosaki", "Warner Books", "1997", "Bisnis", "35" },
-            { "B040", "The Psychology of Money", "Morgan Housel", "Harriman House", "2020", "Bisnis", "28" },
-            { "B041", "Man's Search for Meaning", "Viktor Frankl", "Beacon Press", "1946", "Psikologi", "12" },
-            { "B042", "The Subtle Art", "Mark Manson", "HarperOne", "2016", "Psikologi", "45" },
-            { "B043", "Everything is F*cked", "Mark Manson", "HarperOne", "2019", "Psikologi", "30" },
-            { "B044", "Dilan 1990", "Pidi Baiq", "Pastel Books", "2014", "Sastra", "50" },
-            { "B045", "Dilan 1991", "Pidi Baiq", "Pastel Books", "2015", "Sastra", "45" },
-            { "B046", "Milea", "Pidi Baiq", "Pastel Books", "2016", "Sastra", "40" },
-            { "B047", "Laskar Pelangi", "Andrea Hirata", "Bentang Pustaka", "2005", "Sastra", "25" },
-            { "B048", "Sang Pemimpi", "Andrea Hirata", "Bentang Pustaka", "2006", "Sastra", "20" },
-            { "B049", "Edensor", "Andrea Hirata", "Bentang Pustaka", "2007", "Sastra", "15" },
-            { "B050", "Maryamah Karpov", "Andrea Hirata", "Bentang Pustaka", "2008", "Sastra", "12" }
-    };
-
     public Fbuku() {
         initComponents();
         setIcons();
@@ -88,11 +39,8 @@ public class Fbuku extends javax.swing.JFrame {
         tampilData("");
         styleComponents();
 
-        // Auto-fill form with first record
-        if (tblBuku.getRowCount() > 0) {
-            tblBuku.setRowSelectionInterval(0, 0);
-            fillForm(0);
-        }
+        // Form dimulai dalam keadaan kosong (user harus pilih data di tabel dulu)
+        clearForm();
     }
 
     private void setupDynamicPageSize() {
@@ -228,6 +176,7 @@ public class Fbuku extends javax.swing.JFrame {
                     javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)));
         }
         cbKategori.setBackground(java.awt.Color.WHITE);
+        txtIdBuku.setEditable(false);
 
         // Cover Panel Styling
         pnlCover.setBorder(javax.swing.BorderFactory.createTitledBorder(
@@ -238,12 +187,12 @@ public class Fbuku extends javax.swing.JFrame {
                 new java.awt.Font("Tahoma", 1, 11)));
 
         // Action Buttons Styling
-        JButton[] actionBtns = { btnTambah, btnSimpan, btnEdit, btnHapus, btnBatal };
+        JButton[] actionBtns = { btnSimpan, btnEdit, btnHapus, btnClear, btnBatal };
         Color[] btnColors = {
-                new Color(40, 167, 69), // Tambah: Green
                 new Color(0, 120, 242), // Simpan: Blue
                 new Color(255, 165, 0), // Edit: Orange
                 new Color(220, 53, 69), // Hapus: Red
+                new Color(0, 153, 153), // Clear: Teal/Cyan
                 new Color(108, 117, 125) // Batal: Gray
         };
 
@@ -255,6 +204,27 @@ public class Fbuku extends javax.swing.JFrame {
             actionBtns[i].setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
             actionBtns[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
+
+        // Numerical Validation for Tahun and Stok
+        txtTahun.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || txtTahun.getText().length() >= 4) {
+                    e.consume();
+                }
+            }
+        });
+
+        txtStok.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     private void setIcons() {
@@ -301,10 +271,10 @@ public class Fbuku extends javax.swing.JFrame {
         txtStok = new javax.swing.JTextField();
         pnlCover = new javax.swing.JPanel();
         lblCover = new javax.swing.JLabel();
-        btnTambah = new javax.swing.JButton();
         btnSimpan = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtCari = new javax.swing.JTextField();
@@ -321,7 +291,7 @@ public class Fbuku extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Buku");
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -366,11 +336,6 @@ public class Fbuku extends javax.swing.JFrame {
                 pnlCoverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblCover, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE));
 
-        btnTambah.setBackground(new java.awt.Color(40, 167, 69));
-        btnTambah.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
-        btnTambah.setText("Tambah");
-
         btnSimpan.setBackground(new java.awt.Color(0, 120, 242));
         btnSimpan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
@@ -385,6 +350,8 @@ public class Fbuku extends javax.swing.JFrame {
         btnHapus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
+
+        btnClear.setText("Clear");
 
         btnBatal.setBackground(new java.awt.Color(108, 117, 125));
         btnBatal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -485,13 +452,13 @@ public class Fbuku extends javax.swing.JFrame {
                                                 .addGroup(jPanel2Layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
                                                                 false)
-                                                        .addComponent(btnTambah, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnBatal, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 120, Short.MAX_VALUE)))
@@ -581,9 +548,6 @@ public class Fbuku extends javax.swing.JFrame {
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -591,6 +555,9 @@ public class Fbuku extends javax.swing.JFrame {
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
@@ -622,7 +589,7 @@ public class Fbuku extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
+                                .addGap(40, 40, 40)
                                 .addComponent(jLabelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -688,16 +655,39 @@ public class Fbuku extends javax.swing.JFrame {
 
     private void tampilData(String cari) {
         filteredData.clear();
-        String query = cari.toLowerCase();
+        String sql;
+        if (cari.equals("Cari Judul / Pengarang...") || cari.isEmpty()) {
+            sql = "SELECT id_buku, judul_buku, pengarang, penerbit, tahun_terbit, kategori, stok, cover FROM buku";
+        } else {
+            sql = "SELECT id_buku, judul_buku, pengarang, penerbit, tahun_terbit, kategori, stok, cover FROM buku "
+                    + "WHERE id_buku LIKE ? OR judul_buku LIKE ? OR pengarang LIKE ? "
+                    + "OR penerbit LIKE ? OR tahun_terbit LIKE ? OR kategori LIKE ? OR stok LIKE ?";
+        }
 
-        for (Object[] row : dataDummy) {
-            String id = row[0].toString().toLowerCase();
-            String judul = row[1].toString().toLowerCase();
-            String pengarang = row[2].toString().toLowerCase();
+        try (Connection conn = koneksi.getConnection();
+                PreparedStatement pst = conn.prepareStatement(sql)) {
 
-            if (id.contains(query) || judul.contains(query) || pengarang.contains(query)) {
-                filteredData.add(row);
+            if (!cari.equals("Cari Judul / Pengarang...") && !cari.isEmpty()) {
+                String p = "%" + cari + "%";
+                for (int i = 1; i <= 7; i++)
+                    pst.setString(i, p);
             }
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                filteredData.add(new Object[] {
+                        rs.getString("id_buku"),
+                        rs.getString("judul_buku"),
+                        rs.getString("pengarang"),
+                        rs.getString("penerbit"),
+                        rs.getString("tahun_terbit"),
+                        rs.getString("kategori"),
+                        rs.getString("stok"),
+                        rs.getString("cover")
+                });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
         }
 
         totalPages = (int) Math.ceil((double) filteredData.size() / pageSize);
@@ -708,21 +698,73 @@ public class Fbuku extends javax.swing.JFrame {
         updateTable();
     }
 
+    private void autonumber() {
+        try (Connection conn = koneksi.getConnection();
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT id_buku FROM buku ORDER BY id_buku DESC LIMIT 1")) {
+
+            if (rs.next()) {
+                String lastId = rs.getString("id_buku");
+                // Mengambil hanya angka dari ID terakhir
+                String numberPart = lastId.replaceAll("[^0-9]", "");
+
+                if (numberPart.isEmpty()) {
+                    txtIdBuku.setText("B001");
+                } else {
+                    int num = Integer.parseInt(numberPart) + 1;
+                    txtIdBuku.setText(String.format("B%03d", num));
+                }
+            } else {
+                txtIdBuku.setText("B001");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal generate ID: " + e.getMessage());
+        }
+    }
+
     private void fillForm(int rowIndex) {
-        if (rowIndex < 0 || rowIndex >= tblBuku.getRowCount())
+        int dataIndex = (currentPage - 1) * pageSize + rowIndex;
+        if (dataIndex >= filteredData.size())
             return;
 
-        Object id = tblBuku.getValueAt(rowIndex, 0);
-        if (id == null || id.toString().isEmpty())
-            return;
+        Object[] rowData = filteredData.get(dataIndex);
 
-        txtIdBuku.setText(tblBuku.getValueAt(rowIndex, 0).toString());
-        txtJudul.setText(tblBuku.getValueAt(rowIndex, 1).toString());
-        txtPengarang.setText(tblBuku.getValueAt(rowIndex, 2).toString());
-        txtPenerbit.setText(tblBuku.getValueAt(rowIndex, 3).toString());
-        txtTahun.setText(tblBuku.getValueAt(rowIndex, 4).toString());
-        cbKategori.setSelectedItem(tblBuku.getValueAt(rowIndex, 5).toString());
-        txtStok.setText(tblBuku.getValueAt(rowIndex, 6).toString());
+        txtIdBuku.setText(getString(rowData[0]));
+        txtJudul.setText(getString(rowData[1]));
+        txtPengarang.setText(getString(rowData[2]));
+        txtPenerbit.setText(getString(rowData[3]));
+        txtTahun.setText(getString(rowData[4]));
+        cbKategori.setSelectedItem(getString(rowData[5]));
+        txtStok.setText(getString(rowData[6]));
+
+        // Load Cover Image
+        imagePath = getString(rowData[7]);
+        if (imagePath != null && !imagePath.isEmpty()) {
+            try {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    ImageIcon icon = new ImageIcon(imagePath);
+                    Image img = icon.getImage().getScaledInstance(lblCover.getWidth(), lblCover.getHeight(),
+                            Image.SCALE_SMOOTH);
+                    lblCover.setIcon(new ImageIcon(img));
+                    lblCover.setText("");
+                } else {
+                    lblCover.setIcon(null);
+                    lblCover.setText("No Image");
+                }
+            } catch (Exception e) {
+                lblCover.setIcon(null);
+                lblCover.setText("No Image");
+            }
+        } else {
+            lblCover.setIcon(null);
+            lblCover.setText("No Image");
+        }
+    }
+
+    // Fungsi pembantu agar tidak error NullPointerException
+    private String getString(Object obj) {
+        return (obj == null) ? "" : obj.toString();
     }
 
     private void populateKategori() {
@@ -734,6 +776,21 @@ public class Fbuku extends javax.swing.JFrame {
         }
     }
 
+    private void clearForm() {
+        txtIdBuku.setText("");
+        txtJudul.setText("");
+        txtPengarang.setText("");
+        txtPenerbit.setText("");
+        txtTahun.setText("");
+        cbKategori.setSelectedIndex(0);
+        txtStok.setText("");
+        imagePath = null;
+        lblCover.setIcon(null);
+        lblCover.setText("No Image");
+        autonumber();
+        txtJudul.requestFocus();
+    }
+
     private void initActionListeners() {
         tblBuku.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -742,36 +799,133 @@ public class Fbuku extends javax.swing.JFrame {
             }
         });
 
-        btnTambah.addActionListener(e -> {
-            txtIdBuku.setText("");
-            txtJudul.setText("");
-            txtPengarang.setText("");
-            txtPenerbit.setText("");
-            txtTahun.setText("");
-            cbKategori.setSelectedIndex(0);
-            txtStok.setText("");
-            lblCover.setIcon(null);
-            lblCover.setText("No Image");
-            txtIdBuku.requestFocus();
+        btnClear.addActionListener(e -> {
+            clearForm();
         });
 
         btnSimpan.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Data Buku Berhasil Disimpan (Dummy Mode)");
+            String judul = txtJudul.getText();
+            String pengarang = txtPengarang.getText();
+            String penerbit = txtPenerbit.getText();
+            String tahun = txtTahun.getText();
+            String kategori = cbKategori.getSelectedItem().toString();
+            String stok = txtStok.getText();
+
+            if (judul.isEmpty() || pengarang.isEmpty() || penerbit.isEmpty() || tahun.isEmpty()
+                    || kategori.equals("-- Pilih Kategori --") || stok.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
+                return;
+            }
+
+            if (tahun.length() != 4) {
+                JOptionPane.showMessageDialog(this, "Format Tahun tidak valid! Gunakan format YYYY (contoh: 2026)");
+                txtTahun.requestFocus();
+                return;
+            }
+
+            String sql = "INSERT INTO buku (id_buku, judul_buku, pengarang, penerbit, tahun_terbit, kategori, stok, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection conn = koneksi.getConnection();
+                    PreparedStatement pst = conn.prepareStatement(sql)) {
+                pst.setString(1, txtIdBuku.getText());
+                pst.setString(2, judul);
+                pst.setString(3, pengarang);
+                pst.setString(4, penerbit);
+                pst.setString(5, tahun);
+                pst.setString(6, kategori);
+                pst.setString(7, stok);
+                pst.setString(8, imagePath);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Data Berhasil Disimpan");
+                tampilData("");
+                clearForm();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Gagal simpan data: " + ex.getMessage());
+            }
         });
 
         btnEdit.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Data Buku Berhasil Diperbarui (Dummy Mode)");
+            String id = txtIdBuku.getText();
+            String judul = txtJudul.getText();
+            String pengarang = txtPengarang.getText();
+            String penerbit = txtPenerbit.getText();
+            String tahun = txtTahun.getText();
+            String kategori = cbKategori.getSelectedItem().toString();
+            String stok = txtStok.getText();
+
+            if (id.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Pilih data yang akan diedit!");
+                return;
+            }
+
+            if (tahun.length() != 4) {
+                JOptionPane.showMessageDialog(this, "Format Tahun tidak valid! Gunakan format YYYY (contoh: 2026)");
+                txtTahun.requestFocus();
+                return;
+            }
+
+            String sql = "UPDATE buku SET judul_buku=?, pengarang=?, penerbit=?, tahun_terbit=?, kategori=?, stok=?, cover=? WHERE id_buku=?";
+            try (Connection conn = koneksi.getConnection();
+                    PreparedStatement pst = conn.prepareStatement(sql)) {
+                pst.setString(1, judul);
+                pst.setString(2, pengarang);
+                pst.setString(3, penerbit);
+                pst.setString(4, tahun);
+                pst.setString(5, kategori);
+                pst.setString(6, stok);
+                pst.setString(7, imagePath);
+                pst.setString(8, id);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Data Berhasil Diperbarui");
+                tampilData("");
+                clearForm();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Gagal update data: " + ex.getMessage());
+            }
         });
 
         btnHapus.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "Hapus data buku ini?", "Konfirmasi",
+            String id = txtIdBuku.getText();
+            if (id.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus!");
+                return;
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Hapus data buku dengan ID: " + id + "?", "Konfirmasi",
                     JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this, "Data Buku Berhasil Dihapus (Dummy Mode)");
+                String sql = "DELETE FROM buku WHERE id_buku=?";
+                try (Connection conn = koneksi.getConnection();
+                        PreparedStatement pst = conn.prepareStatement(sql)) {
+                    pst.setString(1, id);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus");
+                    tampilData("");
+                    clearForm();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Gagal hapus data: " + ex.getMessage());
+                }
             }
         });
 
         btnCari.addActionListener(e -> tampilData(txtCari.getText()));
+
+        // Real-time Search Listener
+        txtCari.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                tampilData(txtCari.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                tampilData(txtCari.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                tampilData(txtCari.getText());
+            }
+        });
     }
 
     private void updateTable() {
@@ -869,6 +1023,7 @@ public class Fbuku extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnFirst;
     private javax.swing.JButton btnHapus;
@@ -876,7 +1031,6 @@ public class Fbuku extends javax.swing.JFrame {
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JButton btnTambah;
     private javax.swing.JComboBox<String> cbKategori;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -904,31 +1058,4 @@ public class Fbuku extends javax.swing.JFrame {
     private javax.swing.JTextField txtStok;
     private javax.swing.JTextField txtTahun;
     // End of variables declaration//GEN-END:variables
-    }
-
-    
-    
-    
-        
-        
-        
-        
-        
-        
-
-        
-            
-            
-        
-            
-            
-        
-
-        
-            
-            
-        
-
-        
-    
-
+}

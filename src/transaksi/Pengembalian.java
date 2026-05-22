@@ -232,6 +232,15 @@ public class Pengembalian extends javax.swing.JFrame {
 
         lblstatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblstatus.setText("Status: -");
+        lblstatus.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                lblstatusAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout panelAksiLayout = new javax.swing.GroupLayout(panelAksi);
         panelAksi.setLayout(panelAksiLayout);
@@ -276,7 +285,7 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addComponent(panelAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnproses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(btnproses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelTabelLayout.setVerticalGroup(
@@ -343,12 +352,11 @@ public class Pengembalian extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(this, "Data belum lengkap!");
         return;
 }
+    lblstatus.setText("Status: Sudah Dikembalikan");
+
     JOptionPane.showMessageDialog(this, "Pengembalian berhasil diproses!");
 
-    cbidpinjam.setSelectedIndex(0);
-    lblstatus.setText("Status: -");
-
-((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
+    ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
 
     Date tglKembali = jDateChooser1.getDate();
 
@@ -362,6 +370,7 @@ public class Pengembalian extends javax.swing.JFrame {
     tidkembali.setText(generateIdKembali());
     jDateChooser1.setDate(null);
     }
+    
     private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
     tidkembali.setText(generateIdKembali());
@@ -370,7 +379,13 @@ public class Pengembalian extends javax.swing.JFrame {
     lblstatus.setText("Status: -");
 
     ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
+    dispose();
+    
     }//GEN-LAST:event_btnbatalActionPerformed
+    
+    private void lblstatusAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblstatusAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblstatusAncestorAdded
 
     private int counter = 1;
     private String generateIdKembali() {

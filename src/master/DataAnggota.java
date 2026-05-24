@@ -482,14 +482,7 @@ public class DataAnggota extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(DataAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-            UIManager.put("Button.arc", 15);
-            UIManager.put("Component.arc", 15);
-            UIManager.put("TextComponent.arc", 15);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+      
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

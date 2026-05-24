@@ -973,14 +973,6 @@ public class Fbuku extends javax.swing.JFrame {
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(Fbuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-            UIManager.put("Button.arc", 15);
-            UIManager.put("Component.arc", 15);
-            UIManager.put("TextComponent.arc", 15);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         // </editor-fold>
 
         /* Create and display the form */

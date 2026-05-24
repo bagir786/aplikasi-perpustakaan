@@ -41,6 +41,7 @@ public class DataAnggota extends javax.swing.JFrame {
         
         initComponents();
         styleComponents();
+        setLocationRelativeTo(null);
         tabelData.setShowGrid(false);
 
         tabelData.setIntercellSpacing(
@@ -291,6 +292,11 @@ public class DataAnggota extends javax.swing.JFrame {
         btnBatal.setForeground(new java.awt.Color(255, 255, 255));
         btnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-back-up-double.png"))); // NOI18N
         btnBatal.setText("Kembali");
+        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBatalActionPerformed(evt);
+            }
+        });
 
         btnCari.setBackground(new java.awt.Color(0, 102, 206));
         btnCari.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -456,6 +462,12 @@ public class DataAnggota extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCariActionPerformed
 
+    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+        // TODO add your handling code here:
+        new tampilanawal.dashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBatalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -511,7 +523,6 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;

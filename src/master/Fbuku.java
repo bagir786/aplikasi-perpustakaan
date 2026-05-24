@@ -1,5 +1,7 @@
 package master;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -124,16 +126,13 @@ public class Fbuku extends javax.swing.JFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         // Search TextField Styling
-        txtCari.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)),
-                javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+      
 
         // Cari Button Styling - Matching Image (Blue Background)
         btnCari.setBackground(new java.awt.Color(0, 102, 204));
         btnCari.setForeground(java.awt.Color.WHITE);
         btnCari.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14));
         btnCari.setFocusPainted(false);
-        btnCari.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
         // Search Placeholder Logic
         txtCari.setText("Cari Judul / Pengarang...");
@@ -171,9 +170,10 @@ public class Fbuku extends javax.swing.JFrame {
         // Form Fields Styling
         JTextField[] fields = { txtIdBuku, txtJudul, txtPengarang, txtPenerbit, txtTahun, txtStok };
         for (JTextField f : fields) {
-            f.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                    javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)),
-                    javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)));
+            
+            //f.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                    //javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)),
+                    //javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)));
         }
         cbKategori.setBackground(java.awt.Color.WHITE);
         txtIdBuku.setEditable(false);
@@ -201,7 +201,6 @@ public class Fbuku extends javax.swing.JFrame {
             actionBtns[i].setForeground(Color.WHITE);
             actionBtns[i].setFont(new Font("Segoe UI Semibold", Font.BOLD, 14));
             actionBtns[i].setFocusPainted(false);
-            actionBtns[i].setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
             actionBtns[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
 
@@ -483,16 +482,16 @@ public class Fbuku extends javax.swing.JFrame {
                                     .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnBatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnSimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(20, 20, 20)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -538,7 +537,7 @@ public class Fbuku extends javax.swing.JFrame {
                     .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFirst)
@@ -933,15 +932,15 @@ public class Fbuku extends javax.swing.JFrame {
             final int page = i;
             JButton btn = new JButton(String.valueOf(i));
             btn.setPreferredSize(new java.awt.Dimension(35, 30));
-            btn.setFont(new java.awt.Font("Tahoma", 1, 11));
+            btn.setFont(new java.awt.Font("Segoe UI", 1, 11));
             btn.setFocusPainted(false);
             btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
             if (i == currentPage) {
-                btn.setFont(new java.awt.Font("Tahoma", 1, 11));
+                btn.setFont(new java.awt.Font("Segoe UI", 1, 11));
                 btn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
             } else {
-                btn.setFont(new java.awt.Font("Tahoma", 0, 11));
+                btn.setFont(new java.awt.Font("Segoe UI", 0, 11));
                 btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
             }
 
@@ -973,6 +972,14 @@ public class Fbuku extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(Fbuku.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+         try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.put("Button.arc", 15);
+            UIManager.put("Component.arc", 15);
+            UIManager.put("TextComponent.arc", 15);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         // </editor-fold>
 

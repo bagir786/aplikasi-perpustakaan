@@ -33,7 +33,6 @@ public class Fbuku extends javax.swing.JFrame {
 
     public Fbuku() {
         initComponents();
-        setIcons();
         initPagination();
         initActionListeners();
         populateKategori();
@@ -114,7 +113,7 @@ public class Fbuku extends javax.swing.JFrame {
         tblBuku.setSelectionForeground(java.awt.Color.BLACK);
 
         // Adjust Column Widths
-        tblBuku.getColumnModel().getColumn(0).setPreferredWidth(80); // ID Buku
+        tblBuku.getColumnModel().getColumn(0).setPreferredWidth(100); // ID Buku
         tblBuku.getColumnModel().getColumn(1).setPreferredWidth(300); // Judul Buku (Widened)
         tblBuku.getColumnModel().getColumn(2).setPreferredWidth(150); // Pengarang
         tblBuku.getColumnModel().getColumn(3).setPreferredWidth(150); // Penerbit
@@ -192,7 +191,7 @@ public class Fbuku extends javax.swing.JFrame {
                 new Color(0, 120, 242), // Simpan: Blue
                 new Color(255, 165, 0), // Edit: Orange
                 new Color(220, 53, 69), // Hapus: Red
-                new Color(0, 153, 153), // Clear: Teal/Cyan
+                new Color (40, 167, 69), // Clear: Teal/Cyan
                 new Color(108, 117, 125) // Batal: Gray
         };
 
@@ -226,9 +225,6 @@ public class Fbuku extends javax.swing.JFrame {
         });
     }
 
-    private void setIcons() {
-        jLabelIcon.setIcon(resizeIcon("/assets/table-list.png", 24, 24));
-    }
 
     private ImageIcon resizeIcon(String path, int width, int height) {
         try {
@@ -252,7 +248,6 @@ public class Fbuku extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabelIcon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtIdBuku = new javax.swing.JTextField();
@@ -294,7 +289,9 @@ public class Fbuku extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Sistem Informasi Manajemen Perpustakaan");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/library.png"))); // NOI18N
+        jLabel1.setText(" Sistem Informasi Manajemen Perpustakaan");
 
         jPanel2.setBackground(new java.awt.Color(245, 247, 247));
 
@@ -483,7 +480,7 @@ public class Fbuku extends javax.swing.JFrame {
                                     .addComponent(btnBatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnSimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 32, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
@@ -553,21 +550,14 @@ public class Fbuku extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel1)
-                .addContainerGap(305, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1004,7 +994,6 @@ public class Fbuku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabelIcon;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

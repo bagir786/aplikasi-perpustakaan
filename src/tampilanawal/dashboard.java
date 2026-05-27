@@ -220,8 +220,8 @@ public class dashboard extends javax.swing.JFrame {
         Ltopmenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Ltopmenu.setForeground(new java.awt.Color(255, 255, 255));
         Ltopmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Ltopmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/table-list.png"))); // NOI18N
-        Ltopmenu.setText("Sistem Informasi Managemen Perpustakaan");
+        Ltopmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/layout-dashboard.png"))); // NOI18N
+        Ltopmenu.setText(" Sistem Informasi Managemen Perpustakaan");
 
         paneldb.setBackground(new java.awt.Color(255, 255, 255));
 

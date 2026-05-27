@@ -19,63 +19,44 @@ public class Pengembalian extends javax.swing.JFrame {
     
     public Pengembalian() {
     initComponents();
-    
+    setLocationRelativeTo(null);
+    styleComponents();
     jDateChooser1.setDate(null);
-    
-    tidkembali.setText(generateIdKembali());
-    loadIdPinjam();
-    
-    btnbatal.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        btnbatalActionPerformed(evt);
+   
     }
-});
-    
-    getContentPane().setBackground(java.awt.Color.WHITE);
-    
-    ImageIcon iconProses = new ImageIcon(getClass().getResource("/assets/iconcheck.png"));
-    Image imgProses = iconProses.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    btnproses.setIcon(new ImageIcon(imgProses));
+    private void styleComponents() {
+        // Table Header Styling - Matching Image Reference (Light Blue Background, Dark
+        // Blue Text)
+        tabelKmbl.getTableHeader().setDefaultRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                javax.swing.JLabel label = (javax.swing.JLabel) super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                label.setBackground(new java.awt.Color(234, 241, 248)); // Light blue/gray background
+                label.setForeground(new java.awt.Color(0, 51, 102)); // Dark blue text
+                label.setFont(new java.awt.Font("Segoe UI", 1, 12));
+                label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                label.setBorder(
+                        javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(204, 204, 204)));
+                return label;
+            }
+        });
+        tabelKmbl.setRowHeight(35); // Increased row height for better readability
+        tabelKmbl.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 35));
+        tabelKmbl.setGridColor(new java.awt.Color(230, 230, 230));
+        tabelKmbl.setSelectionBackground(new java.awt.Color(235, 245, 255));
+        tabelKmbl.setSelectionForeground(java.awt.Color.BLACK);
+        
+        // Adjust Column Widths
+        tabelKmbl.getColumnModel().getColumn(0).setPreferredWidth(50); 
+        tabelKmbl.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tabelKmbl.getColumnModel().getColumn(2).setPreferredWidth(300); 
+        tabelKmbl.getColumnModel().getColumn(3).setPreferredWidth(200); 
+        tabelKmbl.getColumnModel().getColumn(4).setPreferredWidth(200); 
+        tabelKmbl.getColumnModel().getColumn(5).setPreferredWidth(150);
 
-    ImageIcon iconBatal = new ImageIcon(getClass().getResource("/assets/iconcancel.png"));
-    Image imgBatal = iconBatal.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    btnbatal.setIcon(new ImageIcon(imgBatal));
-    
-    btnproses.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    btnproses.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-    btnproses.setIconTextGap(10);
-
-    btnbatal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    btnbatal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-    btnbatal.setIconTextGap(10);
-    
-    cbidpinjam.setEditable(true); 
-    
-    btnproses.setBackground(new java.awt.Color(0,153,51));
-    btnbatal.setBackground(new java.awt.Color(158,158,158));
-    
-    btnproses.setForeground(java.awt.Color.WHITE);
-    btnbatal.setForeground(java.awt.Color.WHITE);
-
-    btnproses.setFocusPainted(false);
-    btnbatal.setFocusPainted(false);
-
-    btnproses.setBorderPainted(false);
-    btnbatal.setBorderPainted(false);
-
-    btnproses.setOpaque(true);
-    btnbatal.setOpaque(true);
     }
-    
-    private void loadIdPinjam() {
-            cbidpinjam.removeAllItems();
-            cbidpinjam.addItem("-- Pilih ID Pinjam --");
-    String[] dataPinjam = {"PM0001", "PM0002", "PM0003"};
-
-    for (String id : dataPinjam) {
-        cbidpinjam.addItem(id);
-    }
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,7 +80,7 @@ public class Pengembalian extends javax.swing.JFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         panelTabel = new javax.swing.JPanel();
         scrolltabel = new javax.swing.JScrollPane();
-        tblpengembalian = new javax.swing.JTable();
+        tabelKmbl = new javax.swing.JTable();
         panelAksi = new javax.swing.JPanel();
         lblstatus = new javax.swing.JLabel();
         btnproses = new javax.swing.JButton();
@@ -117,8 +98,8 @@ public class Pengembalian extends javax.swing.JFrame {
         lblHeader.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblHeader.setForeground(new java.awt.Color(255, 255, 255));
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/table-list.png"))); // NOI18N
-        lblHeader.setText("    Sistem Informasi Manajemen Perpustakaan");
+        lblHeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/loopback.png"))); // NOI18N
+        lblHeader.setText(" Sistem Informasi Manajemen Perpustakaan");
 
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
@@ -126,8 +107,8 @@ public class Pengembalian extends javax.swing.JFrame {
             panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHeaderLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         panelHeaderLayout.setVerticalGroup(
             panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +133,7 @@ public class Pengembalian extends javax.swing.JFrame {
         );
         panelJudulLayout.setVerticalGroup(
             panelJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelJudulLayout.createSequentialGroup()
-                .addComponent(lblJudul)
-                .addGap(0, 15, Short.MAX_VALUE))
+            .addComponent(lblJudul)
         );
 
         panelForm.setBackground(new java.awt.Color(245, 247, 247));
@@ -168,9 +147,9 @@ public class Pengembalian extends javax.swing.JFrame {
         lblidpinjam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblidpinjam.setText("ID Pinjam");
 
-        tidkembali.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tidkembali.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        cbidpinjam.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cbidpinjam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
         panelForm.setLayout(panelFormLayout);
@@ -211,7 +190,8 @@ public class Pengembalian extends javax.swing.JFrame {
         panelTabel.setBackground(new java.awt.Color(245, 247, 247));
         panelTabel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Daftar Buku yang Dikembalikan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 16))); // NOI18N
 
-        tblpengembalian.setModel(new javax.swing.table.DefaultTableModel(
+        tabelKmbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabelKmbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -237,7 +217,7 @@ public class Pengembalian extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        scrolltabel.setViewportView(tblpengembalian);
+        scrolltabel.setViewportView(tabelKmbl);
 
         lblstatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblstatus.setText("Status: -");
@@ -257,7 +237,7 @@ public class Pengembalian extends javax.swing.JFrame {
             panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAksiLayout.createSequentialGroup()
                 .addComponent(lblstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 362, Short.MAX_VALUE))
+                .addGap(0, 95, Short.MAX_VALUE))
         );
         panelAksiLayout.setVerticalGroup(
             panelAksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +247,10 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnproses.setBackground(new java.awt.Color(40, 167, 69));
         btnproses.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnproses.setForeground(new java.awt.Color(255, 255, 255));
+        btnproses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/train-front.png"))); // NOI18N
         btnproses.setText("Proses Kembali");
         btnproses.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnproses.addActionListener(new java.awt.event.ActionListener() {
@@ -276,8 +259,11 @@ public class Pengembalian extends javax.swing.JFrame {
             }
         });
 
+        btnbatal.setBackground(new java.awt.Color(108, 117, 125));
         btnbatal.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        btnbatal.setText("Batal");
+        btnbatal.setForeground(new java.awt.Color(255, 255, 255));
+        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-back-up-double.png"))); // NOI18N
+        btnbatal.setText("Kembali");
         btnbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbatalActionPerformed(evt);
@@ -289,12 +275,13 @@ public class Pengembalian extends javax.swing.JFrame {
         panelTabelLayout.setHorizontalGroup(
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelLayout.createSequentialGroup()
-                .addComponent(panelAksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnproses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addComponent(scrolltabel)
+                    .addComponent(btnproses, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnbatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
+            .addComponent(scrolltabel, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
         );
         panelTabelLayout.setVerticalGroup(
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,9 +292,9 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelAksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelTabelLayout.createSequentialGroup()
-                        .addComponent(btnproses, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnproses, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(11, 11, 11))
         );
 
@@ -320,14 +307,11 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addComponent(panelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelUtamaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelUtamaLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                    .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelUtamaLayout.setVerticalGroup(
             panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,8 +321,9 @@ public class Pengembalian extends javax.swing.JFrame {
                 .addComponent(panelJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -349,7 +334,9 @@ public class Pengembalian extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -357,86 +344,19 @@ public class Pengembalian extends javax.swing.JFrame {
 
     private void btnprosesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprosesActionPerformed
         // TODO add your handling code here:
-        String idKembali = tidkembali.getText();
-    String idPinjam = cbidpinjam.getSelectedItem().toString();
-
-    if (idKembali.isEmpty() || idPinjam.equals("-- Pilih ID Pinjam --")) {
-    JOptionPane.showMessageDialog(this, "Data belum lengkap!");
-        return;
-}
-    lblstatus.setText("Status: Sudah Dikembalikan");
-
-    JOptionPane.showMessageDialog(this, "Pengembalian berhasil diproses!");
-
-    ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
-
-    Date tglKembali = jDateChooser1.getDate();
-
-        if (idKembali.isEmpty() || 
-    idPinjam.equals("-- Pilih ID Pinjam --") || 
-    tglKembali == null) {
-
-    JOptionPane.showMessageDialog(this, "Data belum lengkap!");
-    return;
     }//GEN-LAST:event_btnprosesActionPerformed
-    tidkembali.setText(generateIdKembali());
-    jDateChooser1.setDate(null);
-    }
+
     
     private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
-    tidkembali.setText(generateIdKembali());
-    jDateChooser1.setDate(null);
-    cbidpinjam.setSelectedIndex(0);
-    lblstatus.setText("Status: -");
-
-    ((DefaultTableModel) tblpengembalian.getModel()).setRowCount(0);
-    dispose();
-    
+      new tampilanawal.dashboard().setVisible(true);
+      this.dispose();
     }//GEN-LAST:event_btnbatalActionPerformed
     
     private void lblstatusAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblstatusAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_lblstatusAncestorAdded
 
-    private int counter = 1;
-    private String generateIdKembali() {
-    return String.format("KM%04d", counter++);
-}
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Pengembalian().setVisible(true);
-            }
-        });
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -457,7 +377,7 @@ public class Pengembalian extends javax.swing.JFrame {
     private javax.swing.JPanel panelTabel;
     private javax.swing.JPanel panelUtama;
     private javax.swing.JScrollPane scrolltabel;
-    private javax.swing.JTable tblpengembalian;
+    private javax.swing.JTable tabelKmbl;
     private javax.swing.JTextField tidkembali;
     // End of variables declaration//GEN-END:variables
 }

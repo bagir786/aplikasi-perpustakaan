@@ -129,7 +129,7 @@ int no = 1;
 
         jPanel1.setBackground(new java.awt.Color(247, 247, 245));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Peminjaman Buku");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

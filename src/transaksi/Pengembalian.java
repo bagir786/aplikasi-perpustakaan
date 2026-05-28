@@ -119,7 +119,7 @@ public class Pengembalian extends javax.swing.JFrame {
 
         panelJudul.setBackground(new java.awt.Color(245, 247, 247));
 
-        lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblJudul.setText("Pengembalian Buku");
 
         javax.swing.GroupLayout panelJudulLayout = new javax.swing.GroupLayout(panelJudul);

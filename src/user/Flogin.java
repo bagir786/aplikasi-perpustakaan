@@ -114,7 +114,7 @@ public class Flogin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pngwing.com.png"))); // NOI18N
-        jLabel1.setText("Sistem Informasi Managemen Perpustakaan");
+        jLabel1.setText("Sistem Informasi Manajemen Perpustakaan");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 

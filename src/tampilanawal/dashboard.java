@@ -28,6 +28,7 @@ import koneksi.koneksi;
 import master.DataAnggota;
 import master.Fbuku;
 import master.FormPetugas;
+import report.FormLaporan;
 import transaksi.Fdenda;
 
 /**
@@ -221,7 +222,7 @@ public class dashboard extends javax.swing.JFrame {
         Ltopmenu.setForeground(new java.awt.Color(255, 255, 255));
         Ltopmenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Ltopmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/layout-dashboard.png"))); // NOI18N
-        Ltopmenu.setText(" Sistem Informasi Managemen Perpustakaan");
+        Ltopmenu.setText(" Sistem Informasi Manajemen Perpustakaan");
 
         paneldb.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -299,6 +300,11 @@ public class dashboard extends javax.swing.JFrame {
         btnLaporan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-search.png"))); // NOI18N
         btnLaporan.setText("Laporan");
+        btnLaporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaporanActionPerformed(evt);
+            }
+        });
 
         btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout-circle-r-line.png"))); // NOI18N
@@ -711,6 +717,12 @@ public class dashboard extends javax.swing.JFrame {
         new DataAnggota().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAnggotaActionPerformed
+
+    private void btnLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaporanActionPerformed
+        // TODO add your handling code here:
+        new FormLaporan().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLaporanActionPerformed
 
 
     /**

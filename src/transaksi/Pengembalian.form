@@ -155,7 +155,7 @@
             <Component class="javax.swing.JLabel" name="lblJudul">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="28" style="1"/>
+                  <Font name="Segoe UI" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pengembalian Buku"/>
               </Properties>

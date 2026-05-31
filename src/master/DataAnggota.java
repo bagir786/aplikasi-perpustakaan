@@ -34,12 +34,20 @@ public class DataAnggota extends javax.swing.JFrame {
 
     DefaultTableModel model;
 
+    // Pagination variables
+    private int currentPage = 1;
+    private int pageSize = 5;
+    private int totalPages = 1;
+    private java.util.List<Object[]> filteredData = new java.util.ArrayList<>();
+
     /**
      * Creates new form DataAnggota
      */
     public DataAnggota() {
         
         initComponents();
+        conn = koneksi.getConnection();
+        initPagination();
         styleComponents();
         setLocationRelativeTo(null);
         tabelData.setShowGrid(false);
@@ -47,61 +55,341 @@ public class DataAnggota extends javax.swing.JFrame {
         tabelData.setIntercellSpacing(
         new Dimension(0,0)
         );
-        //txtAlamat.putClientProperty("JComponent.roundRect", true);
-        //txtAlamat.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        //txtAlamat.setMargin(new Insets(8,8,8,8));
-
-        //jScrollPane1.setBorder(
-            //BorderFactory.createLineBorder(new Color(220,220,220))
-        //);
-        
-         conn=koneksi.getConnection();
-
-         model=new DefaultTableModel();
-
-        jTable1.setModel(model);
-
-        model.addColumn("ID");
-        model.addColumn("Nama");
-        model.addColumn("Kelas");
-        model.addColumn("JK");
-        model.addColumn("No Telp");
-
-        tampilData();
+        setupDynamicPageSize();
+        initActionListeners();
+        clearForm();
+        tampilData("");
     }
     
-    private void tampilData(){
-
-    model.getDataVector().removeAllElements();
-
-    try{
-
-    st=conn.createStatement();
-
-    rs=st.executeQuery("SELECT * FROM anggota");
-
-    while(rs.next()){
-
-    Object data[]={
-
-    rs.getString("id"),
-    rs.getString("nama"),
-    rs.getString("kelas"),
-    rs.getString("jk"),
-    rs.getString("notelp")
-
-    };
-
-    model.addRow(data);
-
-   }
-
-   }catch(Exception e){
-
-   JOptionPane.showMessageDialog(null,e);
-
+    private void setupDynamicPageSize() {
+        javax.swing.Timer resizeTimer = new javax.swing.Timer(300, e -> calculatePageSize());
+        resizeTimer.setRepeats(false);
+        
+        jScrollPane3.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                resizeTimer.restart();
+            }
+        });
     }
-   }
+
+    private void calculatePageSize() {
+        int rowHeight = tabelData.getRowHeight();
+        if (rowHeight <= 0)
+            rowHeight = 35; // Default if not set yet
+
+        int availableHeight = jScrollPane3.getViewport().getHeight();
+        if (availableHeight > 0) {
+            pageSize = Math.max(1, availableHeight / rowHeight);
+            tampilData(txtCari.getText());
+        }
+    }
+
+    private void initPagination() {
+        if (btnFirst == null) return;
+        btnFirst.addActionListener(e -> {
+            currentPage = 1;
+            updateTable();
+        });
+        btnPrev.addActionListener(e -> {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable();
+            }
+        });
+        btnNext.addActionListener(e -> {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateTable();
+            }
+        });
+        btnLast.addActionListener(e -> {
+            currentPage = totalPages;
+            updateTable();
+        });
+    }
+
+    private void tampilData(String cari){
+        filteredData.clear();
+        try{
+            String sql;
+            if(cari.equals("Cari Nama / ID Anggota...") || cari.isEmpty()){
+                sql = "SELECT id_anggota, nama_anggota, jenis_kelamin, no_telp, alamat FROM anggota";
+            } else {
+                sql = "SELECT id_anggota, nama_anggota, jenis_kelamin, no_telp, alamat FROM anggota WHERE id_anggota LIKE ? OR nama_anggota LIKE ? OR alamat LIKE ? OR no_telp LIKE ?";
+            }
+            
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            if(!cari.equals("Cari Nama / ID Anggota...") && !cari.isEmpty()){
+                String p = "%" + cari + "%";
+                pst.setString(1, p);
+                pst.setString(2, p);
+                pst.setString(3, p);
+                pst.setString(4, p);
+            }
+            
+            rs = pst.executeQuery();
+
+            while(rs.next()){
+                filteredData.add(new Object[]{
+                    rs.getString("id_anggota"),
+                    rs.getString("nama_anggota"),
+                    rs.getString("jenis_kelamin"),
+                    rs.getString("no_telp"),
+                    rs.getString("alamat")
+                });
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Gagal memuat data: " + e.getMessage());
+        }
+
+        totalPages = (int) Math.ceil((double) filteredData.size() / pageSize);
+        if (totalPages == 0)
+            totalPages = 1;
+        currentPage = 1;
+
+        updateTable();
+    }
+    
+    private void autonumber() {
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id_anggota FROM anggota ORDER BY id_anggota DESC LIMIT 1");
+
+            if (rs.next()) {
+                String lastId = rs.getString("id_anggota");
+                String numberPart = lastId.replaceAll("[^0-9]", "");
+
+                if (numberPart.isEmpty()) {
+                    jTextField1.setText("A001");
+                } else {
+                    int num = Integer.parseInt(numberPart) + 1;
+                    jTextField1.setText(String.format("A%03d", num));
+                }
+            } else {
+                jTextField1.setText("A001");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal generate ID: " + e.getMessage());
+        }
+    }
+    
+    private void clearForm() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        Group1.clearSelection();
+        txtNoTelpn.setText("");
+        txtAlamat.setText("");
+        txtCari.setText("Cari Nama / ID Anggota...");
+        txtCari.setForeground(java.awt.Color.GRAY);
+        autonumber();
+        jTextField2.requestFocus();
+    }
+    
+    private void fillForm(int row) {
+        int dataIndex = (currentPage - 1) * pageSize + row;
+        if (dataIndex >= filteredData.size())
+            return;
+
+        Object[] rowData = filteredData.get(dataIndex);
+
+        jTextField1.setText(getString(rowData[0]));
+        jTextField2.setText(getString(rowData[1]));
+        
+        String jk = getString(rowData[2]);
+        if(jk.equals("Laki-laki")) {
+            rjk1.setSelected(true);
+        } else {
+            rjk2.setSelected(true);
+        }
+        
+        txtNoTelpn.setText(getString(rowData[3]));
+        txtAlamat.setText(getString(rowData[4]));
+    }
+
+    private String getString(Object obj) {
+        return (obj == null) ? "" : obj.toString();
+    }
+
+    private void updateTable() {
+        DefaultTableModel tblModel = (DefaultTableModel) tabelData.getModel();
+        tblModel.setRowCount(0);
+
+        int start = (currentPage - 1) * pageSize;
+        int end = Math.min(start + pageSize, filteredData.size());
+
+        for (int i = start; i < end; i++) {
+            tblModel.addRow(filteredData.get(i));
+        }
+
+        while (tblModel.getRowCount() < pageSize) {
+            tblModel.addRow(new Object[] { "", "", "", "", "" });
+        }
+
+        renderPaginationButtons();
+        if (lblTotalData != null) {
+            lblTotalData.setText("Total Data: " + filteredData.size());
+        }
+
+        if (btnFirst != null) {
+            btnFirst.setEnabled(currentPage > 1);
+            btnPrev.setEnabled(currentPage > 1);
+            btnNext.setEnabled(currentPage < totalPages);
+            btnLast.setEnabled(currentPage < totalPages);
+        }
+    }
+
+    private void renderPaginationButtons() {
+        if (pnlPages == null) return;
+        pnlPages.removeAll();
+
+        int maxVisiblePages = 5;
+        int startPage = Math.max(1, currentPage - (maxVisiblePages / 2));
+        int endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        for (int i = startPage; i <= endPage; i++) {
+            final int page = i;
+            javax.swing.JButton btn = new javax.swing.JButton(String.valueOf(i));
+            btn.setPreferredSize(new java.awt.Dimension(35, 30));
+            btn.setFont(new java.awt.Font("Segoe UI", 1, 11));
+            btn.setFocusPainted(false);
+            btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+            if (i == currentPage) {
+                btn.setFont(new java.awt.Font("Segoe UI", 1, 11));
+                btn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+            } else {
+                btn.setFont(new java.awt.Font("Segoe UI", 0, 11));
+                btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+            }
+
+            btn.addActionListener(e -> {
+                currentPage = page;
+                updateTable();
+            });
+
+            pnlPages.add(btn);
+        }
+
+        pnlPages.revalidate();
+        pnlPages.repaint();
+    }
+    
+    private void initActionListeners() {
+        Group1.add(rjk1);
+        Group1.add(rjk2);
+        
+        tabelData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = tabelData.getSelectedRow();
+                fillForm(row);
+            }
+        });
+
+        btnClear.addActionListener(e -> {
+            clearForm();
+        });
+
+        btnSimpan.addActionListener(e -> {
+            String id = jTextField1.getText();
+            String nama = jTextField2.getText();
+            String jk = "";
+            if (rjk1.isSelected()) jk = "Laki-laki";
+            if (rjk2.isSelected()) jk = "Perempuan";
+            String noTelp = txtNoTelpn.getText();
+            String alamat = txtAlamat.getText();
+
+            if (nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
+                return;
+            }
+
+            try {
+                String sql = "INSERT INTO anggota (id_anggota, nama_anggota, jenis_kelamin, alamat, no_telp, tanggal_daftar) VALUES (?, ?, ?, ?, ?, CURDATE())";
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, id);
+                pst.setString(2, nama);
+                pst.setString(3, jk);
+                pst.setString(4, alamat);
+                pst.setString(5, noTelp);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Data Berhasil Disimpan");
+                tampilData(txtCari.getText());
+                clearForm();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Gagal simpan data: " + ex.getMessage());
+            }
+        });
+
+        btnEdit.addActionListener(e -> {
+            String id = jTextField1.getText();
+            String nama = jTextField2.getText();
+            String jk = "";
+            if (rjk1.isSelected()) jk = "Laki-laki";
+            if (rjk2.isSelected()) jk = "Perempuan";
+            String noTelp = txtNoTelpn.getText();
+            String alamat = txtAlamat.getText();
+
+            if (nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
+                return;
+            }
+
+            try {
+                String sql = "UPDATE anggota SET nama_anggota=?, jenis_kelamin=?, alamat=?, no_telp=? WHERE id_anggota=?";
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, nama);
+                pst.setString(2, jk);
+                pst.setString(3, alamat);
+                pst.setString(4, noTelp);
+                pst.setString(5, id);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Data Berhasil Diupdate");
+                tampilData(txtCari.getText());
+                clearForm();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Gagal update data: " + ex.getMessage());
+            }
+        });
+
+        btnHapus.addActionListener(e -> {
+            String id = jTextField1.getText();
+            if (id.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Pilih data yang akan dihapus!");
+                return;
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    String sql = "DELETE FROM anggota WHERE id_anggota=?";
+                    java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                    pst.setString(1, id);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus");
+                    tampilData(txtCari.getText());
+                    clearForm();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Gagal hapus data, pastikan anggota ini tidak memiliki riwayat peminjaman. \n" + ex.getMessage());
+                }
+            }
+        });
+
+        btnCari.addActionListener(e -> {
+            tampilData(txtCari.getText());
+        });
+        
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                tampilData(txtCari.getText());
+            }
+        });
+    }
      private void styleComponents() {
         // Table Header Styling - Matching Image Reference (Light Blue Background, Dark
         // Blue Text)
@@ -156,6 +444,37 @@ public class DataAnggota extends javax.swing.JFrame {
                 }
             }
         });
+        
+        // Validation for No Telp Wali
+        txtNoTelpn.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+        
+        jTextField1.setEditable(false);
+
+        // Pagination Styling - Matching Image
+        if (btnFirst != null && btnPrev != null && btnNext != null && btnLast != null) {
+            javax.swing.JButton[] pageBtns = { btnFirst, btnPrev, btnNext, btnLast };
+            for (javax.swing.JButton btn : pageBtns) {
+                btn.setFocusPainted(false);
+                btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                btn.setPreferredSize(new java.awt.Dimension(35, 30));
+            }
+        }
+
+        if (pnlPages != null) {
+            pnlPages.setBackground(new java.awt.Color(245, 247, 247));
+            if (pnlPages.getLayout() instanceof java.awt.FlowLayout) {
+                ((java.awt.FlowLayout) pnlPages.getLayout()).setHgap(5);
+                ((java.awt.FlowLayout) pnlPages.getLayout()).setVgap(0);
+            }
+        }
      }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -196,6 +515,18 @@ public class DataAnggota extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtAlamat = new javax.swing.JTextArea();
+        btnFirst = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
+        pnlPages = new javax.swing.JPanel();
+        btnNext = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
+        lblTotalData = new javax.swing.JLabel();
+
+        btnFirst.setText("|<");
+        btnPrev.setText("<");
+        btnNext.setText(">");
+        btnLast.setText(">|");
+        lblTotalData.setText("Total Data: 0");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -375,6 +706,18 @@ public class DataAnggota extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnFirst)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPrev)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlPages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNext)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLast)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTotalData))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8)
@@ -447,6 +790,14 @@ public class DataAnggota extends javax.swing.JFrame {
                     .addComponent(txtCari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFirst)
+                    .addComponent(btnPrev)
+                    .addComponent(pnlPages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNext)
+                    .addComponent(btnLast)
+                    .addComponent(lblTotalData))
                 .addGap(24, 24, 24))
         );
 
@@ -545,5 +896,11 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtNoTelpn;
+    private javax.swing.JButton btnFirst;
+    private javax.swing.JButton btnPrev;
+    private javax.swing.JPanel pnlPages;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnLast;
+    private javax.swing.JLabel lblTotalData;
     // End of variables declaration//GEN-END:variables
 }

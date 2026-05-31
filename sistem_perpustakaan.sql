@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+ -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `anggota` (
-  `id_anggota` int(11) NOT NULL,
+  `id_anggota` varchar(10) NOT NULL,
   `nama_anggota` varchar(100) NOT NULL,
   `jenis_kelamin` varchar(10) NOT NULL,
   `alamat` text NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE `detail_peminjaman` (
 CREATE TABLE `peminjaman` (
   `id_pinjam` int(11) NOT NULL,
   `tanggal_pinjam` date DEFAULT NULL,
-  `id_anggota` int(11) DEFAULT NULL,
+  `id_anggota` varchar(10) DEFAULT NULL,
   `id_petugas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -186,8 +186,8 @@ ALTER TABLE `petugas`
 --
 -- AUTO_INCREMENT for table `anggota`
 --
-ALTER TABLE `anggota`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT;
+-- ALTER TABLE `anggota`
+--   MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT;
 
 
 --

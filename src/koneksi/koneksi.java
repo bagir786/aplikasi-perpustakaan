@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 /**
  *
  * @author Asus
@@ -19,16 +20,17 @@ public class koneksi {
 
     public static Connection getConnection() {
         try {
-            if (conn == null) {
+            if (conn == null || conn.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/sistem_perpustakaan",
-                    "root",
-                    ""
-                );
+                String url = "jdbc:mysql://localhost:3306/sistem_perpustakaan";
+                String user = "root";
+                String password = "";
+
+                conn = DriverManager.getConnection(url, user, password);
+                System.out.println("Koneksi berhasil ke sistem_perpustakaan");
             }
-        } catch (Exception e) {
-            System.out.println("Error koneksi: " + e.getMessage());
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Koneksi gagal: " + e.getMessage());
         }
         return conn;
     }

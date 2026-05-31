@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package master;
-
-import tampilanawal.dashboard;
+import koneksi.koneksi;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +20,27 @@ public class FormPetugas extends javax.swing.JFrame {
      */
     public FormPetugas() {
         initComponents();
+        
+        tidpetugas.setEditable(false);
+        
+        tblpetugas.setRowHeight(30);
+        tblpetugas.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tblpetugas.getColumnModel().getColumn(1).setPreferredWidth(180);
+        tblpetugas.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblpetugas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tblpetugas.getColumnModel().getColumn(4).setPreferredWidth(120);
+        
+        tblpetugas.getTableHeader().setBackground(
+        new java.awt.Color(243,244,246));
+        tblpetugas.getTableHeader().setForeground(
+        new java.awt.Color(31,41,55));
+        
+        tblpetugas.setSelectionBackground(
+        new java.awt.Color(0,123,255));
+        tblpetugas.setSelectionForeground(
+        java.awt.Color.WHITE);
+        
+        lbltotaldata.setText("Total Data: " + tblpetugas.getRowCount());
     }
 
     /**
@@ -29,340 +52,521 @@ public class FormPetugas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        panelUtama = new javax.swing.JPanel();
+        panelTopBar = new javax.swing.JPanel();
+        lbllogosisteminformasiperpus = new javax.swing.JLabel();
+        lbljudulaplikasi = new javax.swing.JLabel();
+        panelHeader = new javax.swing.JPanel();
+        lbldatapetugas = new javax.swing.JLabel();
+        panelForm = new javax.swing.JPanel();
+        lblidpetugas = new javax.swing.JLabel();
+        tidpetugas = new javax.swing.JTextField();
+        lblnamapetugas = new javax.swing.JLabel();
+        tnamapetugas = new javax.swing.JTextField();
+        lblusername = new javax.swing.JLabel();
+        tusername = new javax.swing.JTextField();
+        lblpassword = new javax.swing.JLabel();
+        lbljabatan = new javax.swing.JLabel();
+        tpassword = new javax.swing.JPasswordField();
+        cmbjabatan = new javax.swing.JComboBox<>();
+        lblnotelp = new javax.swing.JLabel();
+        tnotelp = new javax.swing.JTextField();
+        panelButton = new javax.swing.JPanel();
+        btntambah = new javax.swing.JButton();
+        btnsimpan = new javax.swing.JButton();
+        btnedit = new javax.swing.JButton();
+        btnhapus = new javax.swing.JButton();
+        btnbatal = new javax.swing.JButton();
+        panelCari = new javax.swing.JPanel();
         tcari = new javax.swing.JTextField();
-        tID = new javax.swing.JTextField();
-        tnama = new javax.swing.JTextField();
-        tuser = new javax.swing.JTextField();
-        tpass = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        tnotelepon = new javax.swing.JTextField();
-        btnEdit = new javax.swing.JButton();
-        btnHapus = new javax.swing.JButton();
-        btnSimpan = new javax.swing.JButton();
-        btnCari = new javax.swing.JButton();
-        btnTambah = new javax.swing.JButton();
-        btnBatal = new javax.swing.JButton();
+        btncari = new javax.swing.JButton();
+        panelTabel = new javax.swing.JPanel();
+        scrollpetugas = new javax.swing.JScrollPane();
+        tblpetugas = new javax.swing.JTable();
+        panelFooterTabel = new javax.swing.JPanel();
+        btnfirst = new javax.swing.JButton();
+        btnpreview = new javax.swing.JButton();
+        lblhalaman = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        lbltotaldata = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        panelUtama.setBackground(new java.awt.Color(248, 249, 250));
+
+        panelTopBar.setBackground(new java.awt.Color(13, 59, 102));
+
+        lbllogosisteminformasiperpus.setForeground(new java.awt.Color(255, 255, 255));
+        lbllogosisteminformasiperpus.setPreferredSize(new java.awt.Dimension(24, 24));
+
+        lbljudulaplikasi.setBackground(new java.awt.Color(255, 255, 255));
+        lbljudulaplikasi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbljudulaplikasi.setForeground(new java.awt.Color(255, 255, 255));
+        lbljudulaplikasi.setText("Sistem Informasi Manajemen Perpustakaan");
+
+        javax.swing.GroupLayout panelTopBarLayout = new javax.swing.GroupLayout(panelTopBar);
+        panelTopBar.setLayout(panelTopBarLayout);
+        panelTopBarLayout.setHorizontalGroup(
+            panelTopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTopBarLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(lbllogosisteminformasiperpus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(lbljudulaplikasi)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelTopBarLayout.setVerticalGroup(
+            panelTopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTopBarLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(panelTopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbllogosisteminformasiperpus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbljudulaplikasi))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelHeader.setBackground(new java.awt.Color(255, 255, 255));
+
+        lbldatapetugas.setBackground(new java.awt.Color(31, 41, 55));
+        lbldatapetugas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        lbldatapetugas.setText("Data Petugas");
+
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addComponent(lbldatapetugas)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbldatapetugas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelForm.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblidpetugas.setBackground(new java.awt.Color(51, 51, 51));
+        lblidpetugas.setForeground(new java.awt.Color(51, 51, 51));
+        lblidpetugas.setText("ID Petugas");
+
+        tidpetugas.setBackground(new java.awt.Color(245, 245, 245));
+
+        lblnamapetugas.setBackground(new java.awt.Color(51, 51, 51));
+        lblnamapetugas.setForeground(new java.awt.Color(51, 51, 51));
+        lblnamapetugas.setText("Nama Petugas");
+
+        lblusername.setBackground(new java.awt.Color(51, 51, 51));
+        lblusername.setForeground(new java.awt.Color(51, 51, 51));
+        lblusername.setText("Username");
+
+        lblpassword.setBackground(new java.awt.Color(51, 51, 51));
+        lblpassword.setForeground(new java.awt.Color(51, 51, 51));
+        lblpassword.setText("Password");
+
+        lbljabatan.setBackground(new java.awt.Color(51, 51, 51));
+        lbljabatan.setForeground(new java.awt.Color(51, 51, 51));
+        lbljabatan.setText("Jabatan");
+
+        cmbjabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Petugas", "Guru" }));
+
+        lblnotelp.setBackground(new java.awt.Color(51, 51, 51));
+        lblnotelp.setForeground(new java.awt.Color(51, 51, 51));
+        lblnotelp.setText("No. Telp");
+
+        tnotelp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tnotelpKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
+        panelForm.setLayout(panelFormLayout);
+        panelFormLayout.setHorizontalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblidpetugas)
+                    .addComponent(lblnamapetugas)
+                    .addComponent(lblusername)
+                    .addComponent(lblpassword)
+                    .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblnotelp)
+                        .addComponent(lbljabatan)))
+                .addGap(83, 83, 83)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbjabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tusername, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tnamapetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tidpetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tnotelp, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 9, Short.MAX_VALUE))
+        );
+        panelFormLayout.setVerticalGroup(
+            panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormLayout.createSequentialGroup()
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tidpetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblidpetugas))
+                .addGap(18, 18, 18)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblnamapetugas)
+                    .addComponent(tnamapetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblusername)
+                    .addComponent(tusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblpassword)
+                    .addComponent(tpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbljabatan)
+                    .addComponent(cmbjabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblnotelp)
+                    .addComponent(tnotelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        panelButton.setBackground(new java.awt.Color(255, 255, 255));
+
+        btntambah.setBackground(new java.awt.Color(40, 167, 69));
+        btntambah.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btntambah.setForeground(new java.awt.Color(255, 255, 255));
+        btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icontambah.png"))); // NOI18N
+        btntambah.setText("Tambah");
+        btntambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntambahActionPerformed(evt);
+            }
+        });
+
+        btnsimpan.setBackground(new java.awt.Color(0, 123, 255));
+        btnsimpan.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnsimpan.setForeground(new java.awt.Color(255, 255, 255));
+        btnsimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconsimpan.png"))); // NOI18N
+        btnsimpan.setText("Simpan");
+        btnsimpan.setPreferredSize(new java.awt.Dimension(123, 29));
+        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsimpanActionPerformed(evt);
+            }
+        });
+
+        btnedit.setBackground(new java.awt.Color(255, 193, 7));
+        btnedit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnedit.setForeground(new java.awt.Color(255, 255, 255));
+        btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconedit.png"))); // NOI18N
+        btnedit.setText("Edit");
+        btnedit.setPreferredSize(new java.awt.Dimension(123, 29));
+        btnedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditActionPerformed(evt);
+            }
+        });
+
+        btnhapus.setBackground(new java.awt.Color(220, 53, 69));
+        btnhapus.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnhapus.setForeground(new java.awt.Color(251, 251, 251));
+        btnhapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconhapus.png"))); // NOI18N
+        btnhapus.setText("Hapus");
+        btnhapus.setPreferredSize(new java.awt.Dimension(123, 29));
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
+
+        btnbatal.setBackground(new java.awt.Color(108, 117, 125));
+        btnbatal.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnbatal.setForeground(new java.awt.Color(251, 251, 251));
+        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconbatal.png"))); // NOI18N
+        btnbatal.setText("Batal");
+        btnbatal.setPreferredSize(new java.awt.Dimension(123, 29));
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelButtonLayout = new javax.swing.GroupLayout(panelButton);
+        panelButton.setLayout(panelButtonLayout);
+        panelButtonLayout.setHorizontalGroup(
+            panelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(btntambah)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnsimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnedit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnhapus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbatal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        panelButtonLayout.setVerticalGroup(
+            panelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonLayout.createSequentialGroup()
+                .addComponent(btntambah)
+                .addGap(18, 18, 18)
+                .addComponent(btnsimpan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnbatal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        panelCari.setBackground(new java.awt.Color(251, 251, 251));
+
+        tcari.setText("Cari Nama Petugas...");
+
+        btncari.setBackground(new java.awt.Color(0, 123, 255));
+        btncari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconcari.png"))); // NOI18N
+        btncari.setPreferredSize(new java.awt.Dimension(90, 35));
+        btncari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncariActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCariLayout = new javax.swing.GroupLayout(panelCari);
+        panelCari.setLayout(panelCariLayout);
+        panelCariLayout.setHorizontalGroup(
+            panelCariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCariLayout.createSequentialGroup()
+                .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncari, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelCariLayout.setVerticalGroup(
+            panelCariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCariLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(panelCariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tcari)
+                    .addComponent(btncari, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelTabel.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblpetugas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id Petugas", "Nama Petugas", "Username", "No. Telepon"
+                "ID Petugas", "Nama Petugas", "Username", "Jabatan", "No. Telp"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
+        ));
+        scrollpetugas.setViewportView(tblpetugas);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable1.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(jTable1);
+        panelFooterTabel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel5.setText("Data Petugas");
+        btnfirst.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnfirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconfirstpage.png"))); // NOI18N
+        btnfirst.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        jLabel6.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel6.setText("No. Telepon");
+        btnpreview.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnpreview.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconarrowleft.png"))); // NOI18N
+        btnpreview.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        tcari.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tcari.addActionListener(new java.awt.event.ActionListener() {
+        lblhalaman.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblhalaman.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblhalaman.setText("1");
+        lblhalaman.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconarrowright.png"))); // NOI18N
+        jButton3.setPreferredSize(new java.awt.Dimension(30, 30));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tcariActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        tID.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tIDActionPerformed(evt);
-            }
-        });
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/iconlastpage.png"))); // NOI18N
+        jButton4.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        tnama.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tnama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tnamaActionPerformed(evt);
-            }
-        });
+        lbltotaldata.setText("Total Data:");
 
-        tuser.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        javax.swing.GroupLayout panelFooterTabelLayout = new javax.swing.GroupLayout(panelFooterTabel);
+        panelFooterTabel.setLayout(panelFooterTabelLayout);
+        panelFooterTabelLayout.setHorizontalGroup(
+            panelFooterTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFooterTabelLayout.createSequentialGroup()
+                .addGap(194, 194, 194)
+                .addComponent(btnfirst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnpreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblhalaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbltotaldata, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelFooterTabelLayout.setVerticalGroup(
+            panelFooterTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(panelFooterTabelLayout.createSequentialGroup()
+                .addGroup(panelFooterTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnfirst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblhalaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbltotaldata))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        tpass.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tpass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tpassActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
+        panelTabel.setLayout(panelTabelLayout);
+        panelTabelLayout.setHorizontalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollpetugas)
+            .addComponent(panelFooterTabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelTabelLayout.setVerticalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTabelLayout.createSequentialGroup()
+                .addComponent(scrollpetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelFooterTabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
+        );
 
-        jLabel1.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("ID Petugas");
-
-        jLabel2.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("Nama Petugas");
-
-        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setText("Username");
-
-        jLabel4.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel4.setText("Password");
-
-        tnotelepon.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        tnotelepon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tnoteleponActionPerformed(evt);
-            }
-        });
-        tnotelepon.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tnoteleponKeyTyped(evt);
-            }
-        });
-
-        btnEdit.setBackground(new java.awt.Color(255, 255, 102));
-        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnEdit.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnHapus.setBackground(new java.awt.Color(0, 153, 102));
-        btnHapus.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnHapus.setText("Hapus");
-        btnHapus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnHapus.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHapusActionPerformed(evt);
-            }
-        });
-
-        btnSimpan.setBackground(new java.awt.Color(255, 0, 255));
-        btnSimpan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnSimpan.setText("Simpan");
-        btnSimpan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnSimpan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        btnCari.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCari.setText("Cari");
-        btnCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariActionPerformed(evt);
-            }
-        });
-
-        btnTambah.setBackground(new java.awt.Color(51, 255, 51));
-        btnTambah.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnTambah.setText("Tambah");
-        btnTambah.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnTambah.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTambahActionPerformed(evt);
-            }
-        });
-
-        btnBatal.setBackground(new java.awt.Color(0, 204, 204));
-        btnBatal.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnBatal.setText("Batal");
-        btnBatal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnBatal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnBatal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBatalActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout panelUtamaLayout = new javax.swing.GroupLayout(panelUtama);
+        panelUtama.setLayout(panelUtamaLayout);
+        panelUtamaLayout.setHorizontalGroup(
+            panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelTopBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(panelCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelUtamaLayout.setVerticalGroup(
+            panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUtamaLayout.createSequentialGroup()
+                .addComponent(panelTopBar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(panelCari, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, Short.MAX_VALUE)
+                .addGap(26, 26, 26))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 859, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnSimpan)
-                        .addComponent(btnTambah)
-                        .addComponent(btnHapus)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(btnBatal))
-                        .addComponent(btnEdit)))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(889, 889, 889))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(164, 164, 164)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(tID, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tnama, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(tuser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(tpass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tnotelepon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(399, 399, 399))))
-                    .addContainerGap()))
+            .addComponent(panelUtama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(btnTambah)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBatal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEdit)
-                .addGap(16, 16, 16)
-                .addComponent(btnSimpan)
-                .addGap(18, 18, 18)
-                .addComponent(btnHapus)
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(241, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(11, 11, 11)
-                    .addComponent(jLabel5)
-                    .addGap(52, 52, 52)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(tID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))))
-                    .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(tnotelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(102, 102, 102)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(panelUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tcariActionPerformed
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tcariActionPerformed
+        JOptionPane.showMessageDialog(
+        this,
+        "Data berhasil dihapus"
+        );
+    }//GEN-LAST:event_btnhapusActionPerformed
 
-    private void tIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tIDActionPerformed
-
-    private void tnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tnamaActionPerformed
-
-    private void tpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tpassActionPerformed
-
-    private void tnoteleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnoteleponActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tnoteleponActionPerformed
-
-    private void tnoteleponKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tnoteleponKeyTyped
+    private void tnotelpKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tnotelpKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (!Character.isDigit(c)) {
-            evt.consume();
-        }
-        if (tnotelepon.getText().length() >= 12) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_tnoteleponKeyTyped
+    if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+    evt.consume();
+}
+    if (tnotelp.getText().length() >= 12) {
+    evt.consume();
+}
+    }//GEN-LAST:event_tnotelpKeyTyped
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+    private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCariActionPerformed
+        tidpetugas.setText("");
+        tnamapetugas.setText("");
+        tusername.setText("");
+        tpassword.setText("");
+        cmbjabatan.setSelectedIndex(0);
+        tnotelp.setText("");
 
-    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTambahActionPerformed
+        tnamapetugas.requestFocus();
+    }//GEN-LAST:event_btntambahActionPerformed
 
-    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBatalActionPerformed
+        tidpetugas.setText("");
+        tnamapetugas.setText("");
+        tusername.setText("");
+        tpassword.setText("");
+        cmbjabatan.setSelectedIndex(0);
+        tnotelp.setText("");
+    }//GEN-LAST:event_btnbatalActionPerformed
 
-    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
         // TODO add your handling code here:
-        new dashboard().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnHapusActionPerformed
+        JOptionPane.showMessageDialog(
+        this,
+        "Data berhasil disimpan",
+        "Informasi",
+        JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_btnsimpanActionPerformed
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(
+        this,
+        "Data berhasil diubah"
+        );
+    }//GEN-LAST:event_btneditActionPerformed
+
+    private void btncariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncariActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(
+        this,
+        "Pencarian: " + tcari.getText()
+        );
+    }//GEN-LAST:event_btncariActionPerformed
 
     /**
      * @param args the command line arguments
@@ -398,27 +602,44 @@ public class FormPetugas extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnCari;
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnHapus;
-    private javax.swing.JButton btnSimpan;
-    private javax.swing.JButton btnTambah;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField tID;
+    private javax.swing.JButton btnbatal;
+    private javax.swing.JButton btncari;
+    private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnfirst;
+    private javax.swing.JButton btnhapus;
+    private javax.swing.JButton btnpreview;
+    private javax.swing.JButton btnsimpan;
+    private javax.swing.JButton btntambah;
+    private javax.swing.JComboBox<String> cmbjabatan;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel lbldatapetugas;
+    private javax.swing.JLabel lblhalaman;
+    private javax.swing.JLabel lblidpetugas;
+    private javax.swing.JLabel lbljabatan;
+    private javax.swing.JLabel lbljudulaplikasi;
+    private javax.swing.JLabel lbllogosisteminformasiperpus;
+    private javax.swing.JLabel lblnamapetugas;
+    private javax.swing.JLabel lblnotelp;
+    private javax.swing.JLabel lblpassword;
+    private javax.swing.JLabel lbltotaldata;
+    private javax.swing.JLabel lblusername;
+    private javax.swing.JPanel panelButton;
+    private javax.swing.JPanel panelCari;
+    private javax.swing.JPanel panelFooterTabel;
+    private javax.swing.JPanel panelForm;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelTabel;
+    private javax.swing.JPanel panelTopBar;
+    private javax.swing.JPanel panelUtama;
+    private javax.swing.JScrollPane scrollpetugas;
+    private javax.swing.JTable tblpetugas;
     private javax.swing.JTextField tcari;
-    private javax.swing.JTextField tnama;
-    private javax.swing.JTextField tnotelepon;
-    private javax.swing.JPasswordField tpass;
-    private javax.swing.JTextField tuser;
+    private javax.swing.JTextField tidpetugas;
+    private javax.swing.JTextField tnamapetugas;
+    private javax.swing.JTextField tnotelp;
+    private javax.swing.JPasswordField tpassword;
+    private javax.swing.JTextField tusername;
     // End of variables declaration//GEN-END:variables
 }

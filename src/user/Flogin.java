@@ -5,10 +5,12 @@
  */
 package user;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.UIManager;
 
 /**
  *
@@ -112,7 +114,7 @@ public class Flogin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pngwing.com.png"))); // NOI18N
-        jLabel1.setText("Sistem Informasi Managemen Perpustakaan");
+        jLabel1.setText("Sistem Informasi Manajemen Perpustakaan");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -268,7 +270,14 @@ public class Flogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Flogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+       try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.put("Button.arc", 15);
+            UIManager.put("Component.arc", 15);
+            UIManager.put("TextComponent.arc", 15);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

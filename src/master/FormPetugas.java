@@ -5,6 +5,8 @@
  */
 package master;
 
+import tampilanawal.dashboard;
+
 /**
  *
  * @author ASUS
@@ -168,6 +170,11 @@ public class FormPetugas extends javax.swing.JFrame {
         btnHapus.setText("Hapus");
         btnHapus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnHapus.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnSimpan.setBackground(new java.awt.Color(255, 0, 255));
         btnSimpan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -259,9 +266,9 @@ public class FormPetugas extends javax.swing.JFrame {
                 .addComponent(btnTambah)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBatal)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEdit)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addComponent(btnSimpan)
                 .addGap(18, 18, 18)
                 .addComponent(btnHapus)
@@ -350,6 +357,12 @@ public class FormPetugas extends javax.swing.JFrame {
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBatalActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        new dashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     /**
      * @param args the command line arguments

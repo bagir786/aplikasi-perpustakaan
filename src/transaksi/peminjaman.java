@@ -1130,8 +1130,10 @@ public class peminjaman extends javax.swing.JFrame {
 
                 String sqlDetail = "INSERT INTO detail_peminjaman (id_pinjam, id_buku, tanggal_kembali, status) VALUES (?, ?, ?, ?)";
                 String sqlUpdateStok = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
+                String sqlCheckStok = "SELECT stok FROM buku WHERE id_buku = ?";
                 try (PreparedStatement pstDetail = conn.prepareStatement(sqlDetail);
-                        PreparedStatement pstStok = conn.prepareStatement(sqlUpdateStok)) {
+                        PreparedStatement pstStok = conn.prepareStatement(sqlUpdateStok);
+                        PreparedStatement pstCheck = conn.prepareStatement(sqlCheckStok)) {
 
                     java.util.Calendar cal = java.util.Calendar.getInstance();
                     cal.setTime(dcTgl.getDate());
@@ -1140,7 +1142,21 @@ public class peminjaman extends javax.swing.JFrame {
 
                     for (Object[] row : cartData) {
                         String idBuku = row[1].toString();
+                        String judul = row[2].toString();
                         String status = row[4].toString();
+
+                        // Live stock validation
+                        pstCheck.setString(1, idBuku);
+                        try (java.sql.ResultSet rs = pstCheck.executeQuery()) {
+                            if (rs.next()) {
+                                int stok = rs.getInt("stok");
+                                if (stok <= 0) {
+                                    throw new java.sql.SQLException("Stok buku '" + judul + "' habis di database! Peminjaman dibatalkan.");
+                                }
+                            } else {
+                                throw new java.sql.SQLException("Buku '" + judul + "' tidak ditemukan di database!");
+                            }
+                        }
 
                         pstDetail.setString(1, tIdPinjam.getText());
                         pstDetail.setString(2, idBuku);
@@ -1499,6 +1515,7 @@ public class peminjaman extends javax.swing.JFrame {
                             } else {
                                 lblStatus.setForeground(new java.awt.Color(220, 53, 69));
                                 lblStatus.setText("Stok habis untuk buku: " + judul);
+                                JOptionPane.showMessageDialog(dialog, "Stok buku '" + judul + "' habis! Tidak dapat dipinjam.", "Stok Kosong", JOptionPane.WARNING_MESSAGE);
                             }
                         }
                     }
@@ -1517,6 +1534,8 @@ public class peminjaman extends javax.swing.JFrame {
 
             int addedCount = 0;
             int skippedCount = 0;
+            java.util.List<String> outOfStockBooks = new java.util.ArrayList<>();
+
             for (int row : selectedRows) {
                 Object valId = table.getValueAt(row, 0);
                 if (valId != null && !valId.toString().trim().isEmpty()) {
@@ -1545,6 +1564,7 @@ public class peminjaman extends javax.swing.JFrame {
                             skippedCount++;
                         }
                     } else {
+                        outOfStockBooks.add(judul);
                         skippedCount++;
                     }
                 } else {
@@ -1556,6 +1576,10 @@ public class peminjaman extends javax.swing.JFrame {
             lblStatus.setForeground(new java.awt.Color(40, 167, 69));
             lblStatus.setText(
                     "Status: Berhasil menambah " + addedCount + " buku. (Lewati/Duplikat/Habis: " + skippedCount + ")");
+
+            if (!outOfStockBooks.isEmpty()) {
+                JOptionPane.showMessageDialog(dialog, "Buku berikut tidak dapat ditambahkan karena stok habis:\n- " + String.join("\n- ", outOfStockBooks), "Stok Habis", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         // Done handler

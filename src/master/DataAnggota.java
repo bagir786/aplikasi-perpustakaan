@@ -522,12 +522,6 @@ public class DataAnggota extends javax.swing.JFrame {
         btnLast = new javax.swing.JButton();
         lblTotalData = new javax.swing.JLabel();
 
-        btnFirst.setText("|<");
-        btnPrev.setText("<");
-        btnNext.setText(">");
-        btnLast.setText(">|");
-        lblTotalData.setText("Total Data: 0");
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -598,6 +592,11 @@ public class DataAnggota extends javax.swing.JFrame {
         txtNoTelpn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtCari.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariActionPerformed(evt);
+            }
+        });
 
         btnSimpan.setBackground(new java.awt.Color(0, 120, 242));
         btnSimpan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -687,6 +686,16 @@ public class DataAnggota extends javax.swing.JFrame {
         txtAlamat.setRows(5);
         jScrollPane5.setViewportView(txtAlamat);
 
+        btnFirst.setText("|<");
+
+        btnPrev.setText("<");
+
+        btnNext.setText(">");
+
+        btnLast.setText(">|");
+
+        lblTotalData.setText("Total Data: 0");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -705,7 +714,7 @@ public class DataAnggota extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnFirst)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPrev)
@@ -830,6 +839,10 @@ public class DataAnggota extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
 
+    private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -871,7 +884,11 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JButton btnCari;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnFirst;
     private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnLast;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -890,17 +907,13 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblTotalData;
+    private javax.swing.JPanel pnlPages;
     private javax.swing.JRadioButton rjk1;
     private javax.swing.JRadioButton rjk2;
     private javax.swing.JTable tabelData;
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtNoTelpn;
-    private javax.swing.JButton btnFirst;
-    private javax.swing.JButton btnPrev;
-    private javax.swing.JPanel pnlPages;
-    private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnLast;
-    private javax.swing.JLabel lblTotalData;
     // End of variables declaration//GEN-END:variables
 }

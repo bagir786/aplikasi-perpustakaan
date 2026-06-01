@@ -335,7 +335,7 @@
                             <Column editable="true" title="No" type="java.lang.Object"/>
                             <Column editable="true" title="ID Buku" type="java.lang.Object"/>
                             <Column editable="true" title="Judul Buku" type="java.lang.Object"/>
-                            <Column editable="true" title="Tgl Kembali" type="java.lang.Object"/>
+                            <Column editable="true" title="Tgl Pinjam" type="java.lang.Object"/>
                             <Column editable="true" title="Keterangan" type="java.lang.Object"/>
                           </Table>
                         </Property>

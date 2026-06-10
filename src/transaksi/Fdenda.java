@@ -3,6 +3,7 @@ package transaksi;
 import tampilanawal.dashboard;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -16,6 +17,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Fdenda extends javax.swing.JFrame {
 
+    private java.util.List<String> listIdPinjam = new java.util.ArrayList<>();
+    private boolean isFiltering = false;
+    private int currentIdKembali = 0;
+
     /**
      * Creates new form Fdenda
      */
@@ -23,9 +28,10 @@ public class Fdenda extends javax.swing.JFrame {
         initComponents();
         styleComponents();
         setIcons();
-
+        initLogic();
     }
-     private void styleComponents() {
+
+    private void styleComponents() {
         // Table Header Styling - Matching Image Reference (Light Blue Background, Dark
         // Blue Text)
         tabelData.getTableHeader().setDefaultRenderer(new javax.swing.table.DefaultTableCellRenderer() {
@@ -48,7 +54,7 @@ public class Fdenda extends javax.swing.JFrame {
         tabelData.setGridColor(new java.awt.Color(230, 230, 230));
         tabelData.setSelectionBackground(new java.awt.Color(235, 245, 255));
         tabelData.setSelectionForeground(java.awt.Color.BLACK);
-        
+
         // Adjust Column Widths
         tabelData.getColumnModel().getColumn(0).setPreferredWidth(50); // no
         tabelData.getColumnModel().getColumn(1).setPreferredWidth(100); // id_dnd
@@ -59,7 +65,7 @@ public class Fdenda extends javax.swing.JFrame {
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-     }
+    }
 
     private void setIcons() {
         btnCalendar.setIcon(resizeIcon("/assets/calendar.png", 18, 18));
@@ -109,7 +115,8 @@ public class Fdenda extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -210,19 +217,18 @@ public class Fdenda extends javax.swing.JFrame {
         jLabel9.setText("Daftar Denda");
 
         tabelData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
-                "No", "ID Denda", "ID Pinjam", "Nama Anggota", "Terlambat", "Total Denda"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                },
+                new String[] {
+                        "No", "ID Denda", "ID Pinjam", "Nama Anggota", "Terlambat", "Total Denda"
+                }) {
+            boolean[] canEdit = new boolean[] {
+                    false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(tabelData);
@@ -245,134 +251,186 @@ public class Fdenda extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTotalSeluruhDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(25, 25, 25))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel11))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIdDenda, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(cbIdPinjam, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cbIdAnggota, 0, 200, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtTglKembali)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtDendaHari, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(txtTerlambat, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTotalDenda))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(54, 54, 54))))
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                jPanel2Layout.createSequentialGroup()
+                                                                        .addGap(0, 0, Short.MAX_VALUE)
+                                                                        .addComponent(jLabel10)
+                                                                        .addGap(18, 18, 18)
+                                                                        .addComponent(txtTotalSeluruhDenda,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                151,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jScrollPane1,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 871,
+                                                                Short.MAX_VALUE)
+                                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                                .addComponent(jLabel9)
+                                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                                .addGap(25, 25, 25))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(jLabel11))
+                                                .addGap(34, 34, 34)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                                                                false)
+                                                        .addComponent(txtIdDenda, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                200, Short.MAX_VALUE)
+                                                        .addComponent(cbIdPinjam, 0, 200, Short.MAX_VALUE)
+                                                        .addComponent(cbIdAnggota, 0, 200, Short.MAX_VALUE)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                jPanel2Layout.createSequentialGroup()
+                                                                        .addComponent(txtTglKembali)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(btnCalendar,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                34,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(30, 30, 30)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(jLabel6)
+                                                        .addComponent(jLabel7))
+                                                .addGap(28, 28, 28)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                false)
+                                                        .addComponent(txtDendaHari,
+                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 225,
+                                                                Short.MAX_VALUE)
+                                                        .addComponent(txtTerlambat,
+                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtTotalDenda))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                                                                false)
+                                                        .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(54, 54, 54)))));
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtIdDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtTerlambat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cbIdPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtDendaHari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cbIdAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtTotalDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtTglKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtTotalSeluruhDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel8)
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(txtIdDenda,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(txtTerlambat,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(cbIdPinjam,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel6)
+                                                        .addComponent(txtDendaHari,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(cbIdAnggota,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel7)
+                                                        .addComponent(txtTotalDenda,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel2Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel11)
+                                                        .addComponent(txtTglKembali,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(btnCalendar,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(1, 1, 1)
+                                                .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel10)
+                                        .addComponent(txtTotalSeluruhDenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 815,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel1)
+                                .addGap(10, 10, 10)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
         setLocationRelativeTo(null);
@@ -386,6 +444,422 @@ public class Fdenda extends javax.swing.JFrame {
     private void btnCalendarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCalendarActionPerformed
         new PremiumDatePicker(this, txtTglKembali).setVisible(true);
     }// GEN-LAST:event_btnCalendarActionPerformed
+
+    private void initLogic() {
+        txtIdDenda.setEditable(false);
+        txtTglKembali.setEditable(false);
+        txtTerlambat.setEditable(false);
+        txtDendaHari.setEditable(false);
+        txtTotalDenda.setEditable(false);
+        txtDendaHari.setText("500"); // fixed penalty rate per day
+
+        loadIdPinjam();
+        loadIdAnggota();
+        autonumber();
+        setupSearchableComboBox();
+        setupCalculationListeners();
+        tampilData();
+        setupTableSelectionListener();
+
+        btnSimpan.addActionListener(e -> simpanData());
+        btnHapus.addActionListener(e -> hapusData());
+    }
+
+    private void autonumber() {
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null) {
+            txtIdDenda.setText("D001");
+            return;
+        }
+        try (Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT id_denda FROM denda ORDER BY id_denda DESC LIMIT 1")) {
+            if (rs.next()) {
+                int lastId = rs.getInt("id_denda");
+                txtIdDenda.setText(String.format("D%03d", lastId + 1));
+            } else {
+                txtIdDenda.setText("D001");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal generate ID: " + e.getMessage());
+        }
+    }
+
+    private void loadIdPinjam() {
+        listIdPinjam.clear();
+        cbIdPinjam.removeAllItems();
+        cbIdPinjam.addItem("- Pilih/Cari ID Pinjam -");
+
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null)
+            return;
+
+        String sql = "SELECT DISTINCT id_pinjam FROM pengembalian ORDER BY id_pinjam ASC";
+        try (Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                String id = rs.getString("id_pinjam");
+                listIdPinjam.add(id);
+                cbIdPinjam.addItem(id);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat ID Pinjam: " + e.getMessage());
+        }
+    }
+
+    private void loadIdAnggota() {
+        cbIdAnggota.removeAllItems();
+        cbIdAnggota.addItem("- Pilih ID Anggota -");
+
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null)
+            return;
+        String sql = "SELECT id_anggota, nama_anggota FROM anggota ORDER BY id_anggota ASC";
+        try (Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                String id = rs.getString("id_anggota");
+                String nama = rs.getString("nama_anggota");
+                if (id != null)
+                    id = id.trim();
+                if (nama != null)
+                    nama = nama.trim();
+                cbIdAnggota.addItem(id + " - " + nama);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat ID Anggota: " + e.getMessage());
+        }
+    }
+
+    private void setupSearchableComboBox() {
+        cbIdPinjam.setEditable(true);
+        final JTextField textfield = (JTextField) cbIdPinjam.getEditor().getEditorComponent();
+
+        textfield.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP
+                        || e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    return;
+                }
+
+                String text = textfield.getText();
+                isFiltering = true;
+
+                cbIdPinjam.removeAllItems();
+                cbIdPinjam.addItem("- Pilih/Cari ID Pinjam -");
+                for (String id : listIdPinjam) {
+                    if (id.toLowerCase().contains(text.toLowerCase())) {
+                        cbIdPinjam.addItem(id);
+                    }
+                }
+
+                textfield.setText(text);
+                cbIdPinjam.showPopup();
+                isFiltering = false;
+            }
+        });
+
+        cbIdPinjam.addActionListener(e -> {
+            if (isFiltering)
+                return;
+            Object selected = cbIdPinjam.getSelectedItem();
+            if (selected != null && !selected.toString().startsWith("-")) {
+                loadDetailFromPinjam(selected.toString().trim());
+            } else {
+                resetDetailFields();
+            }
+        });
+    }
+
+    private void loadDetailFromPinjam(String idPinjam) {
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null)
+            return;
+
+        // 1. Get id_kembali, terlambat and tanggal_kembali from pengembalian
+        String sqlKembali = "SELECT id_kembali, terlambat, tanggal_kembali FROM pengembalian WHERE id_pinjam = ? ORDER BY id_kembali DESC LIMIT 1";
+        try (PreparedStatement pst = conn.prepareStatement(sqlKembali)) {
+            pst.setString(1, idPinjam);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    currentIdKembali = rs.getInt("id_kembali");
+                    int terlambat = rs.getInt("terlambat");
+                    Date tglKembali = rs.getDate("tanggal_kembali");
+
+                    txtTerlambat.setText(String.valueOf(terlambat));
+                    if (tglKembali != null) {
+                        txtTglKembali.setText(new SimpleDateFormat("yyyy-MM-dd").format(tglKembali));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat detail pengembalian: " + e.getMessage());
+        }
+
+        // 2. Try to get id_anggota from peminjaman
+        String sqlPinjam = "SELECT id_anggota FROM peminjaman WHERE id_pinjam = ?";
+        try (PreparedStatement pst = conn.prepareStatement(sqlPinjam)) {
+            pst.setString(1, idPinjam);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    String idAnggota = rs.getString("id_anggota");
+                    if (idAnggota != null) {
+                        idAnggota = idAnggota.trim();
+                        boolean matched = false;
+                        for (int i = 0; i < cbIdAnggota.getItemCount(); i++) {
+                            String item = cbIdAnggota.getItemAt(i);
+                            if (item != null && item.trim().startsWith(idAnggota)) {
+                                cbIdAnggota.setSelectedIndex(i);
+                                cbIdAnggota.setEnabled(false); // Lock it
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (!matched) {
+                            cbIdAnggota.setEnabled(true);
+                        }
+                    }
+                } else {
+                    cbIdAnggota.setEnabled(true);
+                }
+            }
+        } catch (Exception e) {
+            cbIdAnggota.setEnabled(true);
+        }
+
+        hitungTotalDenda();
+    }
+
+    private void resetDetailFields() {
+        currentIdKembali = 0;
+        txtTerlambat.setText("");
+        txtTglKembali.setText("");
+        cbIdAnggota.setSelectedIndex(0);
+        cbIdAnggota.setEnabled(true);
+        txtDendaHari.setText("500"); // fixed to 500 Rp per day
+        txtTotalDenda.setText("");
+    }
+
+    private void setupCalculationListeners() {
+        txtDendaHari.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                hitungTotalDenda();
+            }
+        });
+        txtTerlambat.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                hitungTotalDenda();
+            }
+        });
+    }
+
+    private void hitungTotalDenda() {
+        try {
+            String terlambatStr = txtTerlambat.getText().trim();
+            String dendaHariStr = txtDendaHari.getText().trim();
+
+            if (terlambatStr.isEmpty() || dendaHariStr.isEmpty()) {
+                txtTotalDenda.setText("");
+                return;
+            }
+
+            int terlambat = Integer.parseInt(terlambatStr);
+            int dendaHari = Integer.parseInt(dendaHariStr);
+            int total = terlambat * dendaHari;
+
+            txtTotalDenda.setText(String.format("Rp %,d", total));
+        } catch (NumberFormatException e) {
+            txtTotalDenda.setText("");
+        }
+    }
+
+    private void tampilData() {
+        DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
+        model.setRowCount(0);
+
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null)
+            return;
+
+        String sql = "SELECT d.id_denda, k.id_pinjam, a.nama_anggota, k.terlambat, d.jumlah_denda " +
+                "FROM denda d " +
+                "JOIN pengembalian k ON d.id_kembali = k.id_kembali " +
+                "LEFT JOIN peminjaman p ON k.id_pinjam = p.id_pinjam " +
+                "LEFT JOIN anggota a ON p.id_anggota = a.id_anggota " +
+                "ORDER BY d.id_denda DESC";
+
+        int no = 1;
+        int totalSeluruhDenda = 0;
+
+        try (Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                int idDenda = rs.getInt("id_denda");
+                String idPinjam = rs.getString("id_pinjam");
+                String namaAnggota = rs.getString("nama_anggota");
+                if (namaAnggota == null) {
+                    namaAnggota = "-";
+                }
+                int terlambat = rs.getInt("terlambat");
+                int jumlahDenda = rs.getInt("jumlah_denda");
+
+                totalSeluruhDenda += jumlahDenda;
+
+                model.addRow(new Object[] {
+                        no++,
+                        String.format("D%03d", idDenda),
+                        idPinjam,
+                        namaAnggota,
+                        terlambat,
+                        String.format("Rp %,d", jumlahDenda)
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data denda: " + e.getMessage());
+        }
+
+        txtTotalSeluruhDenda.setText(String.format("Rp %,d", totalSeluruhDenda));
+    }
+
+    private void simpanData() {
+        String idDendaStr = txtIdDenda.getText().trim();
+        Object selectedPinjam = cbIdPinjam.getSelectedItem();
+
+        if (idDendaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID Denda tidak boleh kosong!");
+            return;
+        }
+        if (selectedPinjam == null || selectedPinjam.toString().startsWith("-")) {
+            JOptionPane.showMessageDialog(this, "Harap pilih ID Pinjam!");
+            return;
+        }
+        if (currentIdKembali == 0) {
+            JOptionPane.showMessageDialog(this, "ID Kembali tidak ditemukan untuk transaksi pinjam ini!");
+            return;
+        }
+        if (txtTotalDenda.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Total Denda tidak boleh kosong! Periksa nilai terlambat dan denda/hari.");
+            return;
+        }
+
+        int idDendaInt = Integer.parseInt(idDendaStr.replaceAll("[^0-9]", ""));
+        int totalDenda = Integer.parseInt(txtTotalDenda.getText().replaceAll("[^0-9]", ""));
+
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+            return;
+        }
+
+        String sql = "INSERT INTO denda (id_denda, id_kembali, jumlah_denda) VALUES (?, ?, ?)";
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, idDendaInt);
+            pst.setInt(2, currentIdKembali);
+            pst.setInt(3, totalDenda);
+            pst.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Data denda berhasil disimpan!");
+            batalData();
+            tampilData();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan denda: " + e.getMessage());
+        }
+    }
+
+    private void hapusData() {
+        int row = tabelData.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih baris tabel denda yang ingin dihapus!");
+            return;
+        }
+
+        String idDendaStr = tabelData.getValueAt(row, 1).toString();
+        int idDendaInt = Integer.parseInt(idDendaStr.replaceAll("[^0-9]", ""));
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Apakah Anda yakin ingin menghapus data denda " + idDendaStr + "?", "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Connection conn = koneksi.koneksi.getConnection();
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+            return;
+        }
+
+        String sql = "DELETE FROM denda WHERE id_denda = ?";
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, idDendaInt);
+            pst.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Data denda berhasil dihapus!");
+            batalData();
+            tampilData();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal menghapus denda: " + e.getMessage());
+        }
+    }
+
+    private void batalData() {
+        cbIdPinjam.setSelectedIndex(0);
+        resetDetailFields();
+        autonumber();
+    }
+
+    private void setupTableSelectionListener() {
+        tabelData.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tabelData.getSelectedRow();
+                if (row != -1) {
+                    String idDendaStr = tabelData.getValueAt(row, 1).toString();
+                    String idPinjam = tabelData.getValueAt(row, 2).toString();
+                    String terlambat = tabelData.getValueAt(row, 4).toString();
+                    String totalDendaStr = tabelData.getValueAt(row, 5).toString().replaceAll("[^0-9]", "");
+
+                    txtIdDenda.setText(idDendaStr);
+                    cbIdPinjam.setSelectedItem(idPinjam);
+                    txtTerlambat.setText(terlambat);
+
+                    try {
+                        int total = Integer.parseInt(totalDendaStr);
+                        int tCount = Integer.parseInt(terlambat);
+                        if (tCount > 0) {
+                            int calculatedPerDay = total / tCount;
+                            txtDendaHari.setText(String.valueOf(calculatedPerDay));
+                        } else {
+                            txtDendaHari.setText("500");
+                        }
+                        txtTotalDenda.setText(String.format("Rp %,d", total));
+                    } catch (Exception ex) {
+                        txtDendaHari.setText("500");
+                        txtTotalDenda.setText("");
+                    }
+
+                    // Fallback matching using member name from table row if not matched by
+                    // cbIdPinjam selection listener
+                    if (cbIdAnggota.getSelectedIndex() <= 0 || cbIdAnggota.isEnabled()) {
+                        String namaTable = tabelData.getValueAt(row, 3).toString();
+                        if (namaTable != null && !namaTable.equals("-")) {
+                            for (int i = 0; i < cbIdAnggota.getItemCount(); i++) {
+                                String item = cbIdAnggota.getItemAt(i);
+                                if (item != null && item.trim().endsWith(namaTable.trim())) {
+                                    cbIdAnggota.setSelectedIndex(i);
+                                    cbIdAnggota.setEnabled(false); // Lock it
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments

@@ -480,13 +480,6 @@ public class Pengembalian extends javax.swing.JFrame {
                     pstDelDetail.executeUpdate();
                 }
 
-                // 4. Delete from peminjaman
-                String sqlDeletePinjam = "DELETE FROM peminjaman WHERE id_pinjam = ?";
-                try (PreparedStatement pstDelPinjam = conn.prepareStatement(sqlDeletePinjam)) {
-                    pstDelPinjam.setString(1, idPinjam);
-                    pstDelPinjam.executeUpdate();
-                }
-
                 // Enable foreign key checks back
                 st.execute("SET FOREIGN_KEY_CHECKS = 1");
             }
@@ -556,7 +549,7 @@ public class Pengembalian extends javax.swing.JFrame {
         Connection conn = koneksi.koneksi.getConnection();
         if (conn == null)
             return;
-        String sql = "SELECT DISTINCT id_pinjam FROM peminjaman ORDER BY id_pinjam ASC";
+        String sql = "SELECT DISTINCT id_pinjam FROM detail_peminjaman ORDER BY id_pinjam ASC";
         try (Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {

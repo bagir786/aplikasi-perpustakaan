@@ -73,7 +73,7 @@ CREATE TABLE `denda` (
 
 CREATE TABLE `detail_peminjaman` (
   `id_detail` int(11) NOT NULL,
-  `id_pinjam` int(11) DEFAULT NULL,
+  `id_pinjam` varchar(10) DEFAULT NULL,
   `id_buku` varchar(10) DEFAULT NULL,
   `tanggal_kembali` date DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL
@@ -86,7 +86,7 @@ CREATE TABLE `detail_peminjaman` (
 --
 
 CREATE TABLE `peminjaman` (
-  `id_pinjam` int(11) NOT NULL,
+  `id_pinjam` varchar(10) NOT NULL,
   `tanggal_pinjam` date DEFAULT NULL,
   `id_anggota` varchar(10) DEFAULT NULL,
   `id_petugas` int(11) DEFAULT NULL
@@ -100,7 +100,7 @@ CREATE TABLE `peminjaman` (
 
 CREATE TABLE `pengembalian` (
   `id_kembali` int(11) NOT NULL,
-  `id_pinjam` int(11) DEFAULT NULL,
+  `id_pinjam` varchar(10) DEFAULT NULL,
   `tanggal_kembali` date DEFAULT NULL,
   `terlambat` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -205,8 +205,8 @@ ALTER TABLE `detail_peminjaman`
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
-ALTER TABLE `peminjaman`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT;
+-- ALTER TABLE `peminjaman`
+--   MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengembalian`

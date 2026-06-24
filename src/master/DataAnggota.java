@@ -182,8 +182,7 @@ public class DataAnggota extends javax.swing.JFrame {
         txtAlamat.setText("");
         txtCari.setText("Cari Nama / ID Anggota...");
         txtCari.setForeground(java.awt.Color.GRAY);
-        autonumber();
-        jTextField2.requestFocus();
+        jTextField1.requestFocus();
     }
     
     private void fillForm(int row) {
@@ -303,7 +302,7 @@ public class DataAnggota extends javax.swing.JFrame {
             String noTelp = txtNoTelpn.getText();
             String alamat = txtAlamat.getText();
 
-            if (nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
+            if (id.isEmpty() || nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
                 return;
             }
@@ -334,7 +333,7 @@ public class DataAnggota extends javax.swing.JFrame {
             String noTelp = txtNoTelpn.getText();
             String alamat = txtAlamat.getText();
 
-            if (nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
+            if (id.isEmpty() || nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
                 return;
             }
@@ -456,7 +455,7 @@ public class DataAnggota extends javax.swing.JFrame {
             }
         });
         
-        jTextField1.setEditable(false);
+        jTextField1.setEditable(true);
 
         // Pagination Styling - Matching Image
         if (btnFirst != null && btnPrev != null && btnNext != null && btnLast != null) {

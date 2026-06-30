@@ -5,6 +5,35 @@
  */
 package report;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+// JasperReports imports
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
+// Koneksi
+import koneksi.koneksi;
+
+
 /**
  *
  * @author Asus
@@ -17,6 +46,54 @@ public class FormLaporan extends javax.swing.JFrame {
     public FormLaporan() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        // Group radio buttons
+        ButtonGroup group = new ButtonGroup();
+        group.add(jRadioButton1);
+        group.add(jRadioButton2);
+        group.add(jRadioButton3);
+        group.add(jRadioButton4);
+        
+        // Set default selection & date chooser state
+        jRadioButton1.setSelected(true);
+        jDateChooser1.setEnabled(false);
+        jDateChooser2.setEnabled(false);
+        
+        // Dynamic date chooser enabling based on radio button selection
+        java.awt.event.ActionListener radioListener = new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                boolean dateEnabled = jRadioButton3.isSelected() || jRadioButton4.isSelected();
+                jDateChooser1.setEnabled(dateEnabled);
+                jDateChooser2.setEnabled(dateEnabled);
+                if (!dateEnabled) {
+                    jDateChooser1.setDate(null);
+                    jDateChooser2.setDate(null);
+                }
+            }
+        };
+        jRadioButton1.addActionListener(radioListener);
+        jRadioButton2.addActionListener(radioListener);
+        jRadioButton3.addActionListener(radioListener);
+        jRadioButton4.addActionListener(radioListener);
+        
+        // Add listeners for print and export buttons
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                cetakLaporan();
+            }
+        });
+        
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                exportPDF();
+            }
+        });
+        
+        // Load default report on startup (Buku)
+        tampilkanLaporan();
     }
 
     /**
@@ -303,14 +380,326 @@ public class FormLaporan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        tampilkanLaporan();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
         new tampilanawal.dashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tampilkanLaporan() {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        jTable1.setModel(model);
+
+        Connection conn = koneksi.getConnection();
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Koneksi ke database gagal!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            if (jRadioButton1.isSelected()) {
+                jLabel4.setText("Laporan Seluruh Data Buku");
+                jLabel5.setText("Periode : Semua Periode");
+                
+                model.addColumn("ID Buku");
+                model.addColumn("Judul Buku");
+                model.addColumn("Pengarang");
+                model.addColumn("Penerbit");
+                model.addColumn("Tahun Terbit");
+                model.addColumn("Kategori");
+                model.addColumn("Stok");
+
+                String sql = "SELECT id_buku, judul_buku, pengarang, penerbit, tahun_terbit, kategori, stok FROM buku";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                        rs.getString("id_buku"),
+                        rs.getString("judul_buku"),
+                        rs.getString("pengarang"),
+                        rs.getString("penerbit"),
+                        rs.getString("tahun_terbit"),
+                        rs.getString("kategori"),
+                        rs.getInt("stok")
+                    });
+                }
+                rs.close();
+                stmt.close();
+
+            } else if (jRadioButton2.isSelected()) {
+                jLabel4.setText("Laporan Daftar Anggota");
+                jLabel5.setText("Periode : Semua Periode");
+                
+                model.addColumn("ID Anggota");
+                model.addColumn("Nama Anggota");
+                model.addColumn("Jenis Kelamin");
+                model.addColumn("Telepon");
+                model.addColumn("Alamat");
+
+                String sql = "SELECT id_anggota, nama_anggota, jenis_kelamin, no_telp, alamat FROM anggota";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                        rs.getString("id_anggota"),
+                        rs.getString("nama_anggota"),
+                        rs.getString("jenis_kelamin"),
+                        rs.getString("no_telp"),
+                        rs.getString("alamat")
+                    });
+                }
+                rs.close();
+                stmt.close();
+
+            } else if (jRadioButton3.isSelected()) {
+                Date dari = jDateChooser1.getDate();
+                Date sampai = jDateChooser2.getDate();
+                
+                jLabel4.setText("Laporan Transaksi Peminjaman");
+                if (dari != null && sampai != null) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    jLabel5.setText("Periode : " + sdf.format(dari) + " s/d " + sdf.format(sampai));
+                } else {
+                    jLabel5.setText("Periode : Semua Periode");
+                }
+
+                model.addColumn("ID Pinjam");
+                model.addColumn("Tgl Pinjam");
+                model.addColumn("Nama Anggota");
+                model.addColumn("Judul Buku");
+                model.addColumn("Tgl Kembali");
+                model.addColumn("Status");
+
+                String sql;
+                PreparedStatement pstmt = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+
+                if (dari != null && sampai != null) {
+                    sql = "SELECT p.id_pinjam, p.tanggal_pinjam, a.nama_anggota, b.judul_buku, dp.tanggal_kembali, dp.status "
+                        + "FROM peminjaman p "
+                        + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                        + "JOIN detail_peminjaman dp ON p.id_pinjam = dp.id_pinjam "
+                        + "JOIN buku b ON dp.id_buku = b.id_buku "
+                        + "WHERE p.tanggal_pinjam >= ? AND p.tanggal_pinjam <= ?";
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setDate(1, new java.sql.Date(dari.getTime()));
+                    pstmt.setDate(2, new java.sql.Date(sampai.getTime()));
+                    rs = pstmt.executeQuery();
+                } else {
+                    sql = "SELECT p.id_pinjam, p.tanggal_pinjam, a.nama_anggota, b.judul_buku, dp.tanggal_kembali, dp.status "
+                        + "FROM peminjaman p "
+                        + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                        + "JOIN detail_peminjaman dp ON p.id_pinjam = dp.id_pinjam "
+                        + "JOIN buku b ON dp.id_buku = b.id_buku";
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                while (rs.next()) {
+                    Date tglPinjam = rs.getDate("tanggal_pinjam");
+                    Date tglKembali = rs.getDate("tanggal_kembali");
+                    model.addRow(new Object[]{
+                        rs.getString("id_pinjam"),
+                        tglPinjam != null ? sdf.format(tglPinjam) : "",
+                        rs.getString("nama_anggota"),
+                        rs.getString("judul_buku"),
+                        tglKembali != null ? sdf.format(tglKembali) : "",
+                        rs.getString("status")
+                    });
+                }
+                rs.close();
+                if (pstmt != null) pstmt.close();
+                if (stmt != null) stmt.close();
+
+            } else if (jRadioButton4.isSelected()) {
+                Date dari = jDateChooser1.getDate();
+                Date sampai = jDateChooser2.getDate();
+
+                jLabel4.setText("Laporan Pengembalian & Denda");
+                if (dari != null && sampai != null) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    jLabel5.setText("Periode : " + sdf.format(dari) + " s/d " + sdf.format(sampai));
+                } else {
+                    jLabel5.setText("Periode : Semua Periode");
+                }
+
+                model.addColumn("ID Kembali");
+                model.addColumn("ID Pinjam");
+                model.addColumn("Tgl Kembali");
+                model.addColumn("Nama Anggota");
+                model.addColumn("Terlambat (Hari)");
+                model.addColumn("Denda");
+
+                String sql;
+                PreparedStatement pstmt = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+
+                if (dari != null && sampai != null) {
+                    sql = "SELECT pg.id_kembali, pg.id_pinjam, pg.tanggal_kembali, pg.terlambat, a.nama_anggota, COALESCE(d.jumlah_denda, 0) AS jumlah_denda "
+                        + "FROM pengembalian pg "
+                        + "JOIN peminjaman p ON pg.id_pinjam = p.id_pinjam "
+                        + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                        + "LEFT JOIN denda d ON pg.id_kembali = d.id_kembali "
+                        + "WHERE pg.tanggal_kembali >= ? AND pg.tanggal_kembali <= ?";
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setDate(1, new java.sql.Date(dari.getTime()));
+                    pstmt.setDate(2, new java.sql.Date(sampai.getTime()));
+                    rs = pstmt.executeQuery();
+                } else {
+                    sql = "SELECT pg.id_kembali, pg.id_pinjam, pg.tanggal_kembali, pg.terlambat, a.nama_anggota, COALESCE(d.jumlah_denda, 0) AS jumlah_denda "
+                        + "FROM pengembalian pg "
+                        + "JOIN peminjaman p ON pg.id_pinjam = p.id_pinjam "
+                        + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                        + "LEFT JOIN denda d ON pg.id_kembali = d.id_kembali";
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                while (rs.next()) {
+                    Date tglKembali = rs.getDate("tanggal_kembali");
+                    int denda = rs.getInt("jumlah_denda");
+                    String formattedDenda = "Rp " + String.format("%,d", denda);
+                    model.addRow(new Object[]{
+                        rs.getInt("id_kembali"),
+                        rs.getString("id_pinjam"),
+                        tglKembali != null ? sdf.format(tglKembali) : "",
+                        rs.getString("nama_anggota"),
+                        rs.getInt("terlambat"),
+                        formattedDenda
+                    });
+                }
+                rs.close();
+                if (pstmt != null) pstmt.close();
+                if (stmt != null) stmt.close();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengambil data laporan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private JasperPrint generateJasperPrint() throws Exception {
+        String jrxmlName = "";
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (jRadioButton1.isSelected()) {
+            jrxmlName = "laporan_buku.jrxml";
+        } else if (jRadioButton2.isSelected()) {
+            jrxmlName = "laporan_anggota.jrxml";
+        } else if (jRadioButton3.isSelected()) {
+            jrxmlName = "laporan_peminjaman.jrxml";
+            Date dari = jDateChooser1.getDate();
+            Date sampai = jDateChooser2.getDate();
+            if (dari == null) dari = new Date(0);
+            if (sampai == null) sampai = new Date(2524608000000L);
+            parameters.put("dari_tanggal", dari);
+            parameters.put("sampai_tanggal", sampai);
+        } else if (jRadioButton4.isSelected()) {
+            jrxmlName = "laporan_pengembalian.jrxml";
+            Date dari = jDateChooser1.getDate();
+            Date sampai = jDateChooser2.getDate();
+            if (dari == null) dari = new Date(0);
+            if (sampai == null) sampai = new Date(2524608000000L);
+            parameters.put("dari_tanggal", dari);
+            parameters.put("sampai_tanggal", sampai);
+        }
+
+        Connection conn = koneksi.getConnection();
+        if (conn == null) {
+            throw new Exception("Koneksi database tidak tersedia.");
+        }
+
+        java.io.InputStream is = getClass().getResourceAsStream("/report/" + jrxmlName);
+        if (is == null) {
+            java.io.File file = new java.io.File("src/report/" + jrxmlName);
+            if (file.exists()) {
+                is = new java.io.FileInputStream(file);
+            } else {
+                throw new java.io.FileNotFoundException("Template " + jrxmlName + " tidak ditemukan.");
+            }
+        }
+
+        JasperDesign jasperDesign = JRXmlLoader.load(is);
+        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+        return jasperPrint;
+    }
+
+    private void cetakLaporan() {
+        if (jRadioButton3.isSelected() || jRadioButton4.isSelected()) {
+            Date dari = jDateChooser1.getDate();
+            Date sampai = jDateChooser2.getDate();
+            if (dari != null && sampai != null && dari.after(sampai)) {
+                JOptionPane.showMessageDialog(this, "Tanggal awal tidak boleh melebihi tanggal akhir!", "Filter Salah", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        
+        try {
+            setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
+            JasperPrint jasperPrint = generateJasperPrint();
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            setCursor(java.awt.Cursor.getDefaultCursor());
+        }
+    }
+
+    private void exportPDF() {
+        if (jRadioButton3.isSelected() || jRadioButton4.isSelected()) {
+            Date dari = jDateChooser1.getDate();
+            Date sampai = jDateChooser2.getDate();
+            if (dari != null && sampai != null && dari.after(sampai)) {
+                JOptionPane.showMessageDialog(this, "Tanggal awal tidak boleh melebihi tanggal akhir!", "Filter Salah", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Simpan Laporan PDF");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Documents (*.pdf)", "pdf"));
+        
+        String defaultName = "";
+        if (jRadioButton1.isSelected()) defaultName = "Laporan_Buku.pdf";
+        else if (jRadioButton2.isSelected()) defaultName = "Laporan_Anggota.pdf";
+        else if (jRadioButton3.isSelected()) defaultName = "Laporan_Peminjaman.pdf";
+        else if (jRadioButton4.isSelected()) defaultName = "Laporan_Pengembalian.pdf";
+        fileChooser.setSelectedFile(new java.io.File(defaultName));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            java.io.File fileToSave = fileChooser.getSelectedFile();
+            String path = fileToSave.getAbsolutePath();
+            if (!path.toLowerCase().endsWith(".pdf")) {
+                path += ".pdf";
+            }
+
+            try {
+                setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
+                JasperPrint jasperPrint = generateJasperPrint();
+                JasperExportManager.exportReportToPdfFile(jasperPrint, path);
+                JOptionPane.showMessageDialog(this, "Laporan berhasil diexport ke PDF!\nLokasi: " + path, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Gagal mengexport laporan ke PDF:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            } finally {
+                setCursor(java.awt.Cursor.getDefaultCursor());
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments

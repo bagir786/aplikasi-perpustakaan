@@ -17,8 +17,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Fdenda extends javax.swing.JFrame {
 
-    private java.util.List<String> listIdPinjam = new java.util.ArrayList<>();
-    private boolean isFiltering = false;
     private int currentIdKembali = 0;
 
     /**
@@ -125,9 +123,10 @@ public class Fdenda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtIdDenda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cbIdPinjam = new javax.swing.JComboBox<>();
+        txtIdPinjam = new javax.swing.JTextField();
+        btnCariPinjam = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        cbIdAnggota = new javax.swing.JComboBox<>();
+        txtIdAnggota = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtTglKembali = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -166,12 +165,19 @@ public class Fdenda extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("ID Pinjam");
 
-        cbIdPinjam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih ID Pinjam --" }));
+        txtIdPinjam.setEditable(false);
+
+        btnCariPinjam.setText("Cari");
+        btnCariPinjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariPinjamActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("ID Anggota");
 
-        cbIdAnggota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih ID Anggota --" }));
+        txtIdAnggota.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Tgl Kembali");
@@ -290,8 +296,11 @@ public class Fdenda extends javax.swing.JFrame {
                                                                 false)
                                                         .addComponent(txtIdDenda, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 200, Short.MAX_VALUE)
-                                                        .addComponent(cbIdPinjam, 0, 200, Short.MAX_VALUE)
-                                                        .addComponent(cbIdAnggota, 0, 200, Short.MAX_VALUE)
+                                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                                .addComponent(txtIdPinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnCariPinjam))
+                                                        .addComponent(txtIdAnggota, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                                 jPanel2Layout.createSequentialGroup()
                                                                         .addComponent(txtTglKembali)
@@ -352,7 +361,10 @@ public class Fdenda extends javax.swing.JFrame {
                                                 .addGroup(jPanel2Layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jLabel3)
-                                                        .addComponent(cbIdPinjam,
+                                                        .addComponent(txtIdPinjam,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(btnCariPinjam,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel6)
@@ -363,7 +375,7 @@ public class Fdenda extends javax.swing.JFrame {
                                                 .addGroup(jPanel2Layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jLabel4)
-                                                        .addComponent(cbIdAnggota,
+                                                        .addComponent(txtIdAnggota,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel7)
@@ -445,6 +457,102 @@ public class Fdenda extends javax.swing.JFrame {
         new PremiumDatePicker(this, txtTglKembali).setVisible(true);
     }// GEN-LAST:event_btnCalendarActionPerformed
 
+    private void btnCariPinjamActionPerformed(java.awt.event.ActionEvent evt) {
+        JDialog dialog = new JDialog(this, "Pilih ID Pinjam", true);
+        dialog.setSize(600, 400);
+        dialog.setLocationRelativeTo(this);
+        
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        JPanel searchPanel = new JPanel(new BorderLayout(5, 0));
+        JTextField txtSearch = new JTextField();
+        searchPanel.add(new JLabel("Cari: "), BorderLayout.WEST);
+        searchPanel.add(txtSearch, BorderLayout.CENTER);
+        
+        String[] columns = {"ID Pinjam", "Tgl Pinjam", "Tgl Kembali"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(model);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(25);
+        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        
+        Runnable loadData = () -> {
+            model.setRowCount(0);
+            String search = txtSearch.getText().trim();
+            String sql = "SELECT p.id_pinjam, pm.tanggal_pinjam, p.tanggal_kembali FROM pengembalian p LEFT JOIN peminjaman pm ON p.id_pinjam = pm.id_pinjam";
+            if (!search.isEmpty()) {
+                sql += " WHERE p.id_pinjam LIKE '%" + search + "%'";
+            }
+            sql += " ORDER BY p.id_pinjam ASC";
+            
+            try (Connection conn = koneksi.koneksi.getConnection();
+                 Statement st = conn.createStatement();
+                 ResultSet rs = st.executeQuery(sql)) {
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                        rs.getString("id_pinjam"),
+                        rs.getDate("tanggal_pinjam"),
+                        rs.getDate("tanggal_kembali")
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        
+        txtSearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                loadData.run();
+            }
+        });
+        
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        String id = table.getValueAt(row, 0).toString();
+                        txtIdPinjam.setText(id);
+                        loadDetailFromPinjam(id);
+                        dialog.dispose();
+                    }
+                }
+            }
+        });
+        
+        loadData.run();
+        
+        panel.add(searchPanel, BorderLayout.NORTH);
+        panel.add(new JScrollPane(table), BorderLayout.CENTER);
+        
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton btnPilih = new JButton("Pilih");
+        btnPilih.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                String id = table.getValueAt(row, 0).toString();
+                txtIdPinjam.setText(id);
+                loadDetailFromPinjam(id);
+                dialog.dispose();
+            } else {
+                JOptionPane.showMessageDialog(dialog, "Pilih data terlebih dahulu!");
+            }
+        });
+        btnPanel.add(btnPilih);
+        panel.add(btnPanel, BorderLayout.SOUTH);
+        
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+
     private void initLogic() {
         txtIdDenda.setEditable(false);
         txtTglKembali.setEditable(false);
@@ -453,10 +561,7 @@ public class Fdenda extends javax.swing.JFrame {
         txtTotalDenda.setEditable(false);
         txtDendaHari.setText("500"); // fixed penalty rate per day
 
-        loadIdPinjam();
-        loadIdAnggota();
         autonumber();
-        setupSearchableComboBox();
         setupCalculationListeners();
         tampilData();
         setupTableSelectionListener();
@@ -484,92 +589,7 @@ public class Fdenda extends javax.swing.JFrame {
         }
     }
 
-    private void loadIdPinjam() {
-        listIdPinjam.clear();
-        cbIdPinjam.removeAllItems();
-        cbIdPinjam.addItem("- Pilih/Cari ID Pinjam -");
 
-        Connection conn = koneksi.koneksi.getConnection();
-        if (conn == null)
-            return;
-
-        String sql = "SELECT DISTINCT id_pinjam FROM pengembalian ORDER BY id_pinjam ASC";
-        try (Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                String id = rs.getString("id_pinjam");
-                listIdPinjam.add(id);
-                cbIdPinjam.addItem(id);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat ID Pinjam: " + e.getMessage());
-        }
-    }
-
-    private void loadIdAnggota() {
-        cbIdAnggota.removeAllItems();
-        cbIdAnggota.addItem("- Pilih ID Anggota -");
-
-        Connection conn = koneksi.koneksi.getConnection();
-        if (conn == null)
-            return;
-        String sql = "SELECT id_anggota, nama_anggota FROM anggota ORDER BY id_anggota ASC";
-        try (Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                String id = rs.getString("id_anggota");
-                String nama = rs.getString("nama_anggota");
-                if (id != null)
-                    id = id.trim();
-                if (nama != null)
-                    nama = nama.trim();
-                cbIdAnggota.addItem(id + " - " + nama);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat ID Anggota: " + e.getMessage());
-        }
-    }
-
-    private void setupSearchableComboBox() {
-        cbIdPinjam.setEditable(true);
-        final JTextField textfield = (JTextField) cbIdPinjam.getEditor().getEditorComponent();
-
-        textfield.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP
-                        || e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    return;
-                }
-
-                String text = textfield.getText();
-                isFiltering = true;
-
-                cbIdPinjam.removeAllItems();
-                cbIdPinjam.addItem("- Pilih/Cari ID Pinjam -");
-                for (String id : listIdPinjam) {
-                    if (id.toLowerCase().contains(text.toLowerCase())) {
-                        cbIdPinjam.addItem(id);
-                    }
-                }
-
-                textfield.setText(text);
-                cbIdPinjam.showPopup();
-                isFiltering = false;
-            }
-        });
-
-        cbIdPinjam.addActionListener(e -> {
-            if (isFiltering)
-                return;
-            Object selected = cbIdPinjam.getSelectedItem();
-            if (selected != null && !selected.toString().startsWith("-")) {
-                loadDetailFromPinjam(selected.toString().trim());
-            } else {
-                resetDetailFields();
-            }
-        });
-    }
 
     private void loadDetailFromPinjam(String idPinjam) {
         Connection conn = koneksi.koneksi.getConnection();
@@ -605,26 +625,23 @@ public class Fdenda extends javax.swing.JFrame {
                     String idAnggota = rs.getString("id_anggota");
                     if (idAnggota != null) {
                         idAnggota = idAnggota.trim();
-                        boolean matched = false;
-                        for (int i = 0; i < cbIdAnggota.getItemCount(); i++) {
-                            String item = cbIdAnggota.getItemAt(i);
-                            if (item != null && item.trim().startsWith(idAnggota)) {
-                                cbIdAnggota.setSelectedIndex(i);
-                                cbIdAnggota.setEnabled(false); // Lock it
-                                matched = true;
-                                break;
+                        // Get member name
+                        String sqlAnggota = "SELECT nama_anggota FROM anggota WHERE id_anggota = ?";
+                        try (PreparedStatement pst2 = conn.prepareStatement(sqlAnggota)) {
+                            pst2.setString(1, idAnggota);
+                            try (ResultSet rs2 = pst2.executeQuery()) {
+                                if (rs2.next()) {
+                                    txtIdAnggota.setText(idAnggota + " - " + rs2.getString("nama_anggota"));
+                                } else {
+                                    txtIdAnggota.setText(idAnggota);
+                                }
                             }
                         }
-                        if (!matched) {
-                            cbIdAnggota.setEnabled(true);
-                        }
                     }
-                } else {
-                    cbIdAnggota.setEnabled(true);
                 }
             }
         } catch (Exception e) {
-            cbIdAnggota.setEnabled(true);
+            e.printStackTrace();
         }
 
         hitungTotalDenda();
@@ -634,8 +651,7 @@ public class Fdenda extends javax.swing.JFrame {
         currentIdKembali = 0;
         txtTerlambat.setText("");
         txtTglKembali.setText("");
-        cbIdAnggota.setSelectedIndex(0);
-        cbIdAnggota.setEnabled(true);
+        txtIdAnggota.setText("");
         txtDendaHari.setText("500"); // fixed to 500 Rp per day
         txtTotalDenda.setText("");
     }
@@ -725,13 +741,13 @@ public class Fdenda extends javax.swing.JFrame {
 
     private void simpanData() {
         String idDendaStr = txtIdDenda.getText().trim();
-        Object selectedPinjam = cbIdPinjam.getSelectedItem();
+        String selectedPinjam = txtIdPinjam.getText();
 
         if (idDendaStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID Denda tidak boleh kosong!");
             return;
         }
-        if (selectedPinjam == null || selectedPinjam.toString().startsWith("-")) {
+        if (selectedPinjam == null || selectedPinjam.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Harap pilih ID Pinjam!");
             return;
         }
@@ -806,7 +822,7 @@ public class Fdenda extends javax.swing.JFrame {
     }
 
     private void batalData() {
-        cbIdPinjam.setSelectedIndex(0);
+        txtIdPinjam.setText("");
         resetDetailFields();
         autonumber();
     }
@@ -823,7 +839,8 @@ public class Fdenda extends javax.swing.JFrame {
                     String totalDendaStr = tabelData.getValueAt(row, 5).toString().replaceAll("[^0-9]", "");
 
                     txtIdDenda.setText(idDendaStr);
-                    cbIdPinjam.setSelectedItem(idPinjam);
+                    txtIdPinjam.setText(idPinjam);
+                    loadDetailFromPinjam(idPinjam);
                     txtTerlambat.setText(terlambat);
 
                     try {
@@ -841,21 +858,7 @@ public class Fdenda extends javax.swing.JFrame {
                         txtTotalDenda.setText("");
                     }
 
-                    // Fallback matching using member name from table row if not matched by
-                    // cbIdPinjam selection listener
-                    if (cbIdAnggota.getSelectedIndex() <= 0 || cbIdAnggota.isEnabled()) {
-                        String namaTable = tabelData.getValueAt(row, 3).toString();
-                        if (namaTable != null && !namaTable.equals("-")) {
-                            for (int i = 0; i < cbIdAnggota.getItemCount(); i++) {
-                                String item = cbIdAnggota.getItemAt(i);
-                                if (item != null && item.trim().endsWith(namaTable.trim())) {
-                                    cbIdAnggota.setSelectedIndex(i);
-                                    cbIdAnggota.setEnabled(false); // Lock it
-                                    break;
-                                }
-                            }
-                        }
-                    }
+
                 }
             }
         });
@@ -905,8 +908,9 @@ public class Fdenda extends javax.swing.JFrame {
     private javax.swing.JButton btnCalendar;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JComboBox<String> cbIdAnggota;
-    private javax.swing.JComboBox<String> cbIdPinjam;
+    private javax.swing.JButton btnCariPinjam;
+    private javax.swing.JTextField txtIdAnggota;
+    private javax.swing.JTextField txtIdPinjam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

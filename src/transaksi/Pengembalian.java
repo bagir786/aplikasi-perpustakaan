@@ -37,8 +37,7 @@ public class Pengembalian extends javax.swing.JFrame {
         tidkembali.setEditable(false);
 
         autonumber();
-        loadIdPinjam();
-        setupSearchableComboBox();
+        // Popups will dynamically load when 'Cari' is clicked
         setupDatePickerListener();
     }
 
@@ -96,7 +95,10 @@ public class Pengembalian extends javax.swing.JFrame {
         lbltanggalkembali = new javax.swing.JLabel();
         lblidpinjam = new javax.swing.JLabel();
         tidkembali = new javax.swing.JTextField();
-        cbidpinjam = new javax.swing.JComboBox<>();
+        txtIdPinjam = new javax.swing.JTextField();
+        btnCariPinjam = new javax.swing.JButton();
+        javax.swing.JPanel panelPinjamSearch = new javax.swing.JPanel(new java.awt.BorderLayout(5, 0));
+        panelPinjamSearch.setOpaque(false);
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         panelTabel = new javax.swing.JPanel();
         scrolltabel = new javax.swing.JScrollPane();
@@ -167,7 +169,17 @@ public class Pengembalian extends javax.swing.JFrame {
 
         tidkembali.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        cbidpinjam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtIdPinjam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtIdPinjam.setEditable(false);
+        btnCariPinjam.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCariPinjam.setText("Cari");
+        btnCariPinjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariPinjamActionPerformed(evt);
+            }
+        });
+        panelPinjamSearch.add(txtIdPinjam, java.awt.BorderLayout.CENTER);
+        panelPinjamSearch.add(btnCariPinjam, java.awt.BorderLayout.EAST);
 
         javax.swing.GroupLayout panelFormLayout = new javax.swing.GroupLayout(panelForm);
         panelForm.setLayout(panelFormLayout);
@@ -184,7 +196,7 @@ public class Pengembalian extends javax.swing.JFrame {
                                         .addComponent(tidkembali)
                                         .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 250,
                                                 Short.MAX_VALUE)
-                                        .addComponent(cbidpinjam, 0, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        .addComponent(panelPinjamSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 Short.MAX_VALUE))
                                 .addGap(0, 386, Short.MAX_VALUE)));
         panelFormLayout.setVerticalGroup(
@@ -212,7 +224,7 @@ public class Pengembalian extends javax.swing.JFrame {
                                 .addGroup(panelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cbidpinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                        .addComponent(panelPinjamSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
@@ -396,18 +408,18 @@ public class Pengembalian extends javax.swing.JFrame {
 
     private void btnprosesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnprosesActionPerformed
         String idKembaliStr = tidkembali.getText().trim();
-        Object selectedPinjam = cbidpinjam.getSelectedItem();
+        String selectedPinjam = txtIdPinjam.getText().trim();
 
         if (idKembaliStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ID Pengembalian kosong!");
             return;
         }
-        if (selectedPinjam == null || selectedPinjam.toString().startsWith("-")) {
+        if (selectedPinjam.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Harap pilih ID Pinjam!");
             return;
         }
 
-        String idPinjam = selectedPinjam.toString().trim();
+        String idPinjam = selectedPinjam;
         DefaultTableModel model = (DefaultTableModel) tabelKmbl.getModel();
         int rowCount = model.getRowCount();
         if (rowCount == 0) {
@@ -489,7 +501,7 @@ public class Pengembalian extends javax.swing.JFrame {
 
             // Clean up UI & reload
             autonumber();
-            loadIdPinjam();
+            txtIdPinjam.setText("");
             model.setRowCount(0);
             lblstatus.setText("Status: -");
             lblstatus.setForeground(java.awt.Color.BLACK);
@@ -541,75 +553,90 @@ public class Pengembalian extends javax.swing.JFrame {
         }
     }
 
-    private void loadIdPinjam() {
-        listIdPinjam.clear();
-        cbidpinjam.removeAllItems();
-        cbidpinjam.addItem("- Pilih/Cari ID Pinjam -");
+    private void btnCariPinjamActionPerformed(java.awt.event.ActionEvent evt) {
+        javax.swing.JDialog dialog = new javax.swing.JDialog(this, "Cari Data Pinjam", true);
+        dialog.setSize(600, 400);
+        dialog.setLocationRelativeTo(this);
 
-        Connection conn = koneksi.koneksi.getConnection();
-        if (conn == null)
-            return;
-        String sql = "SELECT DISTINCT id_pinjam FROM detail_peminjaman ORDER BY id_pinjam ASC";
-        try (Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                String id = rs.getString("id_pinjam");
-                listIdPinjam.add(id);
-                cbidpinjam.addItem(id);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat ID Pinjam: " + e.getMessage());
-        }
-    }
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.BorderLayout(10, 10));
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBackground(new java.awt.Color(245, 247, 247));
 
-    private void setupSearchableComboBox() {
-        cbidpinjam.setEditable(true);
-        final JTextField textfield = (JTextField) cbidpinjam.getEditor().getEditorComponent();
+        // Top Panel with Search
+        javax.swing.JPanel topPanel = new javax.swing.JPanel(new java.awt.BorderLayout(5, 0));
+        topPanel.setOpaque(false);
+        javax.swing.JTextField txtSearch = new javax.swing.JTextField();
+        txtSearch.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        topPanel.add(new javax.swing.JLabel("Cari (ID/Nama): "), java.awt.BorderLayout.WEST);
+        topPanel.add(txtSearch, java.awt.BorderLayout.CENTER);
 
-        textfield.addKeyListener(new KeyAdapter() {
+        // Table
+        javax.swing.JTable table = new javax.swing.JTable();
+        table.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        table.setRowHeight(30);
+        table.getTableHeader().setFont(new java.awt.Font("Segoe UI", 1, 14));
+        table.getTableHeader().setBackground(new java.awt.Color(234, 241, 248));
+        
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID Pinjam", "ID Anggota", "Nama Anggota"}, 0) {
             @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP
-                        || e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    return;
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setModel(model);
+        javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(table);
+
+        panel.add(topPanel, java.awt.BorderLayout.NORTH);
+        panel.add(scroll, java.awt.BorderLayout.CENTER);
+        dialog.add(panel);
+
+        Runnable loadData = () -> {
+            model.setRowCount(0);
+            String search = txtSearch.getText().trim();
+            String sql = "SELECT DISTINCT dp.id_pinjam, p.id_anggota, a.nama_anggota FROM detail_peminjaman dp " +
+                         "JOIN peminjaman p ON dp.id_pinjam = p.id_pinjam " +
+                         "JOIN anggota a ON p.id_anggota = a.id_anggota " +
+                         "WHERE dp.id_pinjam LIKE ? OR a.nama_anggota LIKE ? ORDER BY dp.id_pinjam DESC";
+            try (Connection conn = koneksi.koneksi.getConnection();
+                 PreparedStatement pst = conn.prepareStatement(sql)) {
+                pst.setString(1, "%" + search + "%");
+                pst.setString(2, "%" + search + "%");
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{rs.getString("id_pinjam"), rs.getString("id_anggota"), rs.getString("nama_anggota")});
                 }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
 
-                String text = textfield.getText();
-                isFiltering = true;
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                loadData.run();
+            }
+        });
 
-                cbidpinjam.removeAllItems();
-                cbidpinjam.addItem("- Pilih/Cari ID Pinjam -");
-                for (String id : listIdPinjam) {
-                    if (id.toLowerCase().contains(text.toLowerCase())) {
-                        cbidpinjam.addItem(id);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        txtIdPinjam.setText(model.getValueAt(row, 0).toString());
+                        dialog.dispose();
+                        loadBukuPinjam();
                     }
                 }
-
-                textfield.setText(text);
-                cbidpinjam.showPopup();
-                isFiltering = false;
             }
         });
 
-        cbidpinjam.addActionListener(e -> {
-            if (isFiltering)
-                return;
-            Object selected = cbidpinjam.getSelectedItem();
-            if (selected != null && !selected.toString().startsWith("-")) {
-                loadBukuPinjam();
-            } else {
-                DefaultTableModel model = (DefaultTableModel) tabelKmbl.getModel();
-                model.setRowCount(0);
-                lblstatus.setText("Status: -");
-                lblstatus.setForeground(java.awt.Color.BLACK);
-            }
-        });
+        loadData.run();
+        dialog.setVisible(true);
     }
 
     private void setupDatePickerListener() {
         jDateChooser1.addPropertyChangeListener("date", evt -> {
-            Object selected = cbidpinjam.getSelectedItem();
-            if (selected != null && !selected.toString().startsWith("-")) {
+            String selected = txtIdPinjam.getText().trim();
+            if (!selected.isEmpty()) {
                 loadBukuPinjam();
             }
         });
@@ -619,14 +646,14 @@ public class Pengembalian extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabelKmbl.getModel();
         model.setRowCount(0);
 
-        Object selected = cbidpinjam.getSelectedItem();
-        if (selected == null || selected.toString().startsWith("-")) {
+        String selected = txtIdPinjam.getText().trim();
+        if (selected.isEmpty()) {
             lblstatus.setText("Status: -");
             lblstatus.setForeground(java.awt.Color.BLACK);
             return;
         }
 
-        String idPinjam = selected.toString().trim();
+        String idPinjam = selected;
         Date actualReturnDate = jDateChooser1.getDate();
         if (actualReturnDate == null) {
             actualReturnDate = new Date();
@@ -729,7 +756,8 @@ public class Pengembalian extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbatal;
     private javax.swing.JButton btnproses;
-    private javax.swing.JComboBox<String> cbidpinjam;
+    private javax.swing.JTextField txtIdPinjam;
+    private javax.swing.JButton btnCariPinjam;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblJudul;

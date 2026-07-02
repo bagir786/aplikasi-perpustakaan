@@ -114,9 +114,9 @@ public class DataAnggota extends javax.swing.JFrame {
         try{
             String sql;
             if(cari.equals("Cari Nama / ID Anggota...") || cari.isEmpty()){
-                sql = "SELECT id_anggota, nama_anggota, jenis_kelamin, no_telp, alamat FROM anggota";
+                sql = "SELECT id_anggota, nama_anggota, kelas, jenis_kelamin, no_telp, alamat FROM anggota";
             } else {
-                sql = "SELECT id_anggota, nama_anggota, jenis_kelamin, no_telp, alamat FROM anggota WHERE id_anggota LIKE ? OR nama_anggota LIKE ? OR alamat LIKE ? OR no_telp LIKE ?";
+                sql = "SELECT id_anggota, nama_anggota, kelas, jenis_kelamin, no_telp, alamat FROM anggota WHERE id_anggota LIKE ? OR nama_anggota LIKE ? OR kelas LIKE ? OR alamat LIKE ? OR no_telp LIKE ?";
             }
             
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
@@ -126,6 +126,7 @@ public class DataAnggota extends javax.swing.JFrame {
                 pst.setString(2, p);
                 pst.setString(3, p);
                 pst.setString(4, p);
+                pst.setString(5, p);
             }
             
             rs = pst.executeQuery();
@@ -134,6 +135,7 @@ public class DataAnggota extends javax.swing.JFrame {
                 filteredData.add(new Object[]{
                     rs.getString("id_anggota"),
                     rs.getString("nama_anggota"),
+                    rs.getString("kelas"),
                     rs.getString("jenis_kelamin"),
                     rs.getString("no_telp"),
                     rs.getString("alamat")
@@ -177,6 +179,7 @@ public class DataAnggota extends javax.swing.JFrame {
     private void clearForm() {
         jTextField1.setText("");
         jTextField2.setText("");
+        txtKelas.setText("");
         Group1.clearSelection();
         txtNoTelpn.setText("");
         txtAlamat.setText("");
@@ -194,16 +197,17 @@ public class DataAnggota extends javax.swing.JFrame {
 
         jTextField1.setText(getString(rowData[0]));
         jTextField2.setText(getString(rowData[1]));
+        txtKelas.setText(getString(rowData[2]));
         
-        String jk = getString(rowData[2]);
+        String jk = getString(rowData[3]);
         if(jk.equals("Laki-laki")) {
             rjk1.setSelected(true);
         } else {
             rjk2.setSelected(true);
         }
         
-        txtNoTelpn.setText(getString(rowData[3]));
-        txtAlamat.setText(getString(rowData[4]));
+        txtNoTelpn.setText(getString(rowData[4]));
+        txtAlamat.setText(getString(rowData[5]));
     }
 
     private String getString(Object obj) {
@@ -222,7 +226,7 @@ public class DataAnggota extends javax.swing.JFrame {
         }
 
         while (tblModel.getRowCount() < pageSize) {
-            tblModel.addRow(new Object[] { "", "", "", "", "" });
+            tblModel.addRow(new Object[] { "", "", "", "", "", "" });
         }
 
         renderPaginationButtons();
@@ -296,25 +300,27 @@ public class DataAnggota extends javax.swing.JFrame {
         btnSimpan.addActionListener(e -> {
             String id = jTextField1.getText();
             String nama = jTextField2.getText();
+            String kelas = txtKelas.getText();
             String jk = "";
             if (rjk1.isSelected()) jk = "Laki-laki";
             if (rjk2.isSelected()) jk = "Perempuan";
             String noTelp = txtNoTelpn.getText();
             String alamat = txtAlamat.getText();
 
-            if (id.isEmpty() || nama.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
+            if (id.isEmpty() || nama.isEmpty() || kelas.isEmpty() || jk.isEmpty() || noTelp.isEmpty() || alamat.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Harap lengkapi semua data!");
                 return;
             }
 
             try {
-                String sql = "INSERT INTO anggota (id_anggota, nama_anggota, jenis_kelamin, alamat, no_telp, tanggal_daftar) VALUES (?, ?, ?, ?, ?, CURDATE())";
+                String sql = "INSERT INTO anggota (id_anggota, nama_anggota, kelas, jenis_kelamin, alamat, no_telp, tanggal_daftar) VALUES (?, ?, ?, ?, ?, ?, CURDATE())";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, id);
                 pst.setString(2, nama);
-                pst.setString(3, jk);
-                pst.setString(4, alamat);
-                pst.setString(5, noTelp);
+                pst.setString(3, kelas);
+                pst.setString(4, jk);
+                pst.setString(5, alamat);
+                pst.setString(6, noTelp);
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Data Berhasil Disimpan");
                 tampilData(txtCari.getText());
@@ -327,6 +333,7 @@ public class DataAnggota extends javax.swing.JFrame {
         btnEdit.addActionListener(e -> {
             String id = jTextField1.getText();
             String nama = jTextField2.getText();
+            String kelas = txtKelas.getText();
             String jk = "";
             if (rjk1.isSelected()) jk = "Laki-laki";
             if (rjk2.isSelected()) jk = "Perempuan";
@@ -339,13 +346,14 @@ public class DataAnggota extends javax.swing.JFrame {
             }
 
             try {
-                String sql = "UPDATE anggota SET nama_anggota=?, jenis_kelamin=?, alamat=?, no_telp=? WHERE id_anggota=?";
+                String sql = "UPDATE anggota SET nama_anggota=?, kelas=?, jenis_kelamin=?, alamat=?, no_telp=? WHERE id_anggota=?";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, nama);
-                pst.setString(2, jk);
-                pst.setString(3, alamat);
-                pst.setString(4, noTelp);
-                pst.setString(5, id);
+                pst.setString(2, kelas);
+                pst.setString(3, jk);
+                pst.setString(4, alamat);
+                pst.setString(5, noTelp);
+                pst.setString(6, id);
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Data Berhasil Diupdate");
                 tampilData(txtCari.getText());
@@ -416,9 +424,10 @@ public class DataAnggota extends javax.swing.JFrame {
         // Adjust Column Widths
         tabelData.getColumnModel().getColumn(0).setPreferredWidth(100); // ID 
         tabelData.getColumnModel().getColumn(1).setPreferredWidth(300); // nama
-        tabelData.getColumnModel().getColumn(2).setPreferredWidth(150); // JK
-        tabelData.getColumnModel().getColumn(3).setPreferredWidth(180); // No
-        tabelData.getColumnModel().getColumn(4).setPreferredWidth(200); // Alamat
+        tabelData.getColumnModel().getColumn(2).setPreferredWidth(100); // Kelas
+        tabelData.getColumnModel().getColumn(3).setPreferredWidth(150); // JK
+        tabelData.getColumnModel().getColumn(4).setPreferredWidth(180); // No
+        tabelData.getColumnModel().getColumn(5).setPreferredWidth(200); // Alamat
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -520,6 +529,8 @@ public class DataAnggota extends javax.swing.JFrame {
         btnNext = new javax.swing.JButton();
         btnLast = new javax.swing.JButton();
         lblTotalData = new javax.swing.JLabel();
+        txtKelas = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -646,23 +657,23 @@ public class DataAnggota extends javax.swing.JFrame {
         tabelData.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabelData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Anggota", "Nama Lengkap", "Jenis Kelamin", "No Telp Wali", "Alamat"
+                "ID Anggota", "Nama Lengkap", "Kelas", "Jenis Kelamin", "No Telp Wali", "Alamat"
             }
         ));
         jScrollPane3.setViewportView(tabelData);
@@ -695,6 +706,11 @@ public class DataAnggota extends javax.swing.JFrame {
 
         lblTotalData.setText("Total Data: 0");
 
+        txtKelas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Kelas");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -709,7 +725,7 @@ public class DataAnggota extends javax.swing.JFrame {
                                 .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 196, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
@@ -731,18 +747,21 @@ public class DataAnggota extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel10))
                                 .addGap(16, 16, 16)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNoTelpn, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(rjk1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rjk2))
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jScrollPane5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNoTelpn, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(rjk1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(rjk2))
+                                        .addComponent(jTextField2)
+                                        .addComponent(jScrollPane5)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -766,18 +785,26 @@ public class DataAnggota extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
+                                .addGap(34, 34, 34)
                                 .addComponent(jLabel9))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rjk1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rjk2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
+                            .addComponent(jLabel5))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNoTelpn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(12, 12, 12))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -787,12 +814,8 @@ public class DataAnggota extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNoTelpn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -822,7 +845,7 @@ public class DataAnggota extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -890,6 +913,7 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -913,6 +937,7 @@ public class DataAnggota extends javax.swing.JFrame {
     private javax.swing.JTable tabelData;
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JTextField txtCari;
+    private javax.swing.JTextField txtKelas;
     private javax.swing.JTextField txtNoTelpn;
     // End of variables declaration//GEN-END:variables
 }

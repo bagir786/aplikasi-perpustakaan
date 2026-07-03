@@ -29,6 +29,7 @@ import master.DataAnggota;
 import master.Fbuku;
 import master.FormPetugas;
 import report.FormLaporan;
+import report.MenuLaporan;
 import transaksi.Fdenda;
 
 /**
@@ -711,7 +712,7 @@ public class dashboard extends javax.swing.JFrame {
 
     private void btnLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaporanActionPerformed
         // TODO add your handling code here:
-        new FormLaporan().setVisible(true);
+        new MenuLaporan().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLaporanActionPerformed
 

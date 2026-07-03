@@ -23,6 +23,25 @@ public class MenuLaporan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         styleCards();
         
+        /*
+        java.awt.Color borderColor = new java.awt.Color(99, 102, 241);
+
+    buku.setBorder(
+        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
+    );
+
+    member.setBorder(
+        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
+    );
+
+    pinjam.setBorder(
+        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
+    );
+
+    back.setBorder(
+        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
+    );
+        */
     }
     
     private void styleCards() {

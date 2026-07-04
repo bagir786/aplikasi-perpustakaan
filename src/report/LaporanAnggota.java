@@ -5,6 +5,23 @@
  */
 package report;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.HashMap;
+import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.view.JasperViewer;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import stylecard.PanelCard;
@@ -15,34 +32,83 @@ import stylecard.PanelCard;
  */
 public class LaporanAnggota extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuLaporan
-     */
+    private DefaultTableModel tabmode;
+
     public LaporanAnggota() {
         initComponents();
         setLocationRelativeTo(null);
         
+        tampilData("");
+        loadKelas();
         
-        /*
-        java.awt.Color borderColor = new java.awt.Color(99, 102, 241);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-    buku.setBorder(
-        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
-    );
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+    }
 
-    member.setBorder(
-        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
-    );
+    private void tampilData(String where) {
+        Object[] baris = {"ID Anggota", "Nama Anggota", "Kelas", "Jenis Kelamin", "Alamat", "No Telp", "Tanggal Daftar"};
+        tabmode = new DefaultTableModel(null, baris);
+        jTable1.setModel(tabmode);
+        
+        int totalAnggota = 0;
 
-    pinjam.setBorder(
-        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
-    );
+        try {
+            Connection con = koneksi.getConnection();
+            Statement st = con.createStatement();
+            String sql = "SELECT * FROM anggota " + where + " ORDER BY id_anggota ASC";
+            ResultSet rs = st.executeQuery(sql);
 
-    back.setBorder(
-        javax.swing.BorderFactory.createLineBorder(borderColor, 2, true)
-    );
-        */
-    
+            while (rs.next()) {
+                String id = rs.getString("id_anggota");
+                String nama = rs.getString("nama_anggota");
+                String kelas = rs.getString("kelas");
+                String jk = rs.getString("jenis_kelamin");
+                String alamat = rs.getString("alamat");
+                String telp = rs.getString("no_telp");
+                String tanggal = rs.getString("tanggal_daftar");
+
+                String[] data = {id, nama, kelas, jk, alamat, telp, tanggal};
+                tabmode.addRow(data);
+                
+                totalAnggota++;
+            }
+            
+            lAngkabuku10.setText("Total Anggota : " + totalAnggota);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal Menampilkan Data: " + e.getMessage());
+        }
+    }
+
+    private void loadKelas() {
+        try {
+            jComboBox1.removeAllItems();
+            jComboBox1.addItem("Semua Kelas");
+            
+            Connection con = koneksi.getConnection();
+            Statement st = con.createStatement();
+            String sql = "SELECT DISTINCT kelas FROM anggota ORDER BY kelas ASC";
+            ResultSet rs = st.executeQuery(sql);
+            
+            while (rs.next()) {
+                jComboBox1.addItem(rs.getString("kelas"));
+            }
+            
+            jComboBox2.removeAllItems();
+            jComboBox2.addItem("Semua");
+            jComboBox2.addItem("Laki-laki");
+            jComboBox2.addItem("Perempuan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal Memuat Filter: " + e.getMessage());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -348,17 +414,82 @@ public class LaporanAnggota extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCariActionPerformed
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {
+        String keyword = jTextField1.getText();
+        if (keyword.isEmpty()) {
+            tampilData("");
+        } else {
+            tampilData("WHERE id_anggota LIKE '%" + keyword + "%' OR nama_anggota LIKE '%" + keyword + "%'");
+        }
+    }
 
-    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCari1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCari1ActionPerformed
+    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String kelas = jComboBox1.getSelectedItem() != null ? jComboBox1.getSelectedItem().toString() : "Semua Kelas";
+        String jk = jComboBox2.getSelectedItem() != null ? jComboBox2.getSelectedItem().toString() : "Semua";
+        
+        StringBuilder where = new StringBuilder("WHERE 1=1 ");
+        
+        if (!kelas.equals("Semua Kelas")) {
+            where.append("AND kelas = '").append(kelas).append("' ");
+        }
+        
+        if (!jk.equals("Semua")) {
+            where.append("AND jenis_kelamin = '").append(jk).append("' ");
+        }
+        
+        tampilData(where.toString());
+    }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        jTextField1.setText("");
+        if (jComboBox1.getItemCount() > 0) jComboBox1.setSelectedIndex(0);
+        if (jComboBox2.getItemCount() > 0) jComboBox2.setSelectedIndex(0);
+        tampilData("");
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            Connection con = koneksi.getConnection();
+            String path = "src/report/laporan_anggota.jrxml";
+            JasperReport jasperReport = JasperCompileManager.compileReport(path);
+            HashMap<String, Object> parameters = new HashMap<>();
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, con);
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal mencetak laporan: " + e.getMessage());
+        }
+    }
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export Laporan Anggota ke PDF");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
+            
+            int userSelection = fileChooser.showSaveDialog(this);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".pdf")) {
+                    filePath += ".pdf";
+                }
+                
+                Connection con = koneksi.getConnection();
+                String path = "src/report/laporan_anggota.jrxml";
+                JasperReport jasperReport = JasperCompileManager.compileReport(path);
+                HashMap<String, Object> parameters = new HashMap<>();
+                
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, con);
+                JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
+                
+                JOptionPane.showMessageDialog(null, "Laporan berhasil diekspor ke: " + filePath);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal mengekspor laporan: " + e.getMessage());
+        }
+    }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:

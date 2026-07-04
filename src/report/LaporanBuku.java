@@ -5,6 +5,24 @@
  */
 package report;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.HashMap;
+import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.view.JasperViewer;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import stylecard.PanelCard;
@@ -15,14 +33,88 @@ import stylecard.PanelCard;
  */
 public class LaporanBuku extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuLaporan
-     */
+    private DefaultTableModel tabmode;
+
     public LaporanBuku() {
         initComponents();
         setLocationRelativeTo(null);
         
-    
+        tampilData("");
+        loadKategori();
+        
+        // Menambahkan action listener untuk Cetak (jButton2)
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        // Menambahkan action listener untuk Export PDF (jButton3)
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+    }
+
+    private void tampilData(String where) {
+        Object[] baris = {"ID Buku", "Judul", "Pengarang", "Penerbit", "Tahun Terbit", "Kategori", "Stok"};
+        tabmode = new DefaultTableModel(null, baris);
+        jTable1.setModel(tabmode);
+        
+        int totalBuku = 0;
+        int totalStok = 0;
+
+        try {
+            Connection con = koneksi.getConnection();
+            Statement st = con.createStatement();
+            String sql = "SELECT * FROM buku " + where + " ORDER BY id_buku ASC";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                String id = rs.getString("id_buku");
+                String judul = rs.getString("judul_buku");
+                String pengarang = rs.getString("pengarang");
+                String penerbit = rs.getString("penerbit");
+                String tahun = rs.getString("tahun_terbit");
+                String kategori = rs.getString("kategori");
+                String stok = rs.getString("stok");
+
+                String[] data = {id, judul, pengarang, penerbit, tahun, kategori, stok};
+                tabmode.addRow(data);
+                
+                totalBuku++;
+                totalStok += Integer.parseInt(stok);
+            }
+            
+            lAngkabuku10.setText("Total Buku : " + totalBuku);
+            lAngkabuku11.setText("Total Stok : " + totalStok);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal Menampilkan Data: " + e.getMessage());
+        }
+    }
+
+    private void loadKategori() {
+        try {
+            jComboBox1.removeAllItems();
+            jComboBox1.addItem("Semua Kategori");
+            
+            Connection con = koneksi.getConnection();
+            Statement st = con.createStatement();
+            String sql = "SELECT DISTINCT kategori FROM buku ORDER BY kategori ASC";
+            ResultSet rs = st.executeQuery(sql);
+            
+            while (rs.next()) {
+                jComboBox1.addItem(rs.getString("kategori"));
+            }
+            
+            jComboBox2.removeAllItems();
+            jComboBox2.addItem("Semua");
+            jComboBox2.addItem("Ada (Stok > 0)");
+            jComboBox2.addItem("Habis (Stok = 0)");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal Memuat Kategori: " + e.getMessage());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -336,17 +428,87 @@ public class LaporanBuku extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCariActionPerformed
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {
+        String keyword = jTextField1.getText();
+        if (keyword.isEmpty()) {
+            tampilData("");
+        } else {
+            tampilData("WHERE id_buku LIKE '%" + keyword + "%' OR judul_buku LIKE '%" + keyword + "%'");
+        }
+    }
 
-    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCari1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCari1ActionPerformed
+    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String kategori = jComboBox1.getSelectedItem() != null ? jComboBox1.getSelectedItem().toString() : "Semua Kategori";
+        String stokFilter = jComboBox2.getSelectedItem() != null ? jComboBox2.getSelectedItem().toString() : "Semua";
+        
+        StringBuilder where = new StringBuilder("WHERE 1=1 ");
+        
+        if (!kategori.equals("Semua Kategori")) {
+            where.append("AND kategori = '").append(kategori).append("' ");
+        }
+        
+        if (stokFilter.equals("Ada (Stok > 0)")) {
+            where.append("AND stok > 0 ");
+        } else if (stokFilter.equals("Habis (Stok = 0)")) {
+            where.append("AND stok = 0 ");
+        }
+        
+        tampilData(where.toString());
+    }
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-     
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+        jTextField1.setText("");
+        if (jComboBox1.getItemCount() > 0) jComboBox1.setSelectedIndex(0);
+        if (jComboBox2.getItemCount() > 0) jComboBox2.setSelectedIndex(0);
+        tampilData("");
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            Connection con = koneksi.getConnection();
+            String path = "src/report/laporan_buku.jrxml";
+            JasperReport jasperReport = JasperCompileManager.compileReport(path);
+            HashMap<String, Object> parameters = new HashMap<>();
+            
+            // Parameter tambahan untuk laporan jika diperlukan
+            // parameters.put("Kategori", jComboBox1.getSelectedItem().toString());
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, con);
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal mencetak laporan: " + e.getMessage());
+        }
+    }
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export Laporan Buku ke PDF");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Documents", "pdf"));
+            
+            int userSelection = fileChooser.showSaveDialog(this);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".pdf")) {
+                    filePath += ".pdf";
+                }
+                
+                Connection con = koneksi.getConnection();
+                String path = "src/report/laporan_buku.jrxml";
+                JasperReport jasperReport = JasperCompileManager.compileReport(path);
+                HashMap<String, Object> parameters = new HashMap<>();
+                
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, con);
+                JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
+                
+                JOptionPane.showMessageDialog(null, "Laporan berhasil diekspor ke: " + filePath);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal mengekspor laporan: " + e.getMessage());
+        }
+    }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:

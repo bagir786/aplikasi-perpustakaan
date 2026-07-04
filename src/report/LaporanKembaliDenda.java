@@ -5,8 +5,22 @@
  */
 package report;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JasperExportManager;
 import stylecard.PanelCard;
 
 /**
@@ -15,14 +29,163 @@ import stylecard.PanelCard;
  */
 public class LaporanKembaliDenda extends javax.swing.JFrame {
 
+    private DefaultTableModel tabmode;
+
     /**
      * Creates new form MenuLaporan
      */
     public LaporanKembaliDenda() {
         initComponents();
         setLocationRelativeTo(null);
+        tampilData();
         
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "Ada Denda", "Tidak Ada Denda" }));
+    }
     
+    private void tampilData() {
+        Object[] baris = {"ID Kembali", "ID Pinjam", "Tgl Kembali", "ID Anggota", "Nama Anggota", "Terlambat", "Denda"};
+        tabmode = new DefaultTableModel(null, baris);
+        jTable1.setModel(tabmode);
+        
+        String status = jComboBox2.getSelectedItem() != null ? jComboBox2.getSelectedItem().toString() : "Semua";
+        String cari = jTextField2.getText().trim();
+        java.util.Date date1 = jDateChooser1.getDate();
+        java.util.Date date2 = jDateChooser2.getDate();
+        
+        StringBuilder sql = new StringBuilder("SELECT pg.id_kembali, pg.id_pinjam, pg.tanggal_kembali, pg.terlambat, p.id_anggota, a.nama_anggota, COALESCE(d.jumlah_denda, 0) AS jumlah_denda "
+                + "FROM pengembalian pg "
+                + "JOIN peminjaman p ON pg.id_pinjam = p.id_pinjam "
+                + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                + "LEFT JOIN denda d ON pg.id_kembali = d.id_kembali WHERE 1=1");
+        
+        if (date1 != null && date2 != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sql.append(" AND pg.tanggal_kembali >= '").append(sdf.format(date1)).append("'");
+            sql.append(" AND pg.tanggal_kembali <= '").append(sdf.format(date2)).append("'");
+        }
+        
+        if (!status.equals("Semua")) {
+            if (status.equals("Ada Denda")) {
+                sql.append(" AND COALESCE(d.jumlah_denda, 0) > 0");
+            } else if (status.equals("Tidak Ada Denda")) {
+                sql.append(" AND COALESCE(d.jumlah_denda, 0) = 0");
+            }
+        }
+        
+        if (!cari.isEmpty()) {
+            sql.append(" AND pg.id_pinjam LIKE '%").append(cari).append("%'");
+        }
+        
+        int totalPengembalian = 0;
+        int totalTerlambat = 0;
+        int totalDenda = 0;
+        
+        try {
+            Connection conn = koneksi.getConnection();
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery(sql.toString());
+            
+            while (rs.next()) {
+                String idKembali = rs.getString("id_kembali");
+                String idPinjam = rs.getString("id_pinjam");
+                String tglKembali = rs.getString("tanggal_kembali");
+                String idAnggota = rs.getString("id_anggota");
+                String namaAnggota = rs.getString("nama_anggota");
+                String terlambat = rs.getString("terlambat");
+                String denda = rs.getString("jumlah_denda");
+                
+                String[] data = {idKembali, idPinjam, tglKembali, idAnggota, namaAnggota, terlambat, denda};
+                tabmode.addRow(data);
+                
+                totalPengembalian++;
+                totalTerlambat += rs.getInt("terlambat");
+                totalDenda += rs.getInt("jumlah_denda");
+            }
+            
+            lAngkabuku10.setText("Total Pengembalian : " + totalPengembalian);
+            lAngkabuku11.setText("Total Terlambat : " + totalTerlambat + " hari");
+            
+            // Format to Rupiah
+            java.text.NumberFormat formatter = java.text.NumberFormat.getCurrencyInstance(new java.util.Locale("id", "ID"));
+            lAngkabuku13.setText("Total Denda : " + formatter.format(totalDenda));
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error tampil data: " + e.getMessage());
+        }
+    }
+
+    private void cetakLaporan() {
+        try {
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih rentang tanggal (Dari & Sampai) terlebih dahulu!");
+                return;
+            }
+            
+            String namaPetugas = user.UserSession.getNamaPetugas();
+            if (namaPetugas == null || namaPetugas.isEmpty()) {
+                namaPetugas = "Admin";
+            }
+            
+            HashMap parameter = new HashMap();
+            parameter.put("dari_tanggal", jDateChooser1.getDate());
+            parameter.put("sampai_tanggal", jDateChooser2.getDate());
+            parameter.put("nama_petugas", namaPetugas);
+            
+            Connection conn = koneksi.getConnection();
+            java.io.File file = new java.io.File("src/report/laporan_pengembalian.jrxml");
+            JasperDesign jd = JRXmlLoader.load(file);
+            
+            net.sf.jasperreports.engine.JasperReport jr = net.sf.jasperreports.engine.JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parameter, conn);
+            JasperViewer.viewReport(jp, false);
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
+        }
+    }
+
+    private void exportPDF() {
+        try {
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih rentang tanggal (Dari & Sampai) terlebih dahulu!");
+                return;
+            }
+            
+            String namaPetugas = user.UserSession.getNamaPetugas();
+            if (namaPetugas == null || namaPetugas.isEmpty()) {
+                namaPetugas = "Admin";
+            }
+            
+            javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+            fileChooser.setDialogTitle("Simpan sebagai PDF");
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Documents", "pdf"));
+            
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == javax.swing.JFileChooser.APPROVE_OPTION) {
+                java.io.File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".pdf")) {
+                    filePath += ".pdf";
+                }
+                
+                HashMap parameter = new HashMap();
+                parameter.put("dari_tanggal", jDateChooser1.getDate());
+                parameter.put("sampai_tanggal", jDateChooser2.getDate());
+                parameter.put("nama_petugas", namaPetugas);
+                
+                Connection conn = koneksi.getConnection();
+                java.io.File file = new java.io.File("src/report/laporan_pengembalian.jrxml");
+                JasperDesign jd = JRXmlLoader.load(file);
+                
+                net.sf.jasperreports.engine.JasperReport jr = net.sf.jasperreports.engine.JasperCompileManager.compileReport(jd);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parameter, conn);
+                
+                JasperExportManager.exportReportToPdfFile(jp, filePath);
+                javax.swing.JOptionPane.showMessageDialog(this, "Laporan berhasil diekspor ke PDF!\n" + filePath);
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengekspor laporan: " + e.getMessage());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +267,7 @@ public class LaporanKembaliDenda extends javax.swing.JFrame {
 
         lAngkabuku8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lAngkabuku8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lAngkabuku8.setText("Status Stok");
+        lAngkabuku8.setText("Status Denda");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "Item 2", "Item 3", "Item 4" }));
 
@@ -179,12 +342,22 @@ public class LaporanKembaliDenda extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/print.png"))); // NOI18N
         jButton2.setText("Cetak");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakLaporan();
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(220, 53, 69));
         jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/file-export.png"))); // NOI18N
         jButton3.setText("Export PDF");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportPDF();
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(108, 117, 125));
         jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -344,11 +517,15 @@ public class LaporanKembaliDenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCari1ActionPerformed
-        // TODO add your handling code here:
+        tampilData();
     }//GEN-LAST:event_btnCari1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+        jTextField2.setText("");
+        jComboBox2.setSelectedIndex(0);
+        tampilData();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

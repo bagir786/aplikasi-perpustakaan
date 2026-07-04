@@ -8,6 +8,22 @@ package report;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import stylecard.PanelCard;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import koneksi.koneksi;
 
 /**
  *
@@ -21,8 +37,22 @@ public class LaporanPeminjaman extends javax.swing.JFrame {
     public LaporanPeminjaman() {
         initComponents();
         setLocationRelativeTo(null);
+        lAngkabuku8.setText("Status Pinjam");
         
-    
+        loadStatus();
+        tampilData();
+        
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cetakLaporan();
+            }
+        });
+        
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportPDF();
+            }
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -337,18 +367,192 @@ public class LaporanPeminjaman extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCari1ActionPerformed
-        // TODO add your handling code here:
+        tampilData();
     }//GEN-LAST:event_btnCari1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+        jComboBox2.setSelectedIndex(0);
+        jTextField2.setText("");
+        tampilData();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
         new MenuLaporan().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void loadStatus() {
+        jComboBox2.removeAllItems();
+        jComboBox2.addItem("Semua");
+        try {
+            String sql = "SELECT DISTINCT status FROM detail_peminjaman WHERE status IS NOT NULL AND status != ''";
+            Connection conn = koneksi.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                jComboBox2.addItem(res.getString("status"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error load status: " + e.getMessage());
+        }
+    }
+
+    private void tampilData() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID Pinjam");
+        model.addColumn("Tgl Pinjam");
+        model.addColumn("Nama Anggota");
+        model.addColumn("Judul Buku");
+        model.addColumn("Tgl Kembali");
+        model.addColumn("Status");
+
+        try {
+            StringBuilder sql = new StringBuilder("SELECT p.id_pinjam, p.tanggal_pinjam, a.nama_anggota, b.judul_buku, dp.tanggal_kembali, dp.status FROM peminjaman p JOIN anggota a ON p.id_anggota = a.id_anggota JOIN detail_peminjaman dp ON p.id_pinjam = dp.id_pinjam JOIN buku b ON dp.id_buku = b.id_buku WHERE 1=1");
+            
+            if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String tgl1 = sdf.format(jDateChooser1.getDate());
+                String tgl2 = sdf.format(jDateChooser2.getDate());
+                sql.append(" AND p.tanggal_pinjam BETWEEN '").append(tgl1).append("' AND '").append(tgl2).append("'");
+            }
+            
+            String status = jComboBox2.getSelectedItem() != null ? jComboBox2.getSelectedItem().toString() : "Semua";
+            if (!status.equals("Semua")) {
+                sql.append(" AND dp.status = '").append(status).append("'");
+            }
+            
+            String cari = jTextField2.getText().trim();
+            if (!cari.isEmpty()) {
+                sql.append(" AND (p.id_pinjam LIKE '%").append(cari).append("%' OR a.nama_anggota LIKE '%").append(cari).append("%' OR a.id_anggota LIKE '%").append(cari).append("%')");
+            }
+            
+            sql.append(" ORDER BY p.tanggal_pinjam DESC");
+            
+            Connection conn = koneksi.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet res = stm.executeQuery(sql.toString());
+            
+            int totalTransaksi = 0;
+            
+            while (res.next()) {
+                model.addRow(new Object[]{
+                    res.getString("id_pinjam"),
+                    res.getString("tanggal_pinjam"),
+                    res.getString("nama_anggota"),
+                    res.getString("judul_buku"),
+                    res.getString("tanggal_kembali") != null ? res.getString("tanggal_kembali") : "-",
+                    res.getString("status")
+                });
+                totalTransaksi++;
+            }
+            jTable1.setModel(model);
+            
+            lAngkabuku10.setText("Total Transaksi : " + totalTransaksi);
+            lAngkabuku11.setText("Buku Dipinjam : " + totalTransaksi);
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error tampil data: " + e.getMessage());
+        }
+    }
+
+    private void cetakLaporan() {
+        try {
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih rentang tanggal (Dari & Sampai) terlebih dahulu!");
+                return;
+            }
+            
+            HashMap parameter = new HashMap();
+            parameter.put("dari_tanggal", jDateChooser1.getDate());
+            parameter.put("sampai_tanggal", jDateChooser2.getDate());
+            
+            Connection conn = koneksi.getConnection();
+            java.io.File file = new java.io.File("src/report/laporan_peminjaman.jrxml");
+            JasperDesign jd = JRXmlLoader.load(file);
+            
+            String status = jComboBox2.getSelectedItem() != null ? jComboBox2.getSelectedItem().toString() : "Semua";
+            String cari = jTextField2.getText().trim();
+            
+            StringBuilder sql = new StringBuilder("SELECT p.id_pinjam, p.tanggal_pinjam, a.nama_anggota, b.judul_buku, dp.tanggal_kembali, dp.status "
+                    + "FROM peminjaman p "
+                    + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                    + "JOIN detail_peminjaman dp ON p.id_pinjam = dp.id_pinjam "
+                    + "JOIN buku b ON dp.id_buku = b.id_buku "
+                    + "WHERE p.tanggal_pinjam >= $P{dari_tanggal} AND p.tanggal_pinjam <= $P{sampai_tanggal}");
+                    
+            if (!status.equals("Semua")) {
+                sql.append(" AND dp.status = '").append(status).append("'");
+            }
+            if (!cari.isEmpty()) {
+                sql.append(" AND (p.id_pinjam LIKE '%").append(cari).append("%' OR a.nama_anggota LIKE '%").append(cari).append("%' OR a.id_anggota LIKE '%").append(cari).append("%')");
+            }
+            
+            JRDesignQuery newQuery = new JRDesignQuery();
+            newQuery.setText(sql.toString());
+            jd.setQuery(newQuery);
+            
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parameter, conn);
+            JasperViewer.viewReport(jp, false);
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error cetak laporan: " + e.getMessage());
+        }
+    }
+
+    private void exportPDF() {
+        try {
+            if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih rentang tanggal (Dari & Sampai) terlebih dahulu!");
+                return;
+            }
+            
+            javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+            fileChooser.setDialogTitle("Simpan sebagai PDF");
+            fileChooser.setSelectedFile(new java.io.File("Laporan_Peminjaman.pdf"));
+            
+            if (fileChooser.showSaveDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
+                java.io.File fileToSave = fileChooser.getSelectedFile();
+                
+                HashMap parameter = new HashMap();
+                parameter.put("dari_tanggal", jDateChooser1.getDate());
+                parameter.put("sampai_tanggal", jDateChooser2.getDate());
+                
+                Connection conn = koneksi.getConnection();
+                java.io.File file = new java.io.File("src/report/laporan_peminjaman.jrxml");
+                JasperDesign jd = JRXmlLoader.load(file);
+                
+                String status = jComboBox2.getSelectedItem() != null ? jComboBox2.getSelectedItem().toString() : "Semua";
+                String cari = jTextField2.getText().trim();
+                
+                StringBuilder sql = new StringBuilder("SELECT p.id_pinjam, p.tanggal_pinjam, a.nama_anggota, b.judul_buku, dp.tanggal_kembali, dp.status "
+                        + "FROM peminjaman p "
+                        + "JOIN anggota a ON p.id_anggota = a.id_anggota "
+                        + "JOIN detail_peminjaman dp ON p.id_pinjam = dp.id_pinjam "
+                        + "JOIN buku b ON dp.id_buku = b.id_buku "
+                        + "WHERE p.tanggal_pinjam >= $P{dari_tanggal} AND p.tanggal_pinjam <= $P{sampai_tanggal}");
+                        
+                if (!status.equals("Semua")) {
+                    sql.append(" AND dp.status = '").append(status).append("'");
+                }
+                if (!cari.isEmpty()) {
+                    sql.append(" AND (p.id_pinjam LIKE '%").append(cari).append("%' OR a.nama_anggota LIKE '%").append(cari).append("%' OR a.id_anggota LIKE '%").append(cari).append("%')");
+                }
+                
+                JRDesignQuery newQuery = new JRDesignQuery();
+                newQuery.setText(sql.toString());
+                jd.setQuery(newQuery);
+                
+                JasperReport jr = JasperCompileManager.compileReport(jd);
+                JasperPrint jp = JasperFillManager.fillReport(jr, parameter, conn);
+                
+                JasperExportManager.exportReportToPdfFile(jp, fileToSave.getAbsolutePath());
+                javax.swing.JOptionPane.showMessageDialog(this, "Laporan berhasil diexport ke PDF!\nLokasi: " + fileToSave.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error export PDF: " + e.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments

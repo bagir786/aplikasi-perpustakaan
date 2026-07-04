@@ -229,6 +229,9 @@ public class Flogin extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                String namaPetugas = rs.getString("nama_petugas");
+                user.UserSession.setNamaPetugas(namaPetugas);
+                
                 javax.swing.JOptionPane.showMessageDialog(this, "Login Berhasil!");
 
                 // pindah ke form berikutnya (misal menu utama)

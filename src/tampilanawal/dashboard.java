@@ -53,6 +53,10 @@ public class dashboard extends javax.swing.JFrame {
         tampilWaktu();
 
         panelinfo.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, new Color(99, 102, 241)));
+        
+        String nama = user.UserSession.getNamaPetugas();
+        if (nama == null || nama.isEmpty()) nama = "Admin";
+        jLabel18.setText("Selamat datang, " + nama + " 👋");
     }
     
     private void styleCards() {

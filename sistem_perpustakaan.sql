@@ -111,7 +111,7 @@ CREATE TABLE `detail_peminjaman` (
 CREATE TABLE `peminjaman` (
   `id_pinjam` varchar(10) NOT NULL,
   `tanggal_pinjam` date DEFAULT NULL,
-  `id_anggota` varchar(10) DEFAULT NULL,
+  `id_anggota` varchar(15) DEFAULT NULL,
   `id_petugas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -120,8 +120,8 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_pinjam`, `tanggal_pinjam`, `id_anggota`, `id_petugas`) VALUES
-('P001', '2026-06-30', 'ID002', NULL),
-('P002', '2026-07-01', 'ID002', NULL),
+('P001', '2026-06-30', '123456789', NULL),
+('P002', '2026-07-01', '123456789', NULL),
 ('P003', '2026-07-10', '123456789', NULL);
 
 -- --------------------------------------------------------

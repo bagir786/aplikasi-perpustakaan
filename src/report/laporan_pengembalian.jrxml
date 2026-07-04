@@ -2,6 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_pengembalian" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d659779b-2a29-450a-b286-63e8df3e659b">
 	<parameter name="dari_tanggal" class="java.util.Date"/>
 	<parameter name="sampai_tanggal" class="java.util.Date"/>
+	<parameter name="nama_petugas" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT pg.id_kembali, pg.id_pinjam, pg.tanggal_kembali, pg.terlambat, p.id_anggota, a.nama_anggota, COALESCE(d.jumlah_denda, 0) AS jumlah_denda 
 FROM pengembalian pg 
@@ -21,7 +22,7 @@ WHERE pg.tanggal_kembali >= $P{dari_tanggal} AND pg.tanggal_kembali <= $P{sampai
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="100" splitType="Stretch">
+		<band height="120" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="10" width="555" height="30" uuid="a666248c-7fbe-49b0-a579-0524df2f2e51"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -43,8 +44,15 @@ WHERE pg.tanggal_kembali >= $P{dari_tanggal} AND pg.tanggal_kembali <= $P{sampai
 				</textElement>
 				<textFieldExpression><![CDATA["Periode: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dari_tanggal}) + " s/d " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{sampai_tanggal})]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="0" y="80" width="555" height="20" uuid="7fcd3076-2e86-4e50-9c2e-6014e414c33f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Petugas : " + ($P{nama_petugas} == null ? "-" : $P{nama_petugas})]]></textFieldExpression>
+			</textField>
 			<line>
-				<reportElement x="0" y="90" width="555" height="1" uuid="b85d564b-57e0-410a-8bf8-2a29e4d0b13d"/>
+				<reportElement x="0" y="110" width="555" height="1" uuid="b85d564b-57e0-410a-8bf8-2a29e4d0b13d"/>
 			</line>
 		</band>
 	</title>

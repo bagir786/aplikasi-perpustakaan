@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_anggota" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b659779b-2a29-450a-b286-63e8df3e659b">
 	<queryString>
-		<![CDATA[SELECT id_anggota, nama_anggota, jenis_kelamin, alamat, no_telp, tanggal_daftar FROM anggota]]>
+		<![CDATA[SELECT id_anggota, nama_anggota, kelas, jenis_kelamin, alamat, no_telp, tanggal_daftar FROM anggota]]>
 	</queryString>
 	<field name="id_anggota" class="java.lang.String"/>
 	<field name="nama_anggota" class="java.lang.String"/>
+	<field name="kelas" class="java.lang.String"/>
 	<field name="jenis_kelamin" class="java.lang.String"/>
 	<field name="alamat" class="java.lang.String"/>
 	<field name="no_telp" class="java.lang.String"/>
@@ -36,7 +37,7 @@
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="70" height="30" uuid="9369b775-69bc-4340-9a2f-1033b0ea9ff1"/>
+				<reportElement x="0" y="0" width="60" height="30" uuid="9369b775-69bc-4340-9a2f-1033b0ea9ff1"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -49,7 +50,7 @@
 				<text><![CDATA[ID Anggota]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="70" y="0" width="130" height="30" uuid="a369b775-69bc-4340-9a2f-1033b0ea9ff2"/>
+				<reportElement x="60" y="0" width="110" height="30" uuid="a369b775-69bc-4340-9a2f-1033b0ea9ff2"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -62,7 +63,20 @@
 				<text><![CDATA[Nama Anggota]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="0" width="40" height="30" uuid="b369b775-69bc-4340-9a2f-1033b0ea9ff3"/>
+				<reportElement x="170" y="0" width="45" height="30" uuid="1369b775-69bc-4340-9a2f-1033b0ea9ff3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kelas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="0" width="35" height="30" uuid="b369b775-69bc-4340-9a2f-1033b0ea9ff3"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -75,7 +89,7 @@
 				<text><![CDATA[L/P]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="0" width="150" height="30" uuid="c369b775-69bc-4340-9a2f-1033b0ea9ff4"/>
+				<reportElement x="250" y="0" width="130" height="30" uuid="c369b775-69bc-4340-9a2f-1033b0ea9ff4"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -88,7 +102,7 @@
 				<text><![CDATA[Alamat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="390" y="0" width="80" height="30" uuid="d369b775-69bc-4340-9a2f-1033b0ea9ff5"/>
+				<reportElement x="380" y="0" width="85" height="30" uuid="d369b775-69bc-4340-9a2f-1033b0ea9ff5"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -101,7 +115,7 @@
 				<text><![CDATA[No. Telp]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="470" y="0" width="85" height="30" uuid="e369b775-69bc-4340-9a2f-1033b0ea9ff6"/>
+				<reportElement x="465" y="0" width="90" height="30" uuid="e369b775-69bc-4340-9a2f-1033b0ea9ff6"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -118,7 +132,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="70" height="20" uuid="bc29b775-69bc-4340-9a2f-1033b0ea9fa1"/>
+				<reportElement x="0" y="0" width="60" height="20" uuid="bc29b775-69bc-4340-9a2f-1033b0ea9fa1"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -129,7 +143,7 @@
 				<textFieldExpression><![CDATA[$F{id_anggota}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="70" y="0" width="130" height="20" uuid="cc29b775-69bc-4340-9a2f-1033b0ea9fa2"/>
+				<reportElement x="60" y="0" width="110" height="20" uuid="cc29b775-69bc-4340-9a2f-1033b0ea9fa2"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -142,7 +156,18 @@
 				<textFieldExpression><![CDATA[$F{nama_anggota}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="0" width="40" height="20" uuid="dc29b775-69bc-4340-9a2f-1033b0ea9fa3"/>
+				<reportElement x="170" y="0" width="45" height="20" uuid="1c29b775-69bc-4340-9a2f-1033b0ea9fa2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kelas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="0" width="35" height="20" uuid="dc29b775-69bc-4340-9a2f-1033b0ea9fa3"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -153,7 +178,7 @@
 				<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="0" width="150" height="20" uuid="ec29b775-69bc-4340-9a2f-1033b0ea9fa4"/>
+				<reportElement x="250" y="0" width="130" height="20" uuid="ec29b775-69bc-4340-9a2f-1033b0ea9fa4"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -166,7 +191,7 @@
 				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="0" width="80" height="20" uuid="fc29b775-69bc-4340-9a2f-1033b0ea9fa5"/>
+				<reportElement x="380" y="0" width="85" height="20" uuid="fc29b775-69bc-4340-9a2f-1033b0ea9fa5"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -177,7 +202,7 @@
 				<textFieldExpression><![CDATA[$F{no_telp}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="470" y="0" width="85" height="20" uuid="0d29b775-69bc-4340-9a2f-1033b0ea9fa6"/>
+				<reportElement x="465" y="0" width="90" height="20" uuid="0d29b775-69bc-4340-9a2f-1033b0ea9fa6"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>

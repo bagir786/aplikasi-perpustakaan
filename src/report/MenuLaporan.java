@@ -82,7 +82,7 @@ public class MenuLaporan extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         lAngkabuku4 = new javax.swing.JLabel();
         lAngkabuku8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +118,11 @@ public class MenuLaporan extends javax.swing.JFrame {
         buku.setBackground(new java.awt.Color(255, 255, 255));
         buku.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         buku.setPreferredSize(new java.awt.Dimension(120, 120));
+        buku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bukuMouseClicked(evt);
+            }
+        });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book.png"))); // NOI18N
@@ -155,6 +160,11 @@ public class MenuLaporan extends javax.swing.JFrame {
         member.setBackground(new java.awt.Color(255, 255, 255));
         member.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         member.setPreferredSize(new java.awt.Dimension(120, 120));
+        member.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                memberMouseClicked(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user-group2.png"))); // NOI18N
@@ -192,6 +202,11 @@ public class MenuLaporan extends javax.swing.JFrame {
         pinjam.setBackground(new java.awt.Color(255, 255, 255));
         pinjam.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         pinjam.setPreferredSize(new java.awt.Dimension(120, 120));
+        pinjam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pinjamMouseClicked(evt);
+            }
+        });
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/book-plus.png"))); // NOI18N
@@ -229,6 +244,11 @@ public class MenuLaporan extends javax.swing.JFrame {
         back.setBackground(new java.awt.Color(255, 255, 255));
         back.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         back.setPreferredSize(new java.awt.Dimension(120, 120));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+        });
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-bend-double-up-left-bold.png"))); // NOI18N
@@ -263,12 +283,14 @@ public class MenuLaporan extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-back-up-double2.png"))); // NOI18N
-        jButton1.setText("Kembali ke Dashboard");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton5.setBackground(new java.awt.Color(108, 117, 125));
+        jButton5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-back-up-double.png"))); // NOI18N
+        jButton5.setText("Kembali");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -282,7 +304,7 @@ public class MenuLaporan extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(buku, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -307,9 +329,9 @@ public class MenuLaporan extends javax.swing.JFrame {
                     .addComponent(pinjam, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                     .addComponent(member, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                     .addComponent(buku, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
-                .addGap(49, 49, 49)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -326,11 +348,35 @@ public class MenuLaporan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bukuMouseClicked
+        // TODO add your handling code here:
+        new LaporanBuku().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bukuMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         new tampilanawal.dashboard().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void memberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberMouseClicked
+        // TODO add your handling code here:
+        new LaporanAnggota().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_memberMouseClicked
+
+    private void pinjamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pinjamMouseClicked
+        // TODO add your handling code here:
+        new LaporanPeminjaman().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_pinjamMouseClicked
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        // TODO add your handling code here:
+        new LaporanKembaliDenda().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backMouseClicked
 
     /**
      * @param args the command line arguments
@@ -370,7 +416,7 @@ public class MenuLaporan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back;
     private javax.swing.JPanel buku;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

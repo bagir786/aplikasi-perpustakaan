@@ -422,7 +422,7 @@ public class DataAnggota extends javax.swing.JFrame {
         tabelData.setSelectionForeground(java.awt.Color.BLACK);
         
         // Adjust Column Widths
-        tabelData.getColumnModel().getColumn(0).setPreferredWidth(100); // ID 
+        tabelData.getColumnModel().getColumn(0).setPreferredWidth(200); // nisn
         tabelData.getColumnModel().getColumn(1).setPreferredWidth(300); // nama
         tabelData.getColumnModel().getColumn(2).setPreferredWidth(100); // Kelas
         tabelData.getColumnModel().getColumn(3).setPreferredWidth(150); // JK
@@ -572,10 +572,7 @@ public class DataAnggota extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -673,13 +670,13 @@ public class DataAnggota extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Anggota", "Nama Lengkap", "Kelas", "Jenis Kelamin", "No Telp Wali", "Alamat"
+                "NISN", "Nama Lengkap", "Kelas", "Jenis Kelamin", "No Telp Wali", "Alamat"
             }
         ));
         jScrollPane3.setViewportView(tabelData);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("ID Anggota");
+        jLabel7.setText("NISN");
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 

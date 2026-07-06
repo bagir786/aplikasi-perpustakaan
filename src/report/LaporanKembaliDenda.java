@@ -40,6 +40,10 @@ public class LaporanKembaliDenda extends javax.swing.JFrame {
         tampilData();
         
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "Ada Denda", "Tidak Ada Denda" }));
+        
+        // Wire up Cetak and Export PDF buttons
+        jButton2.addActionListener(e -> cetakLaporan());
+        jButton3.addActionListener(e -> exportPDF());
     }
     
     private void tampilData() {
